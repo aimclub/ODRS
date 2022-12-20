@@ -1,0 +1,19 @@
+# Path to data
+DATA_PATH: "/home/farm/PycharmProjects/Падающий_1часть (сделано)"
+
+# Path to file with class name
+
+CLASSES: "classes.txt"
+
+IMG_SIZE: "832"
+BATCH_SIZE: "96"
+EPOCHS: "400"
+
+# This file generated automaticaly
+CONFIG_PATH: "dataset.yaml"
+
+# Path to trainable model
+MODEL_PATH: '/home/farm/PycharmProjects/train_yolo_utils/yolov5/models/yolov5x.yaml'
+
+SAVE_PATH: "yolov5_x_28.pt"
+MODEL_NAME: "yolov5_result"

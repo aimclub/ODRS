@@ -1,0 +1,6 @@
+[submodule "yolov7"]
+	path = yolov7
+	url = https://github.com/WongKinYiu/yolov7
+[submodule "yolov5"]
+	path = yolov5
+	url = https://github.com/ultralytics/yolov5
