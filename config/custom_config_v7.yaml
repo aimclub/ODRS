@@ -1,0 +1,19 @@
+# Path to data
+DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
+
+# Path to file with class name
+
+CLASSES: "classes.txt"
+
+IMG_SIZE: "640 640"
+BATCH_SIZE: "100"
+EPOCHS: "20"
+
+# This file generated automaticaly
+CONFIG_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/dataset.yaml"
+
+# Path to trainable model
+MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/yolov7/cfg/training/yolov7.yaml'
+
+SAVE_PATH: "yolov7x.pt"
+MODEL_NAME: "yolov7_result"

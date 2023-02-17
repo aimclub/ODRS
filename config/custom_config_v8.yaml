@@ -1,0 +1,18 @@
+# Path to data
+DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
+# Path to file with class name
+
+CLASSES: "classes.txt"
+
+IMG_SIZE: "640"
+BATCH_SIZE: "60"
+EPOCHS: "250"
+
+# This file generated automaticaly
+CONFIG_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/dataset.yaml"
+
+# Path to trainable model
+MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/ultralytics/ultralytics/models/v8/yolov8x.yaml'
+
+SAVE_PATH: "yolov8x.pt"
+MODEL_NAME: "yolov8_result"
