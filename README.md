@@ -11,7 +11,9 @@ The `config` folder contains configurations for each of the architectures:
 * `BATCH_SIZE` - Batch size for training;
 * `EPOCHS` - Number of epochs to train for;
 * `CONFIG_PATH` - Path to config dataset;
-* `MODEL_PATH` - Path to model file (yaml).
+* `MODEL_PATH` - Path to model file (yaml);
+* `PATH_SPLIT_TRAIN` - Path to train dataset;
+* `PATH_SPLIT_VALID` - Path to validation dataset.
 
 
 ### Arguments
