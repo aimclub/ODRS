@@ -13,7 +13,10 @@ The `config` folder contains configurations for each of the architectures:
 * `CONFIG_PATH` - Path to config dataset;
 * `MODEL_PATH` - Path to model file (yaml);
 * `PATH_SPLIT_TRAIN` - Path to train dataset;
-* `PATH_SPLIT_VALID` - Path to validation dataset.
+* `PATH_SPLIT_VALID` - Path to validation dataset;
+* `SPLIT_TRAIN_VALUE` - Percentage allocated for the trainig dataset;
+* `SPLIT_VAL_VALUE` - Percentage allocated for the validation dataset;
+* `SPLIT_TEST_VALUE` - Percentage allocated for the test dataset.
 
 
 ### Arguments

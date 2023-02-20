@@ -11,7 +11,7 @@ from loguru import logger
 from yaml import load
 from yaml import FullLoader
 
-def split_data(name_dir, datapath):
+def split_data(name_dir, datapath, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE):
     # Create train, test and validation dataset
     try:
         os.mkdir(f'{name_dir}/dataset')
@@ -22,9 +22,9 @@ def split_data(name_dir, datapath):
     except Exception:
         logger.exception('Directory with split dataset already exist')
 
-    train_size = int(0.6 * len(os.listdir(datapath)))
-    val_size = int(0.35 * len(os.listdir(datapath)))
-    test_size = int(0.05 * len(os.listdir(datapath)))
+    train_size = int(SPLIT_TRAIN_VALUE * len(os.listdir(datapath)))
+    val_size = int(SPLIT_VAL_VALUE * len(os.listdir(datapath)))
+    test_size = int(SPLIT_TEST_VALUE * len(os.listdir(datapath)))
     count = 0
     for data in tqdm(os.listdir(datapath)):
         if count < train_size:
@@ -67,7 +67,7 @@ def load_config(config_file):
     with open(config_file) as f:
         return load(f, Loader=FullLoader)
 
-def train_V5(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, SPLIT):
+def train_V5(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, SPLIT, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE):
     """
     Runs yolov5 training using the parameters specified in the config.
 
@@ -79,9 +79,12 @@ def train_V5(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     :param MODEL_PATH: Path to model file (yaml).
     :param SAVE_PATH: Path to save model.pt.
     :param SPLIT: Split dataset (True/False).
+    :param SPLIT_TRAIN_VALUE: Percentage allocated for the trainig dataset.
+    :param SPLIT_VAL_VALUE: Percentage allocated for the validation dataset.
+    :param SPLIT_TEST_VALUE: Percentage allocated for the test dataset.
     """
     if SPLIT:
-        split_data('yolov5', DATA_PATH)
+        split_data('yolov5', DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
     os.system(
         f'OMP_NUM_THREADS=1 python -m torch.distributed.run --nproc_per_node 5 yolov5/train.py --img ' +
         IMG_SIZE +
@@ -97,7 +100,7 @@ def train_V5(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
         SAVE_PATH + ' --device 0,1,2,3,4')
 
     
-def train_V7(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SPLIT):
+def train_V7(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SPLIT, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE):
     """
     Runs yolov7 training using the parameters specified in the config.
 
@@ -108,9 +111,12 @@ def train_V7(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     :param CONFIG_PATH: Path to config dataset.
     :param MODEL_PATH: Path to model file (yaml).
     :param SPLIT: Split dataset (True/False).
+    :param SPLIT_TRAIN_VALUE: Percentage allocated for the trainig dataset.
+    :param SPLIT_VAL_VALUE: Percentage allocated for the validation dataset.
+    :param SPLIT_TEST_VALUE: Percentage allocated for the test dataset.
     """
     if SPLIT:
-        split_data('yolov7', DATA_PATH)
+        split_data('yolov7', DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
     os.system('OMP_NUM_THREADS=1 python3 -m torch.distributed.launch --nproc_per_node 5 yolov7/train.py'
     ' --device 0,1,2,3,4' +
     ' --batch-size ' +
@@ -127,7 +133,7 @@ def train_V7(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     " --weights ''")
 
 
-def train_V8(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SPLIT):
+def train_V8(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SPLIT, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE):
     """
     Runs yolov8 training using the parameters specified in the config.
 
@@ -138,9 +144,12 @@ def train_V8(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     :param EPOCHS: Number of epochs to train for.
     :param SPLIT: Split dataset (True/False).
     :param CONFIG_PATH: Path to config dataset.
+    :param SPLIT_TRAIN_VALUE: Percentage allocated for the trainig dataset.
+    :param SPLIT_VAL_VALUE: Percentage allocated for the validation dataset.
+    :param SPLIT_TEST_VALUE: Percentage allocated for the test dataset.
     """
     if SPLIT:
-        split_data('ultralytics', DATA_PATH)
+        split_data('ultralytics', DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
 
     os.system(f'yolo detect train data=' +
     CONFIG_PATH +
@@ -180,17 +189,20 @@ def run(arch, split):
     SAVE_PATH = config['SAVE_PATH']
     PATH_SPLIT_TRAIN = config['PATH_SPLIT_TRAIN']
     PATH_SPLIT_VALID = config['PATH_SPLIT_VALID']
+    SPLIT_TRAIN_VALUE = config['SPLIT_TRAIN_VALUE']
+    SPLIT_VAL_VALUE = config['SPLIT_VAL_VALUE']
+    SPLIT_TEST_VALUE = config['SPLIT_TEST_VALUE']
     #MODEL_NAME = config['MODEL_NAME']
 
     if arch == 'yolov8':
         create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
-        train_V8(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split)
+        train_V8(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
     elif arch == 'yolov5':
         create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
-        train_V5(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, split)
+        train_V5(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, split, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
     elif arch == 'yolov7':
         create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
-        train_V7(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split)
+        train_V7(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split,  SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
     
 
 def parse_opt():

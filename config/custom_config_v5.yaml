@@ -1,11 +1,19 @@
 # Path to data
+#DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
 DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/pad_all"
+
 PATH_SPLIT_TRAIN: "dataset/train"
 PATH_SPLIT_VALID: "dataset/val"
+SPLIT_TRAIN_VALUE: 0.6
+SPLIT_VAL_VALUE: 0.35
+SPLIT_TEST_VALUE: 0.05
 # Path to file with class name
 
 CLASSES: "classes.txt"
 
+# IMG_SIZE: "832"
+# BATCH_SIZE: "60"
+# EPOCHS: "400"
 IMG_SIZE: "640"
 BATCH_SIZE: "50"
 EPOCHS: "300"
