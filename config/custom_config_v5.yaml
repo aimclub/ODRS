@@ -1,20 +1,19 @@
 # Path to data
-# DATA_PATH: "/media/farm/2E6512C924458521/delete_excess/tape/"
-# DATA_PATH: "/home/farm/PycharmProjects/train_yolo_utils/res_dir/home"
-DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
+DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/pad_all"
+PATH_SPLIT_TRAIN: "dataset/train"
+PATH_SPLIT_VALID: "dataset/val"
 # Path to file with class name
 
-CLASSES: "../classes.txt"
+CLASSES: "classes.txt"
 
-IMG_SIZE: "832"
-BATCH_SIZE: "60"
-EPOCHS: "400"
+IMG_SIZE: "640"
+BATCH_SIZE: "50"
+EPOCHS: "300"
 
 # This file generated automaticaly
 CONFIG_PATH: "dataset.yaml"
 
 # Path to trainable model
-#MODEL_PATH: '/home/farm/PycharmProjects/train_yolo_utils/yolov5/models/yolov5x.yaml'
 MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/yolov5/models/yolov5x.yaml'
 
 SAVE_PATH: "yolov5_x_28.pt"

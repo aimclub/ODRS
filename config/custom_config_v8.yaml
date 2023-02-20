@@ -1,12 +1,15 @@
 # Path to data
-DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
+#DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/res_dir/home"
+DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/pad_all"
+PATH_SPLIT_TRAIN: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/ultralytics/dataset/train"
+PATH_SPLIT_VALID: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/ultralytics/dataset/val"
 # Path to file with class name
 
 CLASSES: "classes.txt"
 
 IMG_SIZE: "640"
-BATCH_SIZE: "60"
-EPOCHS: "250"
+BATCH_SIZE: "50"
+EPOCHS: "300"
 
 # This file generated automaticaly
 CONFIG_PATH: "/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/dataset.yaml"

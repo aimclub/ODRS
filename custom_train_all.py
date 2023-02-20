@@ -71,7 +71,7 @@ def train_V5(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     """
     Runs yolov5 training using the parameters specified in the config.
 
-    :param DATA_PATH: Path to save split dataset.
+    :param DATA_PATH: Path to dataset.
     :param IMG_SIZE: Size of input images as integer or w,h.
     :param BATCH_SIZE: Batch size for training.
     :param EPOCHS: Number of epochs to train for.
@@ -101,7 +101,7 @@ def train_V7(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     """
     Runs yolov7 training using the parameters specified in the config.
 
-    :param DATA_PATH: Path to save split dataset.
+    :param DATA_PATH: Path to dataset.
     :param IMG_SIZE: Size of input images as integer or w,h.
     :param BATCH_SIZE: Batch size for training.
     :param EPOCHS: Number of epochs to train for.
@@ -131,7 +131,7 @@ def train_V8(DATA_PATH ,IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, S
     """
     Runs yolov8 training using the parameters specified in the config.
 
-    :param DATA_PATH: Path to save split dataset.
+    :param DATA_PATH: Path to dataset.
     :param IMG_SIZE: Size of input images as integer or w,h.
     :param BATCH_SIZE: Batch size for training.
     :param MODEL_PATH: Path to model file (yaml).
@@ -178,16 +178,18 @@ def run(arch, split):
     CONFIG_PATH = config['CONFIG_PATH']
     MODEL_PATH = config['MODEL_PATH']
     SAVE_PATH = config['SAVE_PATH']
+    PATH_SPLIT_TRAIN = config['PATH_SPLIT_TRAIN']
+    PATH_SPLIT_VALID = config['PATH_SPLIT_VALID']
     #MODEL_NAME = config['MODEL_NAME']
 
     if arch == 'yolov8':
-        create_config_data('/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/ultralytics/dataset/train', '/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/ultralytics/dataset/val', CLASSES, CONFIG_PATH)
+        create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
         train_V8(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split)
     elif arch == 'yolov5':
-        create_config_data('dataset/train', 'dataset/val', CLASSES, CONFIG_PATH)
+        create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
         train_V5(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, split)
     elif arch == 'yolov7':
-        create_config_data('yolov7/dataset/train', 'yolov7/dataset/val', CLASSES, CONFIG_PATH)
+        create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
         train_V7(DATA_PATH, IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, split)
     
 
