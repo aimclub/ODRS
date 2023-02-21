@@ -31,8 +31,8 @@ The `config` folder contains configurations for each of the architectures:
 * `SPLIT_TEST_VALUE` - Percentage allocated for the test dataset.
 
 
-### Arguments for training
-- `yolov8` - the chosen architecture that we want to train {`yolov5`, `yolov7`, `yolov8`};
+### Arguments
+- `yolov8` - the chosen architecture that we want to train {`yolov5`, `yolov8`, `yolov7`};
 - `True` - you need to split the data set into samples {`True`, `False`}. This parameter can be omitted, the initial value is `False`.
 
 
