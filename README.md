@@ -18,7 +18,7 @@ The `config` folder contains configurations for each of the architectures:
 
 
 ### Arguments
-- `yolov8` - the chosen architecture that we want to train {`yolov5`, `yolov6`, `yolov7`};
+- `yolov8` - the chosen architecture that we want to train {`yolov5`, `yolov8`, `yolov7`};
 - `True` - you need to split the data set into samples {`True`, `False`}. This parameter can be omitted, the initial value is `False`.
 
 
