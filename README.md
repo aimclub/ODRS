@@ -1,4 +1,38 @@
-# Recommendation system for training object detection models
+
+# ODRC
+
+ODRC - it an open source recommendation system for training object detection models. Our system allows you to choose the most 
+profitable existing object recognition models based on user preferences and data. In addition to choosing the 
+architecture of the model, the system will help you start training and configure the environment.
+
+
+<center><img src="doc/img/alg_scheme.png" width="400"></center>
+
+Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
+and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
+well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
+
+<center><img src="doc/img/model_list.png" width="400"></center>
+The recommendation algorithm is based on production rules. The primary set of rules (knowledge base) is formed on 
+the basis of the results of the analysis of scientific sources and standard data sets, but also empirical processing 
+of data sets from specific industries.
+The main criteria for drawing up the rules were chosen:
+
+* Dimension of the model 
+* The value of metrics (mAP, Recall, Accuracy) for selected datasets
+* The speed of the model on GPU and CPU
+* Supported image format and dimension
+
+The experiments were carried out on the following data sets:
+
+| Dataset                                                                | Description                                                                                                               |
+|------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Extended WaRP                                                          | An extended version of the WaRP dataset provided by [Insystem](https://insystem.io/)                                      |
+| [WaRP](https://github.com/AIRI-Institute/WaRP/tree/main)               | Waste Recycling Plant includes labeled images of an industrial waste sorting plant.                                       |
+| [COCO](https://cocodataset.org/#home)                                  | COCO is a large-scale object detection, segmentation, and captioning dataset.                                             |
+| [Pascal VOC](https://pjreddie.com/projects/pascal-voc-dataset-mirror/) | Very popular dataset for building and evaluating algorithms for image classification, object detection, and segmentation. |
+
+The list of criteria and data sets will be expanded
 
 ## Setup environment script
 This script is used to configure the learning environment.
