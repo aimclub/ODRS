@@ -10,3 +10,6 @@
 [submodule "models/ssd.pytorch"]
 	path = models/ssd.pytorch
 	url = https://github.com/amdegroot/ssd.pytorch.git
+[submodule "models/ultralytics"]
+	path = models/ultralytics
+	url = https://github.com/ultralytics/ultralytics.git
