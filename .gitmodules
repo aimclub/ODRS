@@ -4,3 +4,9 @@
 [submodule "models/yolov7"]
 	path = models/yolov7
 	url = https://github.com/WongKinYiu/yolov7
+[submodule "models/faster-rcnn.pytorch"]
+	path = models/faster-rcnn.pytorch
+	url = https://github.com/jwyang/faster-rcnn.pytorch.git
+[submodule "models/ssd.pytorch"]
+	path = models/ssd.pytorch
+	url = https://github.com/amdegroot/ssd.pytorch.git

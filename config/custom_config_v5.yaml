@@ -21,3 +21,5 @@ MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/train_yolo_utils/yolov5/models/yol
 
 SAVE_PATH: "yolov5_x_28.pt"
 MODEL_NAME: "yolov5_result"
+
+GPU_COUNT: "0,1,2,3"
