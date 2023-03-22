@@ -62,7 +62,8 @@ The `config` folder contains configurations for each of the architectures:
 * `MODEL_PATH` - Path to model file (yaml);
 * `SPLIT_TRAIN_VALUE` - Percentage allocated for the training dataset;
 * `SPLIT_VAL_VALUE` - Percentage allocated for the validation dataset;
-* `SPLIT_TEST_VALUE` - Percentage allocated for the test dataset.
+* `SPLIT_TEST_VALUE` - Percentage allocated for the test dataset;
+* `GPU_COUNT` - Video cards that will be used in the training process.
 
 
 

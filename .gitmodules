@@ -1,9 +1,15 @@
-[submodule "yolov7"]
-	path = yolov7
-	url = https://github.com/WongKinYiu/yolov7
-[submodule "yolov5"]
-	path = yolov5
+[submodule "models/yolov5"]
+	path = models/yolov5
 	url = https://github.com/ultralytics/yolov5
-[submodule "ultralytics"]
-	path = ultralytics
+[submodule "models/yolov7"]
+	path = models/yolov7
+	url = https://github.com/WongKinYiu/yolov7
+[submodule "models/faster-rcnn.pytorch"]
+	path = models/faster-rcnn.pytorch
+	url = https://github.com/jwyang/faster-rcnn.pytorch.git
+[submodule "models/ssd.pytorch"]
+	path = models/ssd.pytorch
+	url = https://github.com/amdegroot/ssd.pytorch.git
+[submodule "models/ultralytics"]
+	path = models/ultralytics
 	url = https://github.com/ultralytics/ultralytics.git

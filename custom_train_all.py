@@ -12,6 +12,10 @@ from loguru import logger
 from yaml import load
 from yaml import FullLoader
 
+from train.yolov5_train import train_V5
+from train.yolov7_train import train_V7
+from train.yolov8_train import train_V8
+
 def split_data(name_dir, datapath, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE):
     # Create train, test and validation dataset
     try:
@@ -73,80 +77,6 @@ def load_config(config_file):
     with open(config_file) as f:
         return load(f, Loader=FullLoader)
 
-def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH):
-    """
-    Runs yolov5 training using the parameters specified in the config.
-
-    :param IMG_SIZE: Size of input images as integer or w,h.
-    :param BATCH_SIZE: Batch size for training.
-    :param EPOCHS: Number of epochs to train for.
-    :param CONFIG_PATH: Path to config dataset.
-    :param MODEL_PATH: Path to model file (yaml).
-    :param SAVE_PATH: Path to save model.pt.
-    """
-    os.system(
-        f'OMP_NUM_THREADS=1 python -m torch.distributed.run --nproc_per_node 5 yolov5/train.py --img ' +
-        IMG_SIZE +
-        ' --batch ' +
-        BATCH_SIZE +
-        ' --epochs ' +
-        EPOCHS +
-        ' --data ' +
-        CONFIG_PATH +
-        ' --cfg ' +
-        MODEL_PATH +
-        ' --weights ' +
-        SAVE_PATH + ' --device 0,1,2,3,4')
-
-    
-def train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH):
-    """
-    Runs yolov7 training using the parameters specified in the config.
-
-    :param IMG_SIZE: Size of input images as integer or w,h.
-    :param BATCH_SIZE: Batch size for training.
-    :param EPOCHS: Number of epochs to train for.
-    :param CONFIG_PATH: Path to config dataset.
-    :param MODEL_PATH: Path to model file (yaml).
-    """
-    os.system('OMP_NUM_THREADS=1 python3 -m torch.distributed.launch --nproc_per_node 5 yolov7/train.py'
-    ' --device 0,1,2,3,4' +
-    ' --batch-size ' +
-    BATCH_SIZE +
-    ' --data ' +
-    CONFIG_PATH +
-    ' --img ' +
-    IMG_SIZE +
-    ' --cfg ' +
-    MODEL_PATH +
-    ' --epochs '+
-    EPOCHS +
-    ' --name run'+
-    " --weights ''")
-
-
-def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH):
-    """
-    Runs yolov8 training using the parameters specified in the config.
-
-    :param IMG_SIZE: Size of input images as integer or w,h.
-    :param BATCH_SIZE: Batch size for training.
-    :param EPOCHS: Number of epochs to train for.
-    :param CONFIG_PATH: Path to config dataset.
-    :param MODEL_PATH: Path to model file (yaml).
-    """
-    os.system(f'yolo detect train data=' +
-    CONFIG_PATH +
-    ' imgsz=' +
-    IMG_SIZE +
-    ' batch=' +
-    BATCH_SIZE +
-    ' epochs=' +
-    EPOCHS +
-    ' model='+
-    MODEL_PATH +
-    ' device=0,1,2,3,4'
-    )
 
 def run(arch, split):
     """
@@ -176,6 +106,7 @@ def run(arch, split):
     SPLIT_TRAIN_VALUE = config['SPLIT_TRAIN_VALUE']
     SPLIT_VAL_VALUE = config['SPLIT_VAL_VALUE']
     SPLIT_TEST_VALUE = config['SPLIT_TEST_VALUE']
+    GPU_COUNT = config['GPU_COUNT']
 
     if split:
         PATH_SPLIT_TRAIN, PATH_SPLIT_VALID =  split_data(data_folder, DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
@@ -190,11 +121,11 @@ def run(arch, split):
     create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH)
 
     if arch == 'yolov8':
-        train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH)
+        train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT)
     elif arch == 'yolov5':
-        train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH)
+        train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, SAVE_PATH, GPU_COUNT)
     elif arch == 'yolov7':
-        train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH)
+        train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT)
     
 
 def parse_opt():
