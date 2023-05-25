@@ -1,15 +1,15 @@
-[submodule "models/yolov5"]
-	path = models/yolov5
-	url = https://github.com/ultralytics/yolov5
-[submodule "models/yolov7"]
-	path = models/yolov7
-	url = https://github.com/WongKinYiu/yolov7
-[submodule "models/faster-rcnn.pytorch"]
-	path = models/faster-rcnn.pytorch
-	url = https://github.com/jwyang/faster-rcnn.pytorch.git
-[submodule "models/ssd.pytorch"]
-	path = models/ssd.pytorch
+[submodule "ODRC/train_utils/train_model/models/ssd.pytorch"]
+	path = ODRC/train_utils/train_model/models/ssd.pytorch
 	url = https://github.com/amdegroot/ssd.pytorch.git
-[submodule "models/ultralytics"]
-	path = models/ultralytics
+[submodule "ODRC/train_utils/train_model/models/faster-rcnn.pytorch"]
+	path = ODRC/train_utils/train_model/models/faster-rcnn.pytorch
+	url = https://github.com/jwyang/faster-rcnn.pytorch.git
+[submodule "ODRC/train_utils/train_model/models/yolov7"]
+	path = ODRC/train_utils/train_model/models/yolov7
+	url = https://github.com/WongKinYiu/yolov7.git
+[submodule "ODRC/train_utils/train_model/models/yolov5"]
+	path = ODRC/train_utils/train_model/models/yolov5
+	url = https://github.com/ultralytics/yolov5.git
+[submodule "ODRC/train_utils/train_model/models/ultralytics"]
+	path = ODRC/train_utils/train_model/models/ultralytics
 	url = https://github.com/ultralytics/ultralytics.git

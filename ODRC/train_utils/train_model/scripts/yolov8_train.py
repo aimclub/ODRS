@@ -1,6 +1,6 @@
 import os
 
-def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT):
+def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
     """
     Runs yolov8 training using the parameters specified in the config.
 
@@ -11,6 +11,7 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT):
     :param MODEL_PATH: Path to model file (yaml).
     :param GPU_COUNT:Number of video cards.
     """
+
     os.system(f'yolo detect train data=' +
     CONFIG_PATH +
     ' imgsz=' +
@@ -22,5 +23,8 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT):
     ' model='+
     MODEL_PATH +
     ' device=' +
-    GPU_COUNT
+    SELECT_GPU +
+    ' project=' +
+    '/'.join(CONFIG_PATH.split("/")[:-1]) +
+    ' name=exp'
     )

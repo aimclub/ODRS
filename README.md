@@ -6,13 +6,13 @@ profitable existing object recognition models based on user preferences and data
 architecture of the model, the system will help you start training and configure the environment.
 
 
-<center><img src="doc/img/alg_scheme.png" width="400"></center>
+<center><img src="docs/img/alg_scheme.png" width="400"></center>
 
 Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
 and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
 well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
 
-<center><img src="doc/img/model_list.png" width="400"></center>
+<center><img src="docs/img/model_list.png" width="400"></center>
 The recommendation algorithm is based on production rules. The primary set of rules (knowledge base) is formed on 
 the basis of the results of the analysis of scientific sources and standard data sets, but also empirical processing 
 of data sets from specific industries.
