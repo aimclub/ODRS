@@ -1,0 +1,25 @@
+# Path to data
+DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Aerial_Maritime"
+
+
+SPLIT_TRAIN_VALUE: 0.6
+SPLIT_VAL_VALUE: 0.35
+SPLIT_TEST_VALUE: 0.05
+# Path to file with class name
+
+CLASSES: "classes.txt"
+
+IMG_SIZE: "600"
+BATCH_SIZE: "16"
+EPOCHS: "40"
+
+# This file generated automaticaly
+CONFIG_PATH: "dataset.yaml"
+
+# Choose model or you can use your model for training
+MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/ODRC/train_utils/train_model/models/ultralytics/ultralytics/models/v8/yolov8l.yaml'
+
+
+GPU_COUNT: 5
+SELECT_GPU: "0,1,2,3,4"
+
