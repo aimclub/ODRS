@@ -55,6 +55,7 @@ class AveragePrecision(object):
                 ],
                 return_counts=True
             )
+            self.num_relevent[class_indices.cpu()] += counts.cpu()
             #self.num_relevent[class_indices] += counts
 
             if num_dets == 0:

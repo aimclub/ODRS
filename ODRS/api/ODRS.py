@@ -1,20 +1,25 @@
+#from ODRS.train_utils.train_model.custom_train_all import fit_model 
+
 class ODRS:
-    def __init__(self, job):
+    def __init__(self, job, path_dataset = None, arch = None, path_classes = None, batch_size = None, epochs = None, img_size = None,
+                 gpu_count = None, gpu = None, speed = None, accuracy = None, config_path = None):
         self.job = job.lower()
 
-        self.path_dataset = None
+        self.path_dataset = path_dataset
+        self.arch = arch #ssd, rcnn, yolov5, yolov7, yolov8
 
         #for object_detection
-        self.path_classes = None
-        self.batch_size = None
-        self.epochs = None
-        self.img_size = None
-        self.gpu_count = None
+        self.config_path = config_path
+        self.path_classes = path_classes
+        self.batch_size = batch_size
+        self.epochs = epochs
+        self.img_size = img_size
+        self.gpu_count = gpu_count
 
         #for ml_recommend
-        self.gpu = None
-        self.speed = None
-        self.accuracy = None
+        self.gpu = gpu
+        self.speed = speed
+        self.accuracy = accuracy
 
 
     def fit(self):
@@ -22,3 +27,11 @@ class ODRS:
             print('ml_recomend')
         elif self.job == "object_detection":
             print("object_detection")
+
+if __name__ == "__main___":
+    odrs = ODRS(job="object_detection",
+                config_path='dataset.yaml',
+                arch = 'yolov5',
+                path_classes = '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes.txt', 
+                batch_size = 24,
+                img_size = 640)

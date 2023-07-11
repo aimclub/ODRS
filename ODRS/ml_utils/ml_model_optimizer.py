@@ -17,6 +17,8 @@ project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from ODRS.data_utils.dataset_info import dataset_info
 
+from pathlib import Path
+
 
 
 def load_config(config_file):
@@ -75,13 +77,13 @@ def getting_config(path_config):
     
     
 
-def main():
-    
-    mode, classes_path, dataset_path, speed, accuracy, model_array = getting_config('config/ml_config.yaml')
+def ml_main():
+    file = Path(__file__).resolve()
+    mode, classes_path, dataset_path, speed, accuracy, model_array = getting_config(f'{file.parents[0]}/config/ml_config.yaml')
     dataset_data = dataset_info(dataset_path, classes_path)
 
     # Загрузка данных из CSV файла
-    data = pd.read_csv('data_train_ml/model_cs.csv', delimiter=';')
+    data = pd.read_csv(f'{file.parents[0]}/data_train_ml/model_cs.csv', delimiter=';')
     data = data.sample(frac=0.7, random_state=42)
 
     data = data.iloc[:,0:9]
@@ -156,6 +158,6 @@ def main():
             print(f'{num_model+1}) {model_array[top_3_models[0][int(num_model)]]}')
             
 if __name__ == "__main__":
-    main()
+    ml_main()
     
 

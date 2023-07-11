@@ -45,7 +45,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
 train_json: {}
 val_json: {}
 class_names: {}
-recall_steps: 11
+recall_steps: 101
 image_mean: [123., 117., 104.]
 image_stddev: [1., 1, 1.]
 
@@ -55,7 +55,7 @@ backbone:
   name: VGG16
   num_stages: 7
 input_size: 512
-anchor_scales: [0.07, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9]
+anchor_scales: [0.04, 0.1, 0.26, 0.42, 0.58, 0.74, 0.9]
 anchor_aspect_ratios: [[1, 2], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2], [1, 2]]
 
 # Training
@@ -68,7 +68,7 @@ optim:
   weight_decay: 0.0005
 scheduler:
   name: MultiStepLR
-  milestones: [155, 195]
+  milestones: [90, 110]
   gamma: 0.1
             '''.format(train_path, val_path, class_names, batch_size, epochs)
         logger.info("Create config file")

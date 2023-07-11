@@ -5,14 +5,15 @@
 #accuracy: 1 - 10 if u want max accuracy choose 10 or u wanna lower acc 1
 
 
-dataset_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Website_Screenshots"
-classes_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes_web.txt"
+dataset_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Aerial_Maritime"
+classes_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes.txt"
+
+GPU: True
+speed: 1
+accuracy: 10
 
 models_array: ["yolov5l", "yolov5m", "yolov5n", "yolov5s", "yolov5x",
                "yolov7x", "yolov7", "yolov7-tiny", "yolov8x6", "yolov8x",
                "yolov8s", "yolov8n", "yolov8m", "faster-rcnn", "ssd"]
 
-GPU: True
-speed: 1
-accuracy: 10
 

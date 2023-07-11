@@ -157,7 +157,7 @@ def main():
     # TensorBoard writers
     writers = {
         'train': SummaryWriter(os.path.join(args.logdir, 'train')),
-        'val': SummaryWriter(os.path.join(args.logdir, 'val'))
+        'valid': SummaryWriter(os.path.join(args.logdir, 'valid'))
     }
 
     # Kick off
@@ -228,15 +228,15 @@ def main():
                 ckpt.save('best.pth')
             print("mAP@[0.5]: %.3f" % mAP50)
             print("mAP@[0.5:0.95]: %.3f (best: %.3f)" % (mAP, ckpt.best_score))
-            writers['val'].add_scalar('Loss', metrics['loss'].result, epoch)
-            writers['val'].add_scalar('mAP@[0.5]', mAP50, epoch)
-            writers['val'].add_scalar('mAP@[0.5:0.95]', mAP, epoch)
+            writers['valid'].add_scalar('Loss', metrics['loss'].result, epoch)
+            writers['valid'].add_scalar('mAP@[0.5]', mAP50, epoch)
+            writers['valid'].add_scalar('mAP@[0.5:0.95]', mAP, epoch)
 
         ckpt.epoch += 1
         ckpt.save('last.pth')
 
     writers['train'].close()
-    writers['val'].close()
+    writers['valid'].close()
 
 
 if __name__ == '__main__':

@@ -9,12 +9,12 @@ import re
 from PIL import Image
 
 def split_data(datapath, split_train_value, split_val_value, split_test_value):
-    selected_folders = ['test', 'train', 'valid', 'val']
+    selected_folders = ['test', 'train', 'valid']
     selected_files = ['classes.txt']
 
     train_path = os.path.join(datapath, 'train')
     test_path = os.path.join(datapath, 'test')
-    val_path = os.path.join(datapath, 'val')
+    val_path = os.path.join(datapath, 'valid')
 
     if os.path.exists(train_path) and os.path.exists(test_path) and (os.path.exists(val_path) or os.path.exists(os.path.join(datapath, 'valid'))):
         return "Dataset is ready"

@@ -38,6 +38,43 @@ def load_config(config_file):
     # Returns loaded config сhosen architecture
     with open(config_file) as f:
         return load(f, Loader=FullLoader)
+    
+
+def fit_model(arch, DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL_PATH, CONFIG_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE, GPU_COUNT, SELECT_GPU):
+
+    split_data(DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
+
+    if os.path.exists(f'{DATA_PATH}/train') and os.path.exists(f'{DATA_PATH}/valid'):
+        PATH_SPLIT_TRAIN = f'{DATA_PATH}/train'
+        PATH_SPLIT_VALID = f'{DATA_PATH}/valid'
+    # else:
+    #     print("Create train and val folders in your dataset folder or set the SPLIT parameter to True")
+    #     sys.exit()
+
+    delete_cache(DATA_PATH)
+
+    if arch == 'yolov8':
+        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
+        train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif arch == 'yolov5':
+        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
+        print(CONFIG_PATH)
+        train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif arch == 'yolov7':
+        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
+        train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif arch == 'rcnn':
+        DATA_PATH = copy_arch_folder(DATA_PATH)
+        convert_voc(DATA_PATH, CLASSES)
+        CONFIG_PATH =  create_config_data(f'{DATA_PATH}/train', f'{DATA_PATH}/valid', CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
+        train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, IMG_SIZE)
+    elif arch == 'ssd':
+        DATA_PATH = copy_arch_folder(DATA_PATH)
+        #DATA_PATH = "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/voc/Website_Screenshots"
+        #print(DATA_PATH)
+        convert_voc(DATA_PATH, CLASSES)
+        CONFIG_PATH =  create_config_data(f'{DATA_PATH}/train.json', f'{DATA_PATH}/valid.json', CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
+        train_ssd(CONFIG_PATH)
 
 
 def run(arch):
@@ -62,40 +99,9 @@ def run(arch):
     GPU_COUNT = config['GPU_COUNT']
     SELECT_GPU = config['SELECT_GPU']
 
+    fit_model(arch, DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL_PATH, CONFIG_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE, GPU_COUNT, SELECT_GPU)
 
-    split_data(DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
 
-    if os.path.exists(f'{DATA_PATH}/train') and os.path.exists(f'{DATA_PATH}/val'):
-        PATH_SPLIT_TRAIN = f'{DATA_PATH}/train'
-        PATH_SPLIT_VALID = f'{DATA_PATH}/val'
-    # else:
-    #     print("Create train and val folders in your dataset folder or set the SPLIT parameter to True")
-    #     sys.exit()
-
-    delete_cache(DATA_PATH)
-
-    if arch == 'yolov8':
-        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
-        train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    elif arch == 'yolov5':
-        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
-        print(CONFIG_PATH)
-        train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    elif arch == 'yolov7':
-        CONFIG_PATH =  create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
-        train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    elif arch == 'rcnn':
-        DATA_PATH = copy_arch_folder(DATA_PATH)
-        convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH =  create_config_data(f'{DATA_PATH}/train', f'{DATA_PATH}/val', CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
-        train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, IMG_SIZE)
-    elif arch == 'ssd':
-        DATA_PATH = copy_arch_folder(DATA_PATH)
-        #DATA_PATH = "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/voc/Website_Screenshots"
-        #print(DATA_PATH)
-        convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH =  create_config_data(f'{DATA_PATH}/train.json', f'{DATA_PATH}/val.json', CLASSES, CONFIG_PATH, arch, BATCH_SIZE, EPOCHS)
-        train_ssd(CONFIG_PATH)
     
 
 def parse_opt():

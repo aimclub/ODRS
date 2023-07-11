@@ -121,11 +121,11 @@ def dataset_info(dataset_path, classes_path):
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     image_count, image_size = process_dataset_img(dataset_path)
 
-    print("Количество изображений:", image_count)
+    print("Number of images:", image_count)
     print("W:", image_size[0])
     print("H:", image_size[1])
-    print(f"Коэффициент Джини: {float(gini) * 100}")
-    print("Количество классов:", get_count_classes(classes_path))
+    print(f"Gini Coefficient: {float(gini) * 100}")
+    print("Number of classes:", get_count_classes(classes_path))
 
     return [float(image_size[0]), float(image_size[1]), float(gini) * 100, float(get_count_classes(classes_path)), float(image_count)]
 

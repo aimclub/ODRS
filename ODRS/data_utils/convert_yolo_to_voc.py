@@ -11,7 +11,7 @@ from ODRS.data_utils.prepare_ssd import create_ssd_json
 
 def convert_voc(data_path, txt_path):
     print("Creating VOC format for dataset")
-    for i in ['train', 'test', 'val']:
+    for i in ['train', 'test', 'valid']:
        
         convert_yolo_to_voc(f'{data_path}/{i}', txt_path, 'annotations')
         shutil.rmtree(f'{data_path}/{i}/labels')
