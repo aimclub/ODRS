@@ -1,6 +1,6 @@
 class ODRS:
-    def __init__(self, job, path_dataset=None, arch=None, path_classes=None, batch_size=None, epochs=None, img_size=None,
-                 gpu_count=None, gpu=None, speed=None, accuracy=None, config_path=None):
+    def __init__(self, job, path_dataset=None, arch=None, path_classes=None, batch_size=None, epochs=None, 
+                 img_size=None, gpu_count=None, gpu=None, speed=None, accuracy=None, config_path=None):
         self.job = job.lower()
         self.path_dataset = path_dataset
         self.arch = arch  # ssd, rcnn, yolov5, yolov7, yolov8

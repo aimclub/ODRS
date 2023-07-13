@@ -1,18 +1,15 @@
 import os
 import re
-from PIL import Image
-import shutil
-import sys
 from pathlib import Path
+import shutil
+from PIL import Image
 from tqdm import tqdm
 from ODRS.data_utils.prepare_ssd import create_ssd_json
-
 
 
 def convert_voc(data_path, txt_path):
     print("Creating VOC format for dataset")
     for i in ['train', 'test', 'valid']:
-       
         convert_yolo_to_voc(f'{data_path}/{i}', txt_path, 'annotations')
         shutil.rmtree(f'{data_path}/{i}/labels')
         create_ssd_json(f'{data_path}/{i}', txt_path)
@@ -33,18 +30,18 @@ def copy_files_to_jpeg_images_folder(data_path):
     return jpeg_images_folder
 
 
-
 def delete_txt_files_in_folder(folder_path):
-    file_list = os.listdir(folder_path)  # Получение списка файлов в папке
+    file_list = os.listdir(folder_path)  # Get a list of files in the folder
     for file_name in file_list:
-        if file_name.endswith(".txt"):  # Проверка расширения файла
-            file_path = os.path.join(folder_path, file_name)  # Получение полного пути к файлу
-            os.remove(file_path)  # Удаление файла
+        if file_name.endswith(".txt"):  # Check the file extension
+            file_path = os.path.join(folder_path, file_name)  # Get the full file path
+            os.remove(file_path)  # Delete the file
 
 
 def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
     current_file_path = Path(__file__).resolve()
-    jpeg_images_folder  = copy_files_to_jpeg_images_folder(data_path)
+    jpeg_images_folder = copy_files_to_jpeg_images_folder(data_path)
+
     def is_number(n):
         try:
             float(n)
@@ -53,9 +50,9 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
             return False
 
     folder_holding_yolo_files = jpeg_images_folder
-    yolo_class_list_file =  f"{current_file_path.parents[2]}/{txt_path}"
+    yolo_class_list_file = f"{current_file_path.parents[2]}/{txt_path}"
 
-    # Get a list of all the classes used in the yolo format
+    # Get a list of all the classes used in the YOLO format
     with open(yolo_class_list_file) as f:
         yolo_classes = f.readlines()
     array_of_yolo_classes = [x.strip() for x in yolo_classes]
@@ -80,7 +77,7 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
             if image_name == each_yolo_file:
                 continue
 
-            orig_img = Image.open(image_path) # open the image
+            orig_img = Image.open(image_path)  # Open the image
             image_width = orig_img.width
             image_height = orig_img.height
 
@@ -95,12 +92,12 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
                 f.write('\t<size>\n')
                 f.write('\t\t<width>' + str(image_width) + '</width>\n')
                 f.write('\t\t<height>' + str(image_height) + '</height>\n')
-                f.write('\t\t<depth>3</depth>\n') # assuming a 3 channel color image (RGB)
+                f.write('\t\t<depth>3</depth>\n')  # Assuming a 3-channel color image (RGB)
                 f.write('\t</size>\n')
                 f.write('\t<segmented>0</segmented>\n')
 
                 for each_line in all_lines:
-                    yolo_array = re.split("\s", each_line.rstrip()) # remove any extra space from the end of the line
+                    yolo_array = re.split("\s", each_line.rstrip())  # Remove any extra space from the end of the line
 
                     class_number = 0
                     x_yolo = 0.0
@@ -162,22 +159,6 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
         print("Conversion complete")
     else:
         print("There was a problem converting the files")
-    
+
     shutil.move(f"{folder_holding_yolo_files}/{folder_annotations}", data_path)
     delete_txt_files_in_folder(folder_holding_yolo_files)
-
-    
-# def remove_data_folders(data_path):
-#     train_path = os.path.join(data_path, "train")
-#     val_path = os.path.join(data_path, "val")
-#     test_path = os.path.join(data_path, "test")
-#     if os.path.exists(train_path):
-#         shutil.rmtree(train_path)
-#     if os.path.exists(val_path):
-#         shutil.rmtree(val_path)
-#     if os.path.exists(test_path):
-#         shutil.rmtree(test_path)
-
-
-# if __name__ == "__main__":
-#     convert_yolo_to_ssd('/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/Website_Screenshots', '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes_web.txt')
