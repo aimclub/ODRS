@@ -1,6 +1,5 @@
 import os
 import json
-import argparse
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
@@ -10,8 +9,6 @@ def parse_annotation(annotation_path):
     tree = ET.parse(annotation_path)
     root = tree.getroot()
 
-    image_width = int(root.find('size').find('width').text)
-    image_height = int(root.find('size').find('height').text)
     boxes, classes, difficulties = [], [], []
     for object in root.iter('object'):
         bndbox = object.find('bndbox')
@@ -55,7 +52,6 @@ def get_image_names(folder_path):
     return image_names
 
 
-
 def create_ssd_json(path_folder, txt_path):
     current_file_path = Path(__file__).resolve()
     txt_path = f"{current_file_path.parents[2]}/{txt_path}"
@@ -82,7 +78,3 @@ def create_ssd_json(path_folder, txt_path):
                 }
             )
     save_as_json(f'{os.path.dirname(path_folder)}/{path_folder.split("/")[-1]}.json', dataset)
-
-
-# if __name__ == '__main__':
-#     create_ssd_json('/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/voc/Website_Screenshots/test', '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes_web.txt')

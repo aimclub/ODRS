@@ -1,14 +1,13 @@
 from loguru import logger
-from yaml import load
-from yaml import FullLoader
 import yaml
 from pathlib import Path
 import os
 from datetime import datetime
 from ODRS.data_utils.prepare_ssd import read_names_from_txt
 
+
 def create_class_list(filename):
-    #Returns list of classes
+    # Returns list of classes
     with open(filename, "r") as file_object:
         class_list = file_object.read().splitlines()
     return class_list
@@ -26,7 +25,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
     # Get current file path
     current_file_path = Path(__file__).resolve()
 
-    # Create runs directory if does not exists
+    # Create runs directory if it does not exist
     runs_directory = f"{current_file_path.parents[2]}/runs/"
     if not os.path.exists(runs_directory):
         os.makedirs(runs_directory, exist_ok=True)
@@ -76,7 +75,7 @@ scheduler:
             file.write(dataset_yaml)
 
         return config_path
-    
+
     elif arch == 'rcnn':
         classes = read_names_from_txt(class_file_path)
         class_names = ['__background__']
@@ -84,7 +83,7 @@ scheduler:
             class_names.append(name)
 
         dataset_yaml = '''\
-# Images and labels direcotry should be relative to train.py
+# Images and labels directory should be relative to train.py
 TRAIN_DIR_IMAGES: {}
 TRAIN_DIR_LABELS: {}
 # VALID_DIR should be relative to train.py
@@ -103,7 +102,7 @@ SAVE_VALID_PREDICTION_IMAGES: True
         logger.info("Create config file")
         with open(config_path, 'w') as file:
             file.write(dataset_yaml)
-            
+
         return config_path
 
     else:
@@ -119,4 +118,3 @@ SAVE_VALID_PREDICTION_IMAGES: True
             yaml.dump(data, file, default_flow_style=False)
 
         return config_path
-

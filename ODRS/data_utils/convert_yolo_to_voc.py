@@ -97,7 +97,7 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
                 f.write('\t<segmented>0</segmented>\n')
 
                 for each_line in all_lines:
-                    yolo_array = re.split("\s", each_line.rstrip())  # Remove any extra space from the end of the line
+                    yolo_array = re.split(r'\s', each_line.rstrip())  # Remove any extra space from the end of the line
 
                     class_number = 0
                     x_yolo = 0.0

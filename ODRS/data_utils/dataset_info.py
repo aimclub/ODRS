@@ -2,6 +2,7 @@ import cv2
 import os
 import numpy as np
 
+
 def get_count_classes(classes_path):
     if os.path.exists(classes_path):
         with open(classes_path, 'r') as file:
@@ -11,7 +12,7 @@ def get_count_classes(classes_path):
     else:
         print("File 'classes.txt' does not exist in the folder.")
     return count_classes
-    
+
 
 def gini_coefficient(labels):
     unique, counts = np.unique(labels, return_counts=True)
@@ -23,6 +24,7 @@ def gini_coefficient(labels):
         gini += label_prob * (1 - label_prob)
     return gini
 
+
 def process_txt_file(file_path, classes):
     with open(file_path, 'r') as file:
         lines = file.readlines()
@@ -32,6 +34,7 @@ def process_txt_file(file_path, classes):
                 classes.append(class_label)
             except Exception:
                 pass
+
 
 def process_directory(directory_path, classes):
     for file_name in os.listdir(directory_path):
@@ -46,11 +49,12 @@ def process_directory(directory_path, classes):
         elif file_name.endswith('.txt'):
             process_txt_file(file_path, classes)
 
+
 def process_dataset(dataset_path):
     classes = []
     if os.path.exists(dataset_path):
         if os.path.isdir(dataset_path):
-            for split in ['train', 'valid', 'test','val']:
+            for split in ['train', 'valid', 'test', 'val']:
                 split_path = os.path.join(dataset_path, split)
                 if os.path.exists(split_path):
                     process_directory(split_path, classes)
@@ -66,6 +70,7 @@ def get_image_size(image_path):
         return width, height
     return None
 
+
 def count_images_in_directory(directory_path):
     image_extensions = ['.jpg', '.jpeg', '.png']
     image_count = 0
@@ -74,6 +79,7 @@ def count_images_in_directory(directory_path):
         if os.path.isfile(file_path) and any(file_name.lower().endswith(ext) for ext in image_extensions):
             image_count += 1
     return image_count
+
 
 def process_directory_img(directory_path):
     image_count = 0
@@ -99,6 +105,7 @@ def process_directory_img(directory_path):
 
     return image_count, image_size
 
+
 def process_dataset_img(dataset_path):
     image_count = 0
     image_size = None
@@ -116,6 +123,7 @@ def process_dataset_img(dataset_path):
 
     return image_count, image_size
 
+
 def dataset_info(dataset_path, classes_path):
     class_labels = process_dataset(dataset_path)
     gini = "{:.2f}".format(gini_coefficient(class_labels))
@@ -128,5 +136,3 @@ def dataset_info(dataset_path, classes_path):
     print("Number of classes:", get_count_classes(classes_path))
 
     return [float(image_size[0]), float(image_size[1]), float(gini) * 100, float(get_count_classes(classes_path)), float(image_count)]
-
-    
