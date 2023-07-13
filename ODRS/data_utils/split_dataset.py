@@ -1,10 +1,6 @@
 import os
 import shutil
 import glob
-import numpy as np
-import xml.etree.ElementTree as ET
-import re
-from PIL import Image
 
 
 def split_data(datapath, split_train_value, split_val_value, split_test_value):
@@ -15,7 +11,8 @@ def split_data(datapath, split_train_value, split_val_value, split_test_value):
     test_path = os.path.join(datapath, 'test')
     val_path = os.path.join(datapath, 'valid')
 
-    if os.path.exists(train_path) and os.path.exists(test_path) and (os.path.exists(val_path) or os.path.exists(os.path.join(datapath, 'valid'))):
+    if os.path.exists(train_path) and os.path.exists(test_path) and (os.path.exists(val_path) 
+                                        or os.path.exists(os.path.join(datapath, 'valid'))):
         return "Dataset is ready"
 
     images_path = os.path.join(datapath, 'images')

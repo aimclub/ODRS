@@ -2,19 +2,17 @@ import warnings
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from yaml import FullLoader, load
 import sys
 import os
 from pathlib import Path
+from ODRS.data_utils.dataset_info import dataset_info
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from ODRS.data_utils.dataset_info import dataset_info
 
 
 def load_config(config_file):
@@ -115,7 +113,8 @@ def ml_main():
         dataset_data = features_normalized[-1]
         features_normalized = features_normalized[:-1]
 
-        random_forest = RandomForestClassifier(criterion='gini', min_samples_leaf=3, max_depth=25, n_estimators=52, random_state=42)
+        random_forest = RandomForestClassifier(criterion='gini', 
+                        min_samples_leaf=3, max_depth=25, n_estimators=52, random_state=42)
         ovrc = OneVsRestClassifier(random_forest)
         ovrc.fit(features_normalized, labels)
         y_pred = ovrc.predict(features_normalized)
@@ -131,6 +130,3 @@ def ml_main():
 
 if __name__ == "__main__":
     ml_main()
-
-    
-

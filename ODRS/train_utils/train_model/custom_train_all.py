@@ -1,17 +1,9 @@
 import argparse
 import os
 import sys
-from tqdm import tqdm
-from loguru import logger
 from yaml import load
 from yaml import FullLoader
 from pathlib import Path
-
-FILE = Path(__file__).resolve()
-ROOT = FILE.parents[3]  # PATH TO ODRC_project
-if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))
-
 from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
 from ODRS.data_utils.create_config import create_config_data, delete_cache
 from ODRS.data_utils.convert_yolo_to_voc import convert_voc
@@ -20,6 +12,11 @@ from scripts.yolov7_train import train_V7
 from scripts.yolov8_train import train_V8
 from scripts.faster_rccn_train import train_frcnn
 from scripts.ssd_train import train_ssd
+
+FILE = Path(__file__).resolve()
+ROOT = FILE.parents[3]  # PATH TO ODRC_project
+if str(ROOT) not in sys.path:
+    sys.path.append(str(ROOT))
 
 
 def load_config(config_file):

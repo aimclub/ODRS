@@ -1,8 +1,8 @@
 import os
-import os
 from pathlib import Path
 
 def train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
+    
     """
     Runs yolov7 training using the parameters specified in the config.
 
