@@ -18,6 +18,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install -r requirements.txt
     - name: Download dataset
       run: |
         cd user_datasets/
