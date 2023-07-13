@@ -119,4 +119,3 @@ SAVE_VALID_PREDICTION_IMAGES: True
             yaml.dump(data, file, default_flow_style=False)
 
         return config_path
-    

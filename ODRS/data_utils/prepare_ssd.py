@@ -78,4 +78,3 @@ def create_ssd_json(path_folder, txt_path):
                 }
             )
     save_as_json(f'{os.path.dirname(path_folder)}/{path_folder.split("/")[-1]}.json', dataset)
-    

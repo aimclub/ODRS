@@ -11,4 +11,3 @@ def train_ssd(CONFIG_PATH):
         f'python3 {file.parents[1]}/models/PyTorch-SSD/train.py'
         f" --cfg {CONFIG_PATH}"
         f" --logdir {os.path.dirname(CONFIG_PATH)}/exp")
-    

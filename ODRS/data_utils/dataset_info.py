@@ -136,4 +136,4 @@ def dataset_info(dataset_path, classes_path):
     print("Number of classes:", get_count_classes(classes_path))
 
     return [float(image_size[0]), float(image_size[1]), float(gini) * 100,
-             float(get_count_classes(classes_path)), float(image_count)]
+            float(get_count_classes(classes_path)), float(image_count)]

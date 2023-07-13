@@ -162,4 +162,3 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
 
     shutil.move(f"{folder_holding_yolo_files}/{folder_annotations}", data_path)
     delete_txt_files_in_folder(folder_holding_yolo_files)
-    

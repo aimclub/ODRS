@@ -12,7 +12,7 @@ def split_data(datapath, split_train_value, split_val_value, split_test_value):
     val_path = os.path.join(datapath, 'valid')
 
     if os.path.exists(train_path) and os.path.exists(test_path) and (os.path.exists(val_path) 
-                                        or os.path.exists(os.path.join(datapath, 'valid'))):
+        or os.path.exists(os.path.join(datapath, 'valid'))):
         return "Dataset is ready"
 
     images_path = os.path.join(datapath, 'images')
