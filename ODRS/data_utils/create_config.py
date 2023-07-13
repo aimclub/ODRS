@@ -98,7 +98,7 @@ NC: {}
 
 # Whether to save the predictions of the validation set while training.
 SAVE_VALID_PREDICTION_IMAGES: True
-            '''.format(f'{train_path}/images', f'{train_path}/annotations', f'{val_path}/images', 
+            '''.format(f'{train_path}/images', f'{train_path}/annotations', f'{val_path}/images',
                        f'{val_path}/annotations', class_names, len(class_names))
         logger.info("Create config file")
         with open(config_path, 'w') as file:

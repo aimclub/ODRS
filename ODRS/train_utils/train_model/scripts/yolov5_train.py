@@ -2,8 +2,6 @@ import os
 from pathlib import Path
 
 def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
-
-
     """
     Runs yolov5 training using the parameters specified in the config.
 

@@ -114,7 +114,7 @@ def ml_main():
         features_normalized = features_normalized[:-1]
 
         random_forest = RandomForestClassifier(criterion='gini', 
-                        min_samples_leaf=3, max_depth=25, n_estimators=52, random_state=42)
+                                               min_samples_leaf=3, max_depth=25, n_estimators=52, random_state=42)
         ovrc = OneVsRestClassifier(random_forest)
         ovrc.fit(features_normalized, labels)
         y_pred = ovrc.predict(features_normalized)
