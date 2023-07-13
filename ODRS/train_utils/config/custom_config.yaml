@@ -1,5 +1,5 @@
 # Path to data
-DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Aerial_Maritime"
+DATA_PATH: "user_datasets/yolo/Aerial_Maritime"
 
 # parameters for autosplit dataset
 SPLIT_TRAIN_VALUE: 0.6
@@ -22,9 +22,12 @@ CONFIG_PATH: "dataset.yaml"
 #2)YOLOV7: To view models for the yolov7 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/yolov7/cfg/training
 #3)YOLOV8: To view models for the yolov8 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/
 
-MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/yolov8l.yaml'
+MODEL_PATH: 'ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/yolov8l.yaml'
 
-# NOTE: using only for yolo architecture 
-GPU_COUNT: 4
-SELECT_GPU: "0,1,2,3"
+# NOTE: using only for yolo architecture  
+# NOTE: if you want train on GPU set following parameters:
+# GPU_COUNT: 4
+# SELECT_GPU: "0,1,2,3"
+GPU_COUNT: 0
+SELECT_GPU: "cpu"
 

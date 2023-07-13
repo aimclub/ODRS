@@ -8,3 +8,4 @@ flake8
 cython
 pycocotools>=2.0
 wget
+opencv-python

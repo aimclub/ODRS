@@ -14,6 +14,7 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param GPU_COUNT: Number of video cards.
     """
     file = Path(__file__).resolve()
+    os.system(f"pip install -r {file.parents[1]}/models/yolov5/requirements.txt")
     os.system(
         f"OMP_NUM_THREADS=1 python -m torch.distributed.run"
         f" --nproc_per_node {GPU_COUNT} {file.parents[1]}/models/yolov5/train.py"

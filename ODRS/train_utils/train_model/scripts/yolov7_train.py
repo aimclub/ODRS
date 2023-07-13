@@ -13,6 +13,7 @@ def train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param MODEL_PATH: Path to model file (yaml).
     """
     file = Path(__file__).resolve()
+    os.system(f"pip install -r {file.parents[1]}/models/yolov7/requirements.txt")
     os.system(
         f"OMP_NUM_THREADS=1 python3 -m torch.distributed.launch --nproc_per_node {GPU_COUNT}"
         f"{file.parents[1]}/models/yolov7/train.py"
