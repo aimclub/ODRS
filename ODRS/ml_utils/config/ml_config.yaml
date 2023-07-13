@@ -5,7 +5,7 @@
 #accuracy: 1 - 10 if u want max accuracy choose 10 or u wanna lower acc 1
 
 
-dataset_path: "user_datasets/yolo/Aerial Maritime"
+dataset_path: "user_datasets/yolo"
 classes_path: "classes.txt"
 
 GPU: True
