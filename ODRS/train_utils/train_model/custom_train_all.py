@@ -12,6 +12,7 @@ from scripts.ssd_train import train_ssd
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+print(project_dir)
 from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
 from ODRS.data_utils.create_config import create_config_data, delete_cache
 from ODRS.data_utils.convert_yolo_to_voc import convert_voc
