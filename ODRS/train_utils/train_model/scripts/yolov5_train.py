@@ -14,21 +14,12 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     """
     file = Path(__file__).resolve()
     os.system(
-        f'OMP_NUM_THREADS=1 python -m torch.distributed.run --nproc_per_node {GPU_COUNT} {file.parents[1]}/models/yolov5/train.py' +
-        # ' --weights ' +
-        # WEIGHTS + 
-        ' --img ' + 
-        IMG_SIZE +
-        ' --batch ' +
-        BATCH_SIZE +
-        ' --epochs ' +
-        EPOCHS +
-        ' --data ' +
-        CONFIG_PATH +
-        ' --cfg ' +
-        MODEL_PATH +
-        ' --device '+
-        SELECT_GPU +
-        ' --project ' +
-        '/'.join(CONFIG_PATH.split("/")[:-1]) +
-        ' --name exp')
+        f'OMP_NUM_THREADS=1 python -m torch.distributed.run --nproc_per_node {GPU_COUNT} {file.parents[1]}/models/yolov5/train.py'
+        f" --img {IMG_SIZE}"
+        f" --batch {BATCH_SIZE}"
+        f" --epochs {EPOCHS}"
+        f" --data {CONFIG_PATH}"
+        f" --cfg {MODEL_PATH}"
+        f" --device {SELECT_GPU}"
+        f" --project {'/'.join(CONFIG_PATH.split('/')[:-1])}"
+        f' --name exp')

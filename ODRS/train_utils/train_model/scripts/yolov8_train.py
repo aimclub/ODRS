@@ -9,22 +9,14 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param EPOCHS: Number of epochs to train for.
     :param CONFIG_PATH: Path to config dataset.
     :param MODEL_PATH: Path to model file (yaml).
-    :param GPU_COUNT:Number of video cards.
+    :param GPU_COUNT: Number of video cards.
     """
-
-    os.system(f'yolo detect train data=' +
-    CONFIG_PATH +
-    ' imgsz=' +
-    IMG_SIZE +
-    ' batch=' +
-    BATCH_SIZE +
-    ' epochs=' +
-    EPOCHS +
-    ' model='+
-    MODEL_PATH +
-    ' device=' +
-    SELECT_GPU +
-    ' project=' +
-    '/'.join(CONFIG_PATH.split("/")[:-1]) +
-    ' name=exp'
-    )
+    os.system(f"yolo detect train "
+              f"data={CONFIG_PATH} "
+              f"imgsz={IMG_SIZE} "
+              f"batch={BATCH_SIZE} "
+              f"epochs={EPOCHS} "
+              f"model={MODEL_PATH} "
+              f"device={SELECT_GPU} "
+              f"project={'/'.join(CONFIG_PATH.split('/')[:-1])} "
+              "name=exp")
