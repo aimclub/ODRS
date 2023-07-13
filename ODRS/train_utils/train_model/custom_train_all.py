@@ -4,14 +4,17 @@ import sys
 from yaml import load
 from yaml import FullLoader
 from pathlib import Path
-from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
-from ODRS.data_utils.create_config import create_config_data, delete_cache
-from ODRS.data_utils.convert_yolo_to_voc import convert_voc
 from scripts.yolov5_train import train_V5
 from scripts.yolov7_train import train_V7
 from scripts.yolov8_train import train_V8
 from scripts.faster_rccn_train import train_frcnn
 from scripts.ssd_train import train_ssd
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
+from ODRS.data_utils.create_config import create_config_data, delete_cache
+from ODRS.data_utils.convert_yolo_to_voc import convert_voc
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[3]  # PATH TO ODRC_project
