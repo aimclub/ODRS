@@ -24,6 +24,4 @@ jobs:
         cd user_datasets/yolo
         curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
     - name: Ml predictions
-      run: |
-        cd ODRS/ml_utils/
-        python ml_model_optimizer.py
+      run: python ODRS/ml_utils/ml_model_optimizer.py
