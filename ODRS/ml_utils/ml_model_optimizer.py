@@ -9,7 +9,8 @@ from yaml import FullLoader, load
 import sys
 import os
 from pathlib import Path
-from ODRS.data_utils.dataset_info import dataset_info
+from data_utils.dataset_info import dataset_info
+#from ODRS.data_utils.dataset_info import dataset_info
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
