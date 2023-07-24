@@ -1,0 +1,24 @@
+name: Pep8-test
+
+on:
+  push:
+    branches: [ "master", "develop"]
+  pull_request:
+    branches: [ "master" ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+    - name: Run PEP8 test
+      run: |
+        flake8 --max-line-length=130 --exclude=ODRS/train_utils/train_model/models/*,ODRS/ml_utils/* .

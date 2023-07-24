@@ -1,0 +1,11 @@
+torch
+torchvision
+tensorboard
+matplotlib
+tqdm
+yacs
+flake8
+cython
+pycocotools>=2.0
+wget
+opencv-python
