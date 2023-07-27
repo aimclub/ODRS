@@ -6,33 +6,37 @@ ODRC - it an open source recommendation system for training object detection mod
 profitable existing object recognition models based on user preferences and data. In addition to choosing the 
 architecture of the model, the system will help you start training and configure the environment.
 
+The proposed recommendation system consists of several components that interact to generate recommendations for machine learning pipelines.
+<center><img src="docs/img/system.jpg" width="400"></center>
 
-<center><img src="docs/img/alg_scheme.png" width="400"></center>
-
-Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
+External parameters (received from users and third-party resources):
+* Dataset: Represents input data (video frames) and associated metadata (e.g. image size, quality, number of objects).
+* Model: Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
 and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
 well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
 
-<center><img src="docs/img/model_list.png" width="400"></center>
+<center><img src="docs/img/model.png" width="400"></center>
+Internal components:
+
+* ***RecommendationEngine***: generates recommendations based on user data and dataset characteristics.
+<center><img src="docs/img/rec_alg.jpg" width="400"></center>
 The recommendation algorithm is based on production rules. The primary set of rules (knowledge base) is formed on 
 the basis of the results of the analysis of scientific sources and standard data sets, but also empirical processing 
 of data sets from specific industries.
 The main criteria for drawing up the rules were chosen:
 
-* Dimension of the model 
-* The value of metrics (mAP, Recall, Accuracy) for selected datasets
-* The speed of the model on GPU and CPU
-* Supported image format and dimension
+1. Dimension of the model 
+2. The value of metrics (mAP, Recall, Accuracy) for selected datasets
+3. The speed of the model on GPU and CPU
+4. Supported image format and dimension
 
-The experiments were carried out on the following data sets:
 
-| Dataset                                                                | Description                                                                                                               |
-|------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Extended WaRP                                                          | An extended version of the WaRP dataset provided by [Insystem](https://insystem.io/)                                      |
-| [WaRP](https://github.com/AIRI-Institute/WaRP/tree/main)               | Waste Recycling Plant includes labeled images of an industrial waste sorting plant.                                       |                                           |
-| [Pascal VOC](https://pjreddie.com/projects/pascal-voc-dataset-mirror/) | Very popular dataset for building and evaluating algorithms for image classification, object detection, and segmentation. |
+* ***Training*** - Training of models proposed by the system
 
-The list of criteria and data sets will be expanded
+<center><img src="docs/img/train.jpg" width="400"></center>
+
+* ***Evaluation*** – evaluation of the quality of training models
+
 
 ## Contents
 
