@@ -14,10 +14,10 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param GPU_COUNT: Number of video cards.
     """
     file = Path(__file__).resolve()
-    os.system(f"pip install -r {file.parents[1]}/models/yolov5/requirements.txt")
+    command = "python3" if GPU_COUNT == 0 else f"OMP_NUM_THREADS=1 python3 -m torch.distributed.run --nproc_per_node {GPU_COUNT}"
     os.system(
-        f"OMP_NUM_THREADS=1 python -m torch.distributed.run"
-        f" --nproc_per_node {GPU_COUNT} {file.parents[1]}/models/yolov5/train.py"
+        command +
+        f" {file.parents[1]}/models/yolov5/train.py"
         f" --img {IMG_SIZE}"
         f" --batch {BATCH_SIZE}"
         f" --epochs {EPOCHS}"

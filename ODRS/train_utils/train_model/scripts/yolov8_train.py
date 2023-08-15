@@ -12,7 +12,6 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param MODEL_PATH: Path to model file (yaml).
     :param GPU_COUNT: Number of video cards.
     """
-    os.system("pip install ultralytics")
     os.system(f"yolo detect train "
               f"data={CONFIG_PATH} "
               f"imgsz={IMG_SIZE} "
@@ -20,5 +19,6 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
               f"epochs={EPOCHS} "
               f"model={MODEL_PATH} "
               f"device={SELECT_GPU} "
-              f"project={'/'.join(CONFIG_PATH.split('/')[:-1])} "
-              "name=exp")
+              #f"project={'/'.join(CONFIG_PATH.split('/')[:-1])} "
+              #f"project={wandb_project_name} "
+              f"name={'/'.join(CONFIG_PATH.split('/')[:-1])}/exp")

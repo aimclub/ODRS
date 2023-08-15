@@ -26,7 +26,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
     current_file_path = Path(__file__).resolve()
 
     # Create runs directory if it does not exist
-    runs_directory = f"{current_file_path.parents[2]}/runs/"
+    runs_directory = f"{current_file_path.parents[2]}/runs"
     if not os.path.exists(runs_directory):
         os.makedirs(runs_directory, exist_ok=True)
 
@@ -76,7 +76,7 @@ scheduler:
 
         return config_path
 
-    elif arch == 'rcnn':
+    elif arch == 'faster-rcnn':
         classes = read_names_from_txt(class_file_path)
         class_names = ['__background__']
         for name in classes:

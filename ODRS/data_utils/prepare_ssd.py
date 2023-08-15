@@ -3,11 +3,21 @@ import json
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
+from loguru import logger
 
+
+def check_filename(filename):
+    if '&' in filename:
+        return False
+    else:
+        return True
+    
 
 def parse_annotation(annotation_path):
     tree = ET.parse(annotation_path)
     root = tree.getroot()
+    # parser = etree.XMLParser(recover=True)
+    # root = etree.fromstring(annotation_path, parser=parser)
 
     boxes, classes, difficulties = [], [], []
     for object in root.iter('object'):
@@ -23,6 +33,7 @@ def parse_annotation(annotation_path):
 
         difficulty = int(object.find('difficult').text == '1')
         difficulties.append(difficulty)
+
     return boxes, classes, difficulties
 
 
@@ -66,15 +77,18 @@ def create_ssd_json(path_folder, txt_path):
         ids = get_image_names(f'{path_folder}/images')
         for id in tqdm(ids):
             image_path = os.path.join(path, 'images', id + '.jpg')
+            #image_path = os.path.join(path, 'JPEGImages', id + '.jpg')
             annotation_path = os.path.join(path, 'annotations', id + '.xml')
-            boxes, classes, difficulties = parse_annotation(annotation_path)
-            classes = [class_names.index(c) for c in classes]
-            dataset.append(
-                {
-                    'image': os.path.abspath(image_path),
-                    'boxes': boxes,
-                    'classes': classes,
-                    'difficulties': difficulties
-                }
-            )
+            #annotation_path = os.path.join(path, 'Annotations', id + '.xml')
+            if check_filename(annotation_path):
+                boxes, classes, difficulties = parse_annotation(annotation_path)
+                classes = [class_names.index(c) for c in classes]
+                dataset.append(
+                    {
+                        'image': os.path.abspath(image_path),
+                        'boxes': boxes,
+                        'classes': classes,
+                        'difficulties': difficulties
+                    }
+                )
     save_as_json(f'{os.path.dirname(path_folder)}/{path_folder.split("/")[-1]}.json', dataset)
