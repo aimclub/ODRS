@@ -19,6 +19,4 @@ def train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
               f"epochs={EPOCHS} "
               f"model={MODEL_PATH} "
               f"device={SELECT_GPU} "
-              #f"project={'/'.join(CONFIG_PATH.split('/')[:-1])} "
-              #f"project={wandb_project_name} "
               f"name={'/'.join(CONFIG_PATH.split('/')[:-1])}/exp")

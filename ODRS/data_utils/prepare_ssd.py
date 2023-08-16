@@ -3,7 +3,6 @@ import json
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
-from loguru import logger
 
 
 def check_filename(filename):
@@ -11,7 +10,7 @@ def check_filename(filename):
         return False
     else:
         return True
-    
+
 
 def parse_annotation(annotation_path):
     tree = ET.parse(annotation_path)

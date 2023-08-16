@@ -6,17 +6,17 @@ from loguru import logger
 
 file = Path(__file__).resolve()
 
+
 def load_config(config_file):
     with open(config_file) as f:
         return load(f, Loader=FullLoader)
-    
+
 
 def get_models():
     path_config = f'{file.parents[0]}/config_models/models.yaml'
     config = load_config(path_config)
     models = config['models_array']
     return models
-
 
 
 def get_path_model(name_model):
