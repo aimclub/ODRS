@@ -206,7 +206,7 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     #  "yolov7x", "yolov7", "yolov7-tiny", #"yolov8x6", "yolov8x",
     #  "yolov8s", "yolov8n", "yolov8m", "faster-rcnn", "ssd"]
 
-    #**NOTE**: For successful training of the ssd model, the size of your images should not exceed 512x512
+    # **NOTE**: For successful training of the ssd model, the size of your images should not exceed 512x512
     
     MODEL: ssd
 
