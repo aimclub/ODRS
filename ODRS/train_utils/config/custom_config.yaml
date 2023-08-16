@@ -1,12 +1,12 @@
 BATCH_SIZE: 10
 CLASSES: classes.txt
 CONFIG_PATH: dataset.yaml
-DATA_PATH: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/plant
-EPOCHS: 2
-GPU_COUNT: 2
+DATA_PATH: user_datasets/yolo/aeral
+EPOCHS: 40
+GPU_COUNT: 0
 IMG_SIZE: 300
-MODEL: ssd
-SELECT_GPU: 0,1
+MODEL: yolov5m
+SELECT_GPU: cpu
 SPLIT_TEST_VALUE: 0.05
 SPLIT_TRAIN_VALUE: 0.6
 SPLIT_VAL_VALUE: 0.35
