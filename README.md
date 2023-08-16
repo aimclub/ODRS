@@ -155,8 +155,8 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     #dataset_path: path to data folder
     #classes_path: path to classes.txt
     #GPU: True/False
-    #speed: 1 - 5 if u want max speed choose 5 or u wanna lower speed 1
-    #accuracy: 1 - 10 if u want max accuracy choose 10 or u wanna lower acc 1
+    #speed: 1 - 5 if you want max speed choose 5. For lower speed 1
+    #accuracy: 1 - 10 if you want max accuracy choose 10. For lower accuracy 1
 
 
     GPU: true

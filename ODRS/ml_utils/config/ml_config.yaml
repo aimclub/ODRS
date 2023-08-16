@@ -1,5 +1,5 @@
 GPU: true
 accuracy: 10
 classes_path: classes.txt
-dataset_path: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/aeral
+dataset_path: user_datasets/yolo/aeral
 speed: 1
