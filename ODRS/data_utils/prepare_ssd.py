@@ -15,8 +15,6 @@ def check_filename(filename):
 def parse_annotation(annotation_path):
     tree = ET.parse(annotation_path)
     root = tree.getroot()
-    # parser = etree.XMLParser(recover=True)
-    # root = etree.fromstring(annotation_path, parser=parser)
 
     boxes, classes, difficulties = [], [], []
     for object in root.iter('object'):
@@ -76,9 +74,7 @@ def create_ssd_json(path_folder, txt_path):
         ids = get_image_names(f'{path_folder}/images')
         for id in tqdm(ids):
             image_path = os.path.join(path, 'images', id + '.jpg')
-            #image_path = os.path.join(path, 'JPEGImages', id + '.jpg')
             annotation_path = os.path.join(path, 'annotations', id + '.xml')
-            #annotation_path = os.path.join(path, 'Annotations', id + '.xml')
             if check_filename(annotation_path):
                 boxes, classes, difficulties = parse_annotation(annotation_path)
                 classes = [class_names.index(c) for c in classes]
