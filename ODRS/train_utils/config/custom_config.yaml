@@ -1,33 +1,12 @@
-# Path to data
-DATA_PATH: "user_datasets/yolo/Aerial_Maritime"
-
-# parameters for autosplit dataset
+BATCH_SIZE: 10
+CLASSES: classes.txt
+CONFIG_PATH: dataset.yaml
+DATA_PATH: user_datasets/yolo/aeral
+EPOCHS: 40
+GPU_COUNT: 0
+IMG_SIZE: 300
+MODEL: yolov7
+SELECT_GPU: cpu
+SPLIT_TEST_VALUE: 0.05
 SPLIT_TRAIN_VALUE: 0.6
 SPLIT_VAL_VALUE: 0.35
-SPLIT_TEST_VALUE: 0.05
-
-
-# Name *.txt file with names classes
-CLASSES: "classes.txt"
-
-IMG_SIZE: "510"
-BATCH_SIZE: "16"
-EPOCHS: "10"
-
-# This file generated automaticaly
-CONFIG_PATH: "dataset.yaml"
-
-# NOTE: using only for yolo architecture
-#1)YOLOV5: To view models for the yolov5 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/yolov5/models
-#2)YOLOV7: To view models for the yolov7 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/yolov7/cfg/training
-#3)YOLOV8: To view models for the yolov8 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/
-
-MODEL_PATH: 'ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/yolov8l.yaml'
-
-# NOTE: using only for yolo architecture  
-# NOTE: if you want train on GPU set following parameters:
-# GPU_COUNT: 4
-# SELECT_GPU: "0,1,2,3"
-GPU_COUNT: 0
-SELECT_GPU: "cpu"
-

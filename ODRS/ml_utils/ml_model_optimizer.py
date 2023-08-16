@@ -13,10 +13,8 @@ from pathlib import Path
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from ODRS.data_utils.dataset_info import dataset_info
+from ODRS.data_utils.prepare_train import load_config, get_models
 
-def load_config(config_file):
-    with open(config_file) as f:
-        return load(f, Loader=FullLoader)
 
 
 def min_max_scaler(features):
@@ -65,14 +63,15 @@ def getting_config(path_config):
     dataset_path = config['dataset_path']
     speed = config['speed']
     accuracy = config['accuracy']
-    model_array = config['models_array']
-    return mode, classes_path, dataset_path, speed, accuracy, model_array
+    return mode, classes_path, dataset_path, speed, accuracy
 
 
-def ml_main():
+def predict(mode, classes_path, dataset_path, speed, accuracy):
     file = Path(__file__).resolve()
-    mode, classes_path, dataset_path, speed, accuracy, model_array = getting_config(f'{file.parents[0]}/config/ml_config.yaml')
-    dataset_data = dataset_info(dataset_path, classes_path)
+
+    model_array = get_models()
+
+    dataset_data = dataset_info(dataset_path, f'{file.parents[2]}/{classes_path}')
 
     # Загрузка данных из CSV файла
     data = pd.read_csv(f'{file.parents[0]}/data_train_ml/model_cs.csv', delimiter=';')
@@ -126,6 +125,10 @@ def ml_main():
         for num_model in range(len(top_3_models[0])):
             print(f'{num_model + 1}) {model_array[top_3_models[0][int(num_model)]]}')
 
+def ml_main():
+    file = Path(__file__).resolve()
+    mode, classes_path, dataset_path, speed, accuracy = getting_config(f'{file.parents[0]}/config/ml_config.yaml')
+    predict(mode, classes_path, dataset_path, speed, accuracy)
 
 if __name__ == "__main__":
     ml_main()

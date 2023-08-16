@@ -1,32 +1,34 @@
+from ODRS.ODRS.train_utils.custom_train_all import fit_model
+from ODRS.ODRS.ml_utils.ml_model_optimizer import predict
+
+
 class ODRS:
-    def __init__(self, job, path_dataset=None, arch=None, path_classes=None, batch_size=None, epochs=None,
-                 img_size=None, gpu_count=None, gpu=None, speed=None, accuracy=None, config_path=None):
+    def __init__(self, job, data_path=None, classes="classes.txt",
+                 img_size="256", batch_size="18", epochs="3",
+                 model='yolov5l', gpu_count=1, select_gpu="0", config_path="dataset.yaml",
+                 split_train_value=0.6, split_test_value=0.35, split_val_value=0.05,
+                 gpu=True, speed=2, accuracy=10):
         self.job = job.lower()
-        self.path_dataset = path_dataset
-        self.arch = arch  # ssd, rcnn, yolov5, yolov7, yolov8
-        # for object_detection
-        self.config_path = config_path
-        self.path_classes = path_classes
+        self.data_path = data_path
+        self.classes = classes
+        self.img_size = img_size
         self.batch_size = batch_size
         self.epochs = epochs
-        self.img_size = img_size
+        self.model = model
         self.gpu_count = gpu_count
-        # for ml_recommend
+        self.select_gpu = select_gpu
+        self.config_path = config_path
+        self.split_train_value = split_train_value
+        self.split_test_value = split_test_value
+        self.split_val_value = split_val_value
         self.gpu = gpu
         self.speed = speed
         self.accuracy = accuracy
 
     def fit(self):
         if self.job == 'ml_recommend':
-            print('ml_recomend')
+            predict(self.gpu, self.classes, self.data_path, self.speed, self.accuracy)
         elif self.job == "object_detection":
-            print("object_detection")
-
-
-if __name__ == "__main__":
-    odrs = ODRS(job="object_detection",
-                config_path='dataset.yaml',
-                arch='yolov5',
-                path_classes='/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes.txt',
-                batch_size=24,
-                img_size=640)
+            fit_model(self.data_path, self.classes, self.img_size, self.batch_size, self.epochs,
+                      self.model, self.config_path, self.split_train_value, self.split_val_value,
+                      self.split_test_value, self.gpu_count, self.select_gpu)

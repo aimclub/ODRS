@@ -155,20 +155,16 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     #dataset_path: path to data folder
     #classes_path: path to classes.txt
     #GPU: True/False
-    #speed: 1 - 5 if u want max speed choose 5 or u wanna lower speed 1
-    #accuracy: 1 - 10 if u want max accuracy choose 10 or u wanna lower acc 1
+    #speed: 1 - 5 if you want max speed choose 5. For lower speed 1
+    #accuracy: 1 - 10 if you want max accuracy choose 10. For lower accuracy 1
 
 
-    dataset_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Aerial_Maritime"
-    classes_path: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/classes.txt"
-
-    GPU: True
-    speed: 1
+    GPU: true
     accuracy: 10
+    classes_path: classes.txt
+    dataset_path: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/plant
+    speed: 1
 
-    models_array: ["yolov5l", "yolov5m", "yolov5n", "yolov5s", "yolov5x",
-                "yolov7x", "yolov7", "yolov7-tiny", "yolov8x6", "yolov8x",
-                "yolov8s", "yolov8n", "yolov8m", "faster-rcnn", "ssd"]
 
     ```
 3. Go to the script **ml_model_optimizer.py ** and start it:
@@ -193,43 +189,47 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
 1. Go to the directory containing ***custom_config.yaml*** in which the training parameters are specified.
 2. Setting up training parameters:
     ```markdown
+    #  Name *.txt file with names classes
+    CLASSES: classes.txt
+
+     # This file generated automaticaly
+    CONFIG_PATH: dataset.yaml
+
     # Path to data
-    DATA_PATH: "/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/user_datasets/yolo/Aerial_Maritime"
+    DATA_PATH: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/plant
+
+    EPOCHS: 2
+    IMG_SIZE: 300
+
+    # MODEL ZOO:
+    # ["yolov5l", "yolov5m", "yolov5n", "yolov5s", "yolov5x",
+    #  "yolov7x", "yolov7", "yolov7-tiny", #"yolov8x6", "yolov8x",
+    #  "yolov8s", "yolov8n", "yolov8m", "faster-rcnn", "ssd"]
+
+    # **NOTE**: For successful training of the ssd model, the size of your images should not exceed 512x512
+    
+    MODEL: ssd
+
+
+    # For multiprocessing.
+    # For CPU:
+    #       GPU_COUNT: 0
+    #       SELECT_GPU: cpu
+
+    GPU_COUNT: 2
+    SELECT_GPU: 0,1
 
     # parameters for autosplit dataset
+    SPLIT_TEST_VALUE: 0.05
     SPLIT_TRAIN_VALUE: 0.6
     SPLIT_VAL_VALUE: 0.35
-    SPLIT_TEST_VALUE: 0.05
-
-
-    # Name *.txt file with names classes
-    CLASSES: "classes.txt"
-
-    IMG_SIZE: "510"
-    BATCH_SIZE: "16"
-    EPOCHS: "10"
-
-    # This file generated automaticaly
-    CONFIG_PATH: "dataset.yaml"
-
-    # NOTE: using only for yolo architecture
-    #1)YOLOV5: To view models for the yolov5 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/yolov5/models
-    #2)YOLOV7: To view models for the yolov7 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/yolov7/cfg/training
-    #3)YOLOV8: To view models for the yolov8 architecture, use this path: ODRS/ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/
-
-    MODEL_PATH: '/media/farm/ssd_1_tb_evo_sumsung/ODRC_2/ODRS/ODRS/train_utils/train_model/models/ultralytics/ultralytics/models/v8/yolov8l.yaml'
-
-    # NOTE: using only for yolo architecture 
-    GPU_COUNT: 4
-    SELECT_GPU: "0,1,2,3"
     ```
 3. Starting training:
 **NOTE**: If, for example, you specified in ***custom_config.yaml***, the path to the yolov5 model, and you want to start yolov8, training will not start.
-- `yolov8` - the chosen architecture that we want to train {`yolov5`, `yolov8`, `yolov7`, `ssd`, `rcnn`};
 
     ```markdown
     cd ODRS/ODRS/train_utils/train_model
-    python custom_train_all.py --arch yolov8
+    python custom_train_all.py
     ```
 4. After the training, you will see in the root directory ***ODRS*** a new directory ***runs***, all the results of experiments will be saved in it. For convenience, the result of each experiment is saved in a separate folder in the following form:
     ```markdown
@@ -239,7 +239,6 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     ```
 
 ## Contacts
-- [Telegram channel](https://t.me/) 
-- [VK group](<https://vk.com/>)
+- [Telegram](https://t.me/) 
 
 

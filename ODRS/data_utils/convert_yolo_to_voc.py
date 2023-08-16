@@ -85,7 +85,7 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
                 f.write('<annotation>\n')
                 f.write(f'\t<folder>{folder_annotations}</folder>\n')
                 f.write('\t<filename>' + image_name + '</filename>\n')
-                f.write('\t<path>' + os.path.join(os.getcwd(), image_name) + '</path>\n')
+#                f.write('\t<path>' + os.path.join(os.getcwd(), image_name) + '</path>\n')
                 f.write('\t<source>\n')
                 f.write('\t\t<database>Unknown</database>\n')
                 f.write('\t</source>\n')
