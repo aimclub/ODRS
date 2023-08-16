@@ -5,7 +5,7 @@ DATA_PATH: user_datasets/yolo/aeral
 EPOCHS: 40
 GPU_COUNT: 0
 IMG_SIZE: 300
-MODEL: yolov7
+MODEL: faster-rcnn
 SELECT_GPU: cpu
 SPLIT_TEST_VALUE: 0.05
 SPLIT_TRAIN_VALUE: 0.6
