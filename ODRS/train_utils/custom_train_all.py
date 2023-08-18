@@ -37,9 +37,9 @@ def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PA
     MODEL_PATH = get_path_model(MODEL)
 
 
-    if os.path.exists(f'{DATA_PATH}/train') and os.path.exists(f'{DATA_PATH}/valid'):
-        PATH_SPLIT_TRAIN = f'{DATA_PATH}/train'
-        PATH_SPLIT_VALID = f'{DATA_PATH}/valid'
+    #if os.path.exists(f'{DATA_PATH}/train') and os.path.exists(f'{DATA_PATH}/valid'):
+    PATH_SPLIT_TRAIN = f'{DATA_PATH}/train'
+    PATH_SPLIT_VALID = f'{DATA_PATH}/valid'
 
     delete_cache(DATA_PATH)
 
