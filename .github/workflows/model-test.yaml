@@ -26,4 +26,5 @@ jobs:
         cd aeral
         curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
     - name: AI training
-      run: python ODRS/train_utils/custom_train_all.py
+      run: |
+        python ODRS/train_utils/custom_train_all.py

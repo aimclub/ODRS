@@ -1,11 +1,11 @@
 BATCH_SIZE: 10
 CLASSES: classes.txt
 CONFIG_PATH: dataset.yaml
-DATA_PATH: user_datasets/yolo/aeral
-EPOCHS: 40
+DATA_PATH: /home/runner/work/ODRS/ODRS/user_datasets/yolo/aeral
+EPOCHS: 10
 GPU_COUNT: 0
 IMG_SIZE: 300
-MODEL: yolov7
+MODEL: yolov5m
 SELECT_GPU: cpu
 SPLIT_TEST_VALUE: 0.05
 SPLIT_TRAIN_VALUE: 0.6

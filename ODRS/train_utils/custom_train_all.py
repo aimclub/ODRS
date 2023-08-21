@@ -4,6 +4,7 @@ import sys
 from yaml import load
 from yaml import FullLoader
 from pathlib import Path
+from loguru import logger
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
@@ -18,7 +19,7 @@ from ODRS.train_utils.train_model.scripts.ssd_train import train_ssd
 
 
 FILE = Path(__file__).resolve()
-ROOT = FILE.parents[2]  # PATH TO ODRC_project
+ROOT = FILE.parents[2]  # PATH TO ODRS
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
@@ -48,8 +49,11 @@ def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PA
                                          EPOCHS)
         train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
     elif arch == 'yolov5':
+        logger.info(PATH_SPLIT_TRAIN)
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
                                          EPOCHS)
+        logger.info(CONFIG_PATH)
+        os.system(f"cat {CONFIG_PATH}")
         train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
     elif arch == 'yolov7':
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
