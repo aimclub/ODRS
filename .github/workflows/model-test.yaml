@@ -25,8 +25,6 @@ jobs:
         mkdir aeral
         cd aeral
         curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
-        cd ../../
     - name: AI training
       run: |
-        cd ODRS/train_utils/
-        python custom_train_all.py
+        python ODRS/train_utils/custom_train_all.py
