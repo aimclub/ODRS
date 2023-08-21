@@ -27,4 +27,6 @@ jobs:
         curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
         cd ../../
     - name: AI training
-      run: python ODRS/train_utils/custom_train_all.py
+      run: |
+        cd ODRS/ODRS/train_utils/
+        python custom_train_all.py
