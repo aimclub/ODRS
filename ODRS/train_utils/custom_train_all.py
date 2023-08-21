@@ -19,7 +19,7 @@ from ODRS.train_utils.train_model.scripts.ssd_train import train_ssd
 
 
 FILE = Path(__file__).resolve()
-ROOT = FILE.parents[2]  # PATH TO ODRC_project
+ROOT = FILE.parents[2]  # PATH TO ODRS
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
