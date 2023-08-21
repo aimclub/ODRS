@@ -28,5 +28,5 @@ jobs:
         cd ../../
     - name: AI training
       run: |
-        cd ODRS/ODRS/train_utils/
+        cd ODRS/train_utils/
         python custom_train_all.py
