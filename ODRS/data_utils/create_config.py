@@ -21,7 +21,7 @@ def delete_cache(data_path):
                 os.remove(os.path.join(root, file))
 
 
-def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs):
+def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
     # Get current file path
     current_file_path = Path(__file__).resolve()
 
@@ -31,7 +31,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
         os.makedirs(runs_directory, exist_ok=True)
 
     # Create runs path
-    runs_path = f"{runs_directory}/{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{arch}"
+    runs_path = f"{runs_directory}/{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{model}"
     os.makedirs(f"{runs_path}", exist_ok=True)
     class_file_path = f"{current_file_path.parents[2]}/{classname_file}"
 
