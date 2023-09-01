@@ -46,30 +46,30 @@ def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PA
 
     if arch == 'yolov8':
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
-                                         EPOCHS)
+                                         EPOCHS, MODEL)
         train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
     elif arch == 'yolov5':
         logger.info(PATH_SPLIT_TRAIN)
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
-                                         EPOCHS)
+                                         EPOCHS, MODEL)
         logger.info(CONFIG_PATH)
         os.system(f"cat {CONFIG_PATH}")
         train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
     elif arch == 'yolov7':
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
-                                         EPOCHS)
+                                         EPOCHS, MODEL)
         train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
     elif arch == 'faster-rcnn':
         DATA_PATH = copy_arch_folder(DATA_PATH)
         convert_voc(DATA_PATH, CLASSES)
         CONFIG_PATH = create_config_data(f'{DATA_PATH}/train', f'{DATA_PATH}/valid', CLASSES, CONFIG_PATH, arch,
-                                         BATCH_SIZE, EPOCHS)
+                                         BATCH_SIZE, EPOCHS, MODEL)
         train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, GPU_COUNT, IMG_SIZE)
     elif arch == 'ssd':
         DATA_PATH = copy_arch_folder(DATA_PATH)
         convert_voc(DATA_PATH, CLASSES)
         CONFIG_PATH = create_config_data(f'{DATA_PATH}/train.json', f'{DATA_PATH}/valid.json', CLASSES, CONFIG_PATH,
-                                         arch, BATCH_SIZE, EPOCHS)
+                                         arch, BATCH_SIZE, EPOCHS, MODEL)
         train_ssd(CONFIG_PATH)
 
 
