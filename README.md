@@ -71,6 +71,7 @@ The main criteria for drawing up the rules were chosen:
 - [Dataset structure](#dataset-structure)
 - [ML Recommendation system](#ml-recommendation-system)
 - [Detectors Training](#detectors-training)
+- [Using the API](#using-the-api)
 - [Contacts](#contacts)
 
 ## Installation
@@ -167,7 +168,7 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
 
 
     ```
-3. Go to the script **ml_model_optimizer.py ** and start it:
+3. Go to the script **ml_model_optimizer.py** and start it:
     ```markdown
     cd ..
     python ml_model_optimizer.py
@@ -233,12 +234,20 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     ```
 4. After the training, you will see in the root directory ***ODRS*** a new directory ***runs***, all the results of experiments will be saved in it. For convenience, the result of each experiment is saved in a separate folder in the following form:
     ```markdown
-    <year>-<mounth>-<day>_<hours>-<minutes>-<seconds>_<acrh>
+    <year>-<mounth>-<day>_<hours>-<minutes>-<seconds>_<model_name>
     |_ _exp
         |_...
     ```
 
+## Using the API
+To use the project in your code, you can use the built-in Api. You can see examples of using the API here: [Example API](https://github.com/saaresearch/ODRS/blob/master/examples/api_example.ipynb).
+
+This project is actively used in testing new models and datasets in Insystem for classification and detection of garbage.
+<div align="center">
+    <img src="docs/img/monitoring_system.jpg" width="400">
+</div>
+
 ## Contacts
-- [Telegram](https://t.me/) 
+- [Telegram](https://t.me/dedinside4ever) 
 
 
