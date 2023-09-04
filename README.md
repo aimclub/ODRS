@@ -244,7 +244,7 @@ To use the project in your code, you can use the built-in Api. You can see examp
 
 This project is actively used in testing new models and datasets in Insystem for classification and detection of garbage.
 <div align="center">
-    <img src="docs/img/monitoring_system.jpg" width="400">
+    <img src="docs/img/monitoring_system.jpg" width="700">
 </div>
 
 ## Contacts
