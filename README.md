@@ -71,6 +71,7 @@ The main criteria for drawing up the rules were chosen:
 - [Dataset structure](#dataset-structure)
 - [ML Recommendation system](#ml-recommendation-system)
 - [Detectors Training](#detectors-training)
+- [Using the API](#using-the-api)
 - [Contacts](#contacts)
 
 ## Installation
@@ -167,7 +168,7 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
 
 
     ```
-3. Go to the script **ml_model_optimizer.py ** and start it:
+3. Go to the script **ml_model_optimizer.py** and start it:
     ```markdown
     cd ..
     python ml_model_optimizer.py
@@ -233,12 +234,45 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     ```
 4. After the training, you will see in the root directory ***ODRS*** a new directory ***runs***, all the results of experiments will be saved in it. For convenience, the result of each experiment is saved in a separate folder in the following form:
     ```markdown
-    <year>-<mounth>-<day>_<hours>-<minutes>-<seconds>_<acrh>
+    <year>-<mounth>-<day>_<hours>-<minutes>-<seconds>_<model_name>
     |_ _exp
         |_...
     ```
 
+## Using the API
+To use the project in your code, you can use the built-in Api. You can see full examples of using the API here: [Example API](https://github.com/saaresearch/ODRS/blob/master/examples/api_example.ipynb).
+1. Initializing a task:
+```python
+from ODRS.ODRS.api.ODRS import ODRS
+#init object with parameters
+odrs = ODRS(job="object_detection", data_path = 'full_data_path', classes = "classes.txt",
+                img_size = "512", batch_size = "25", epochs = "300",
+                model = 'yolov8x6', gpu_count = 1, select_gpu = "0", config_path = "dataset.yaml", 
+                split_train_value = 0.6, split_test_value = 0.35, split_val_value = 0.05)
+```
+2. Starting training:
+```python
+from ODRS.ODRS.api.ODRS import ODRS
+odrs.fit()
+```
+3. Getting results:
+```python
+!yolo val detect data=path_to_data device=0 model=ODRS/runs/path_to_experiment/best.pt
+```
+4. Example results:
+<div align="center">
+    <img src="docs/img/example_train.png" width="400">
+    <img src="docs/img/val_labels.jpg" width="400">
+</div>
+
+
+
+This project is actively used in testing new models and datasets in Insystem for classification and detection of garbage.
+<div align="center">
+    <img src="docs/img/monitoring_system.png" width="700">
+</div>
+
 ## Contacts
-- [Telegram](https://t.me/) 
+- [Telegram](https://t.me/dedinside4ever) 
 
 
