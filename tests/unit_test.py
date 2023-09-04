@@ -9,7 +9,7 @@ from ODRS.ODRS.data_utils.dataset_info import dataset_info, process_directory_im
 class TestDatasetInfo(unittest.TestCase):
     def test_dataset_info(self):
         dataset_path = "/home/runner/work/ODRS/ODRS/user_datasets/yolo/aeral"
-        classes_path = "/home/runner/work/ODRS/classes.txt"
+        classes_path = "/home/runner/work/ODRS/ODRS/classes.txt"
 
         result = dataset_info(dataset_path, classes_path)
 
