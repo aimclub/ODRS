@@ -21,4 +21,4 @@ jobs:
         pip install flake8
     - name: Run PEP8 test
       run: |
-        flake8 --max-line-length=130 --exclude=ODRS/train_utils/train_model/models/*,ODRS/ml_utils/*,ODRS/train_utils/custom_train_all.py,ODRS/train_utils/train_model/scripts/yolov7_train.py,ODRS/tests/* .
+        flake8 --max-line-length=130 --exclude=ODRS/train_utils/train_model/models/*,ODRS/ml_utils/*,ODRS/train_utils/custom_train_all.py,ODRS/train_utils/train_model/scripts/yolov7_train.py,tests/* .
