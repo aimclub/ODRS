@@ -1,0 +1,30 @@
+name: Unit-test
+
+on:
+  push:
+    branches: [ "master", "develop"]
+  pull_request:
+    branches: [ "master" ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Download dataset
+      run: |
+        cd user_datasets/yolo
+        mkdir aeral
+        cd aeral
+        curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
+    - name: Test
+      run: |
+        python tests/unit_test.py 
