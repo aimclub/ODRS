@@ -1,8 +1,8 @@
 Quickstart
 ==========
 
-Initializing a task::
 .. code-block::  python
+
 
     from ODRS.ODRS.api.ODRS import ODRS
     #init object with parameters
