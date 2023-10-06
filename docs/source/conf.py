@@ -18,12 +18,10 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 
 # -- Project information -----------------------------------------------------
 
-project = 'FEDOT Industrial'
-copyright = '2021-{}, NSS Lab'.format(datetime.datetime.now().year)
-author = 'NSS Lab'
-
-# The full version, including alpha/beta/rc tags
-release = '0.3.0'
+project = 'ODRS'
+copyright = '2023, Artem Smetanin, Mikhail Gerasimchuk'
+author = 'Artem Smetanin, Mikhail Gerasimchuk'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -65,7 +63,7 @@ StandaloneHTMLBuilder.supported_image_types = [
     'image/jpeg'
 ]
 html_theme = "sphinx_rtd_theme"
-html_logo = '../img/fedot-industrial.png'
+html_logo = '../img/logo.png'
 html_theme_options = {
     'logo_only': True,
     'display_version': False,
