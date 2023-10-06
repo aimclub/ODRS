@@ -1,7 +1,7 @@
 Introduction to Framework
 =========================
 
-.. image:: ./img_introduction/fedot-industrial.png
+.. image:: ./img_introduction/logo.png
 
 .. toctree::
     :maxdepth: 1
@@ -12,21 +12,7 @@ Introduction to Framework
     architecture
     license
 
-FEDOT.Industrial is a Python-based open-source framework for automated machine learning.
-It is designed to solve complex real-world problems with a minimum of human
-intervention. Among this problems are:
+ODRS - it an open source recommendation system for training object detection models. Our system allows you to choose the most profitable existing object recognition models based on user preferences and data. In addition to choosing the architecture of the model, the system will help you start training and configure the environment.
+The proposed recommendation system consists of several components that interact to generate recommendations for machine learning pipelines.
 
-**Time series classification**
 
-Here we use a combination of feature generators and light-weight machine learning
-models to obtain results which are comparable to the state-of-the-art
-approaches.
-
-**Anomaly detection**
-
-.. note::
-    This functionality is under development.
-
-**Object detection**
-
-**Object classification**
