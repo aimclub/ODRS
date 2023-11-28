@@ -1,19 +1,30 @@
 import os
 import shutil
 import glob
+import sys
+from tqdm import tqdm
+from loguru import logger
 
-
-def split_data(datapath, split_train_value, split_val_value, split_test_value):
+def split_data(datapath, split_train_value, split_valid_value):
     selected_folders = ['test', 'train', 'valid']
-    selected_files = ['classes.txt']
 
     train_path = os.path.join(datapath, 'train')
     test_path = os.path.join(datapath, 'test')
     val_path = os.path.join(datapath, 'valid')
 
-    if os.path.exists(train_path) and os.path.exists(test_path) and (os.path.exists(val_path)
-                                                                     or os.path.exists(os.path.join(datapath, 'valid'))):
-        return "Dataset is ready"
+    if os.path.exists(train_path) and (os.path.exists(val_path)
+                                        or os.path.exists(os.path.join(datapath, 'val'))):
+        logger.info("Dataset is ready")
+        return train_path, val_path if os.path.exists(val_path) else os.path.join(datapath, 'val')
+    if os.path.exists(train_path) and not (os.path.exists(val_path)
+                                        or os.path.exists(os.path.join(datapath, 'val'))):
+        logger.error("Dataset has no validation sample")
+        sys.exit()
+    if not os.path.exists(train_path) and (os.path.exists(val_path)
+                                        or os.path.exists(os.path.join(datapath, 'val'))):
+        logger.error("Dataset has no training sample")
+        sys.exit()
+
 
     images_path = os.path.join(datapath, 'images')
     labels_path = os.path.join(datapath, 'labels')
@@ -29,28 +40,34 @@ def split_data(datapath, split_train_value, split_val_value, split_test_value):
                       glob.glob(os.path.join(datapath, '*.png'))
         label_files = glob.glob(os.path.join(datapath, '*.txt'))
 
+    image_files.sort()
+    label_files.sort()
+
     total_files = len(image_files) + len(label_files)
 
     if total_files == 0:
-        print("Error: No image or label files found in the datapath.")
-        return
+        logger.error("Error: No image or label files found in the datapath.")
 
     train_split = int(len(image_files) * split_train_value)
-    val_split = int(len(image_files) * split_val_value)
+    val_split = int(len(image_files) * split_valid_value)
 
-    print(f'Len_images_files:{len(image_files)}')
+    logger.info(f'Total number of images:{len(image_files)}')
+    logger.info(f'Total number of labels:{len(label_files)}')
 
     train_images = image_files[:train_split]
     train_labels = label_files[:train_split]
-    print(f'train_images:{len(train_images)}')
+    logger.info(f'Number train images:{len(train_images)}')
+    logger.info(f'Number train labels:{len(train_labels)}')
 
     val_images = image_files[train_split:train_split+val_split]
     val_labels = label_files[train_split:train_split+val_split]
-    print(f'val_labels:{len(val_labels)}')
+    logger.info(f'Number valid images:{len(val_images)}')
+    logger.info(f'Number valid labels:{len(val_labels)}')
 
     test_images = image_files[train_split+val_split:]
     test_labels = label_files[train_split+val_split:]
-    print(f'test_labels:{len(test_labels)}')
+    logger.info(f'Number test images:{len(test_images)}')
+    logger.info(f'Number test labels:{len(test_labels)}')
 
     for path in [train_path, test_path, val_path]:
         if not os.path.exists(path):
@@ -60,32 +77,28 @@ def split_data(datapath, split_train_value, split_val_value, split_test_value):
         os.makedirs(images_subpath)
         os.makedirs(labels_subpath)
 
-    for image_file in train_images:
+    for image_file in tqdm(train_images, desc="Train images"):
         shutil.copy(image_file, os.path.join(train_path, 'images', os.path.basename(image_file)))
-    for image_file in val_images:
+    for image_file in tqdm(val_images, desc="Valid images"):
         shutil.copy(image_file, os.path.join(val_path, 'images', os.path.basename(image_file)))
-    for image_file in test_images:
+    for image_file in tqdm(test_images, desc="Test images"):
         shutil.copy(image_file, os.path.join(test_path, 'images', os.path.basename(image_file)))
 
-    for label_file in train_labels:
+    for label_file in tqdm(train_labels, desc="Train labels"):
         shutil.copy(label_file, os.path.join(train_path, 'labels', os.path.basename(label_file)))
-    for label_file in val_labels:
+    for label_file in tqdm(val_labels, desc="Valid labels"):
         shutil.copy(label_file, os.path.join(val_path, 'labels', os.path.basename(label_file)))
-    for label_file in test_labels:
+    for label_file in tqdm(test_labels, desc="Test labels"):
         shutil.copy(label_file, os.path.join(test_path, 'labels', os.path.basename(label_file)))
 
     for root, dirs, files in os.walk(datapath, topdown=False):
         for name in files:
             file_path = os.path.join(root, name)
-            if name not in selected_files and file_path.split('/')[-3] not in selected_folders:
+            if file_path.split('/')[-3] not in selected_folders:
                 os.remove(file_path)
 
-        for name in dirs:
-            dir_path = os.path.join(root, name)
-            if name not in selected_folders and dir_path.split('/')[-2] not in selected_folders:
-                shutil.rmtree(dir_path)
-
-    return "Dataset was split"
+    logger.info("Dataset was split")
+    return train_path, val_path
 
 
 def remove_folder(path):
@@ -93,11 +106,11 @@ def remove_folder(path):
 
 
 def copy_arch_folder(dataset_path):
-    folder_name = dataset_path.split('/')[-1]
-    dataset_path = os.path.dirname(dataset_path)
-    voc_path = os.path.join(os.path.dirname(dataset_path), "voc")
+    dataset_folder = dataset_path.parent
+    dataset_name = f'{dataset_path.name}_voc'
+    voc_path = os.path.join(dataset_folder, dataset_name)
     yolo_path = os.path.join(dataset_path)
     if os.path.exists(voc_path):
         remove_folder(voc_path)
     shutil.copytree(yolo_path, voc_path)
-    return f'{voc_path}/{folder_name}'
+    return voc_path

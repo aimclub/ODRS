@@ -22,21 +22,17 @@ def delete_cache(data_path):
 
 
 def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
-    # Get current file path
     current_file_path = Path(__file__).resolve()
 
-    # Create runs directory if it does not exist
-    runs_directory = f"{current_file_path.parents[2]}/runs"
+    runs_directory = Path(current_file_path.parents[2]) / 'runs'
     if not os.path.exists(runs_directory):
         os.makedirs(runs_directory, exist_ok=True)
 
-    # Create runs path
-    runs_path = f"{runs_directory}/{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{model}"
-    os.makedirs(f"{runs_path}", exist_ok=True)
-    class_file_path = f"{current_file_path.parents[2]}/{classname_file}"
+    runs_path = runs_directory / f"{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{model}"
+    os.makedirs(runs_path, exist_ok=True)
+    class_file_path = Path(current_file_path.parents[2]) / classname_file
 
-    # Create config path
-    config_path = f"{runs_path}/{config_path}"
+    config_path = runs_path / config_path
     if arch == 'ssd':
         class_names = read_names_from_txt(class_file_path)
         dataset_yaml = '''\
@@ -44,7 +40,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
 train_json: {}
 val_json: {}
 class_names: {}
-recall_steps: 101
+recall_steps: 11
 image_mean: [123., 117., 104.]
 image_stddev: [1., 1, 1.]
 
@@ -52,22 +48,22 @@ image_stddev: [1., 1, 1.]
 model: SSD
 backbone:
   name: VGG16
-  num_stages: 7
-input_size: 512
-anchor_scales: [0.04, 0.1, 0.26, 0.42, 0.58, 0.74, 0.9]
-anchor_aspect_ratios: [[1, 2], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2], [1, 2]]
+  num_stages: 6
+input_size: 300
+anchor_scales: [0.1, 0.2, 0.375, 0.55, 0.725, 0.9]
+anchor_aspect_ratios: [[1, 2], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2], [1, 2]]
 
 # Training
 batch_size: {}
 epochs: {}
 optim:
   name: SGD
-  lr: 0.001
+  lr: 0.0001
   momentum: 0.9
   weight_decay: 0.0005
 scheduler:
   name: MultiStepLR
-  milestones: [90, 110]
+  milestones: [155, 195]
   gamma: 0.1
             '''.format(train_path, val_path, class_names, batch_size, epochs)
         logger.info("Create config file")
@@ -98,8 +94,8 @@ NC: {}
 
 # Whether to save the predictions of the validation set while training.
 SAVE_VALID_PREDICTION_IMAGES: True
-            '''.format(f'{train_path}/images', f'{train_path}/annotations', f'{val_path}/images',
-                       f'{val_path}/annotations', class_names, len(class_names))
+            '''.format(train_path / 'images', train_path / 'annotations', val_path / 'images',
+                       val_path / 'annotations', class_names, len(class_names))
         logger.info("Create config file")
         with open(config_path, 'w') as file:
             file.write(dataset_yaml)
