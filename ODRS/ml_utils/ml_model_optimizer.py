@@ -27,8 +27,6 @@ if str(ROOT) not in sys.path:
 def predict(mode, classes_path, dataset_path, speed, accuracy):
     file = Path(__file__).resolve()
 
-    #split_data(dataset_path, split_train_value=0.6, split_valid_value=0.35)
-
     run_path = createRunDirectory(model='ml')
 
     model_top = list()
@@ -36,6 +34,8 @@ def predict(mode, classes_path, dataset_path, speed, accuracy):
     model_array = getModels()
 
     dataset_path_new = getDataPath(ROOT, dataset_path)
+
+    split_data(dataset_path_new, split_train_value=0.6, split_valid_value=0.35)
 
     dataset_data = dataset_info(dataset_path_new, Path(file.parents[2]) / classes_path, run_path)
 
