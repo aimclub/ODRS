@@ -20,8 +20,7 @@ def delete_cache(data_path):
             if file.endswith(tuple(extensions_to_delete)):
                 os.remove(os.path.join(root, file))
 
-
-def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
+def createRunDirectory(model):
     current_file_path = Path(__file__).resolve()
 
     runs_directory = Path(current_file_path.parents[2]) / 'runs'
@@ -30,6 +29,14 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
 
     runs_path = runs_directory / f"{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{model}"
     os.makedirs(runs_path, exist_ok=True)
+    return runs_path
+
+
+def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
+    current_file_path = Path(__file__).resolve()
+
+    runs_path = createRunDirectory(model)
+    
     class_file_path = Path(current_file_path.parents[2]) / classname_file
 
     config_path = runs_path / config_path
