@@ -6,7 +6,7 @@ class ODRS:
     def __init__(self, job, data_path=None, classes="classes.txt",
                  img_size="256", batch_size="18", epochs="3",
                  model='yolov5l', gpu_count=1, select_gpu="0", config_path="dataset.yaml",
-                 split_train_value=0.6, split_test_value=0.35, split_val_value=0.05,
+                 split_train_value=0.6, split_val_value=0.05,
                  gpu=True, speed=2, accuracy=10):
         self.job = job.lower()
         self.data_path = data_path
@@ -19,7 +19,6 @@ class ODRS:
         self.select_gpu = select_gpu
         self.config_path = config_path
         self.split_train_value = split_train_value
-        self.split_test_value = split_test_value
         self.split_val_value = split_val_value
         self.gpu = gpu
         self.speed = speed
@@ -31,4 +30,4 @@ class ODRS:
         elif self.job == "object_detection":
             fit_model(self.data_path, self.classes, self.img_size, self.batch_size, self.epochs,
                       self.model, self.config_path, self.split_train_value, self.split_val_value,
-                      self.split_test_value, self.gpu_count, self.select_gpu)
+                      self.gpu_count, self.select_gpu)
