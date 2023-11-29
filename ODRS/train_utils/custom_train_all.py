@@ -8,14 +8,15 @@ from loguru import logger
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from ODRS.data_utils.split_dataset import split_data, copy_arch_folder
+from ODRS.data_utils.prepare_ssd import resize_images_and_annotations
 from ODRS.data_utils.create_config import create_config_data, delete_cache
-from ODRS.data_utils.prepare_train import get_path_model, load_config
 from ODRS.data_utils.convert_yolo_to_voc import convert_voc
 from ODRS.train_utils.train_model.scripts.yolov5_train import train_V5
 from ODRS.train_utils.train_model.scripts.yolov7_train import train_V7
 from ODRS.train_utils.train_model.scripts.yolov8_train import train_V8
 from ODRS.train_utils.train_model.scripts.faster_rccn_train import train_frcnn
 from ODRS.train_utils.train_model.scripts.ssd_train import train_ssd
+from ODRS.utils.utils import modelSelection, loadConfig, getDataPath
 
 
 FILE = Path(__file__).resolve()
@@ -25,50 +26,43 @@ if str(ROOT) not in sys.path:
 
 
 def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PATH, SPLIT_TRAIN_VALUE,
-              SPLIT_VAL_VALUE, SPLIT_TEST_VALUE, GPU_COUNT, SELECT_GPU):
-    split_data(DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE, SPLIT_TEST_VALUE)
-
-    arch = 'yolov5' if MODEL.startswith('yolov5') else \
-        'yolov7' if MODEL.startswith('yolov7') else \
-        'yolov8' if MODEL.startswith('yolov8') else \
-        'ssd' if MODEL == 'ssd' else \
-        'faster-rcnn' if MODEL == 'faster-rcnn' else \
-        "Invalid model name"
+              SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU):
     
-    MODEL_PATH = get_path_model(MODEL)
+    DATA_PATH = getDataPath(ROOT, DATA_PATH)
 
+    PATH_SPLIT_TRAIN, PATH_SPLIT_VALID = split_data(DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE)
 
-    if os.path.exists(f'{DATA_PATH}/train') and os.path.exists(f'{DATA_PATH}/valid'):
-        PATH_SPLIT_TRAIN = f'{DATA_PATH}/train'
-        PATH_SPLIT_VALID = f'{DATA_PATH}/valid'
+    arch, MODEL_PATH = modelSelection(MODEL)
 
     delete_cache(DATA_PATH)
-
+    #ready
     if arch == 'yolov8':
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
                                          EPOCHS, MODEL)
         train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    #ready
     elif arch == 'yolov5':
-        logger.info(PATH_SPLIT_TRAIN)
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
                                          EPOCHS, MODEL)
-        logger.info(CONFIG_PATH)
-        os.system(f"cat {CONFIG_PATH}")
         train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    #ready
     elif arch == 'yolov7':
         CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
                                          EPOCHS, MODEL)
         train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    #ready
     elif arch == 'faster-rcnn':
         DATA_PATH = copy_arch_folder(DATA_PATH)
         convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH = create_config_data(f'{DATA_PATH}/train', f'{DATA_PATH}/valid', CLASSES, CONFIG_PATH, arch,
+        CONFIG_PATH = create_config_data(Path(DATA_PATH) / 'train', Path(DATA_PATH) / 'valid', CLASSES, CONFIG_PATH, arch,
                                          BATCH_SIZE, EPOCHS, MODEL)
         train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, GPU_COUNT, IMG_SIZE)
+    #ready
     elif arch == 'ssd':
         DATA_PATH = copy_arch_folder(DATA_PATH)
+        resize_images_and_annotations(DATA_PATH, IMG_SIZE)
         convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH = create_config_data(f'{DATA_PATH}/train.json', f'{DATA_PATH}/valid.json', CLASSES, CONFIG_PATH,
+        CONFIG_PATH = create_config_data(Path(DATA_PATH) / 'train.json', Path(DATA_PATH) / 'valid.json', CLASSES, CONFIG_PATH,
                                          arch, BATCH_SIZE, EPOCHS, MODEL)
         train_ssd(CONFIG_PATH)
 
@@ -78,7 +72,8 @@ def run():
     Create config, run learning functions.
 
     """
-    config = load_config(f'{ROOT}/ODRS/train_utils/config/custom_config.yaml')
+    config_path = Path(ROOT) / 'ODRS' / 'train_utils' / 'config' / 'custom_config.yaml'
+    config = loadConfig(config_path)
 
     DATA_PATH = config['DATA_PATH']
     CLASSES = config['CLASSES']
@@ -89,12 +84,11 @@ def run():
     CONFIG_PATH = config['CONFIG_PATH']
     SPLIT_TRAIN_VALUE = config['SPLIT_TRAIN_VALUE']
     SPLIT_VAL_VALUE = config['SPLIT_VAL_VALUE']
-    SPLIT_TEST_VALUE = config['SPLIT_TEST_VALUE']
     GPU_COUNT = config['GPU_COUNT']
     SELECT_GPU = config['SELECT_GPU']
 
     fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PATH, SPLIT_TRAIN_VALUE,
-              SPLIT_VAL_VALUE, SPLIT_TEST_VALUE, GPU_COUNT, SELECT_GPU)
+              SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU)
 
 if __name__ == "__main__":
     run()

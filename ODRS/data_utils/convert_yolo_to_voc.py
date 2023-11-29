@@ -2,19 +2,20 @@ import os
 import re
 from pathlib import Path
 import shutil
+from loguru import logger
 from PIL import Image
 from tqdm import tqdm
 from ODRS.data_utils.prepare_ssd import create_ssd_json
 
 
 def convert_voc(data_path, txt_path):
-    print("Creating VOC format for dataset")
-    for i in ['train', 'test', 'valid']:
-        convert_yolo_to_voc(f'{data_path}/{i}', txt_path, 'annotations')
-        shutil.rmtree(f'{data_path}/{i}/labels')
-        create_ssd_json(f'{data_path}/{i}', txt_path)
-        # except:
-        #     continue
+    logger.info("Creating VOC format for dataset")
+    path = Path(data_path)
+    folder_names = [folder.name for folder in path.iterdir() if folder.is_dir()]
+    for name in folder_names:
+        convert_yolo_to_voc(Path(data_path) / name, txt_path, 'annotations')
+        shutil.rmtree(Path(data_path) / name / 'labels')
+        create_ssd_json(Path(data_path) / name, txt_path)
 
 
 def copy_files_to_jpeg_images_folder(data_path):
@@ -26,7 +27,6 @@ def copy_files_to_jpeg_images_folder(data_path):
                 file_path = os.path.join(subfolder_path, file_name)
                 if os.path.isfile(file_path):
                     shutil.copy(file_path, jpeg_images_folder)
-
     return jpeg_images_folder
 
 

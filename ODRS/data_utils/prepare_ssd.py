@@ -1,5 +1,7 @@
 import os
 import json
+import glob
+from PIL import Image
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
@@ -62,28 +64,82 @@ def get_image_names(folder_path):
 
 def create_ssd_json(path_folder, txt_path):
     current_file_path = Path(__file__).resolve()
-    txt_path = f"{current_file_path.parents[2]}/{txt_path}"
+    txt_path = Path(current_file_path.parents[2]) / txt_path
     class_names = read_names_from_txt(txt_path)
 
     paths = {
-        2007: os.path.join(os.path.dirname(path_folder), path_folder.split('/')[-1])
+        2007: os.path.join(os.path.dirname(path_folder), path_folder)
     }
 
     dataset = []
     for year, path in paths.items():
-        ids = get_image_names(f'{path_folder}/images')
+        ids = get_image_names(Path(path_folder) / 'images')
         for id in tqdm(ids):
             image_path = os.path.join(path, 'images', id + '.jpg')
             annotation_path = os.path.join(path, 'annotations', id + '.xml')
             if check_filename(annotation_path):
-                boxes, classes, difficulties = parse_annotation(annotation_path)
-                classes = [class_names.index(c) for c in classes]
-                dataset.append(
-                    {
-                        'image': os.path.abspath(image_path),
-                        'boxes': boxes,
-                        'classes': classes,
-                        'difficulties': difficulties
-                    }
-                )
-    save_as_json(f'{os.path.dirname(path_folder)}/{path_folder.split("/")[-1]}.json', dataset)
+                try:
+                    boxes, classes, difficulties = parse_annotation(annotation_path)
+                    classes = [class_names.index(c) for c in classes]
+                    dataset.append(
+                        {
+                            'image': os.path.abspath(image_path),
+                            'boxes': boxes,
+                            'classes': classes,
+                            'difficulties': difficulties
+                        }
+                    )
+                except Exception as e:
+                    print(e)
+
+        save_as_json(Path(os.path.dirname(path_folder)) / f'{path_folder.name}.json', dataset)
+
+
+
+def resize_images_and_annotations(data_path, img_size):
+    size = img_size if img_size <= 300 else 300
+    path = Path(data_path)
+    folder_names = [folder.name for folder in path.iterdir() if folder.is_dir()]
+    for name in folder_names:
+        folder_path = path / name
+        images_path = os.path.join(folder_path, 'images')
+        labels_path = os.path.join(folder_path, 'labels')
+
+        for image_name in tqdm(os.listdir(images_path), desc=f'Resize {name} images'):
+            image_path = os.path.join(images_path, image_name)
+            label_path = os.path.join(labels_path, image_name.replace('.jpg', '.txt'))
+
+            with Image.open(image_path) as img:
+                original_width, original_height = img.size
+
+                if original_width > size or original_height > size:
+                    img = img.resize((size, size))
+
+                    if os.path.exists(label_path):
+                        with open(label_path, 'r') as file:
+                            lines = file.readlines()
+
+                        with open(label_path, 'w') as file:
+                            for line in lines:
+                                parts = line.split()
+                                if len(parts) == 5:
+                                    x_center = float(parts[1]) * original_width
+                                    y_center = float(parts[2]) * original_height
+                                    width = float(parts[3]) * original_width
+                                    height = float(parts[4]) * original_height
+
+                                    x_center *= size / original_width
+                                    y_center *= size / original_height
+                                    width *= size / original_width
+                                    height *= size / original_height
+
+                                    x_center /= size
+                                    y_center /= size
+                                    width /= size
+                                    height /= size
+
+                                    file.write(f"{parts[0]} {x_center} {y_center} {width} {height}\n")
+
+                    img.save(image_path)
+
+# resize_images_and_annotations('/media/space/ssd_1_tb_evo_sumsung/ITMO/ODRS/user_datasets/Warp-D_voc/test')
