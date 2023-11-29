@@ -168,8 +168,6 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     classes_path: classes.txt
     dataset_path: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/plant
     speed: 1
-
-
     ```
 3. Go to the script **ml_model_optimizer.py** and start it:
     ```markdown
@@ -178,15 +176,15 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     ```
 4. If everything worked successfully, you will see something like the following answer:
     ```markdown
-    Number of images: 1016
-    W: 800
-    H: 600
-    Gini Coefficient: 64.0
-    Number of classes: 5
+    Number of images: 3496
+    Width: 960
+    Height: 540
+    Gini Coefficient: 94.0
+    Number of classes: 28
     Top models for training:
-    1) yolov5x
-    2) yolov5l
-    3) yolov8x6
+    1) yolov7
+    2) yolov8x6
+    3) yolov7x
     ```
 
 ## Detectors Training
@@ -224,7 +222,6 @@ After you have placed your dataset in the folder ***user_datasets/yolo*** and cr
     SELECT_GPU: 0,1
 
     # parameters for autosplit dataset
-    SPLIT_TEST_VALUE: 0.05
     SPLIT_TRAIN_VALUE: 0.6
     SPLIT_VAL_VALUE: 0.35
     ```
@@ -251,7 +248,7 @@ from ODRS.ODRS.api.ODRS import ODRS
 odrs = ODRS(job="object_detection", data_path = 'full_data_path', classes = "classes.txt",
                 img_size = "512", batch_size = "25", epochs = "300",
                 model = 'yolov8x6', gpu_count = 1, select_gpu = "0", config_path = "dataset.yaml", 
-                split_train_value = 0.6, split_test_value = 0.35, split_val_value = 0.05)
+                split_train_value = 0.6, split_val_value = 0.35)
 ```
 2. Starting training:
 ```python
