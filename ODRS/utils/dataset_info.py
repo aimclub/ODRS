@@ -3,8 +3,7 @@ import os
 import numpy as np
 from loguru import logger
 from pathlib import Path
-from collections import Counter
-import matplotlib.pyplot as plt
+from ODRS.utils.ml_plot import plot_class_balance
 
 def load_class_names(classes_file):
     """ Загрузка названий классов из файла. """
@@ -30,20 +29,6 @@ def load_yolo_labels(data_path, class_names):
                             labels.append(class_names[class_id])
     return labels
 
-
-def plot_class_balance(labels, output_path):
-    """ Построение и сохранение графика баланса классов с наклоненными метками и вывод среднего значения. """
-    class_counts = Counter(labels)
-    output_file = output_path / 'Class_balance.png'
-
-    plt.bar(class_counts.keys(), class_counts.values())
-    plt.xlabel('Classes')
-    plt.ylabel('Number of instances')
-    plt.title('Class balance')
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.savefig(output_file)
-    # plt.show()
 
 def find_images(data_path):
     supported_extensions = {".jpg", ".jpeg", ".png"}

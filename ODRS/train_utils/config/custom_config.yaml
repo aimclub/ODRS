@@ -4,7 +4,7 @@ DATA_PATH: Warp-D
 EPOCHS: 2
 GPU_COUNT: 1
 IMG_SIZE: 200
-MODEL: faster-rcnn
+MODEL: yolov5l
 SELECT_GPU: 0
 
 CONFIG_PATH: dataset.yaml
