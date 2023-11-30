@@ -6,7 +6,7 @@ class ODRS:
     def __init__(self, job, data_path=None, classes="classes.txt",
                  img_size="256", batch_size="18", epochs="3",
                  model='yolov5l', gpu_count=1, select_gpu="0", config_path="dataset.yaml",
-                 split_train_value=0.6, split_val_value=0.05,
+                 split_train_value=0.6, split_val_value=0.30,
                  gpu=True, speed=2, accuracy=10):
         self.job = job.lower()
         self.data_path = data_path
