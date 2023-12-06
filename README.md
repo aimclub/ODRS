@@ -90,50 +90,48 @@ pip install -r requirements.txt
 To use the recommendation system or train the desired detector, put your dataset in yolo format in the ***user_datasets/yolo*** directory. The set can have the following structures:
 ```markdown
 user_datasets
-|_ _yolo
-    |_ _ <folder_name_your_dataset>
-        |_ _train
-            |_ _images
-                    |_ <name_1>.jpg
-                    |_ ...
-                    |_ <name_N>.jpg
-            |_ _labels
-                    |_ <name_1>.txt
-                    |_ ...
-                    |_ <name_N>.txt
-        |_ _valid
-            |_ _images
-                    |_ <name_1>.jpg
-                    |_ ...
-                    |_ <name_N>.jpg
-            |_ _labels
-                    |_ <name_1>.txt
-                    |_ ...
-                    |_ <name_N>.txt
-        |_ _test
-            |_ _images
-                    |_ <name_1>.jpg
-                    |_ ...
-                    |_ <name_N>.jpg
-            |_ _labels
-                    |_ <name_1>.txt
-                    |_ ...
-                    |_ <name_N>.txt
+|_ _ <folder_name_your_dataset>
+    |_ _train
+        |_ _images
+                |_ <name_1>.jpg
+                |_ ...
+                |_ <name_N>.jpg
+        |_ _labels
+                |_ <name_1>.txt
+                |_ ...
+                |_ <name_N>.txt
+    |_ _valid
+        |_ _images
+                |_ <name_1>.jpg
+                |_ ...
+                |_ <name_N>.jpg
+        |_ _labels
+                |_ <name_1>.txt
+                |_ ...
+                |_ <name_N>.txt
+    |_ _test
+        |_ _images
+                |_ <name_1>.jpg
+                |_ ...
+                |_ <name_N>.jpg
+        |_ _labels
+                |_ <name_1>.txt
+                |_ ...
+                |_ <name_N>.txt
 
 ```
 ***or you can use the following structure, then your set will be automatically divided into samples:***
 
 ```markdown
 user_datasets
-|_ _yolo
-    |_ _ <folder_name_your_dataset>
-            |_ <name_1>.jpg
-            |_ ...
-            |_ <name_N>.jpg
-            |_ ...
-            |_ <name_1>.txt
-            |_ ...
-            |_ <name_N>.txt
+|_ _ <folder_name_your_dataset>
+        |_ <name_1>.jpg
+        |_ ...
+        |_ <name_N>.jpg
+        |_ ...
+        |_ <name_1>.txt
+        |_ ...
+        |_ <name_N>.txt
 
 ```
 
