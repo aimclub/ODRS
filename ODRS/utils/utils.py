@@ -68,6 +68,7 @@ def getDataPath(ROOT, folder_name):
     try:
         if not Path(FOLDER_PATH).is_dir() or not any(Path(FOLDER_PATH).iterdir()):
             logger.error("The dataset folder is empty or does not exist.")
+            sys.exit(0)
             return
 
         if FOLDER_PATH.parent.resolve() != DATA_PATH.resolve():
@@ -78,3 +79,18 @@ def getDataPath(ROOT, folder_name):
     except Exception as e:
         logger.error(f"An error has occurred: {e}")
     return FOLDER_PATH
+
+
+def getClassesPath(ROOT, classes_path):
+    DATA_PATH = Path(ROOT)
+    CLASSES_PATH = Path(classes_path)
+    try:
+        if CLASSES_PATH.is_file():
+            logger.info(f"Copying classes file to {DATA_PATH}")
+            shutil.copy(classes_path, DATA_PATH)
+    
+    except Exception as e:
+        logger.warning(f"An error has occurred: {e}")
+    CLASSES_PATH = CLASSES_PATH.name
+
+    return CLASSES_PATH
