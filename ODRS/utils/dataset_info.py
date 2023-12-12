@@ -3,7 +3,9 @@ import os
 import numpy as np
 from loguru import logger
 from pathlib import Path
+from collections import Counter
 from ODRS.utils.ml_plot import plot_class_balance
+from ODRS.utils.ml_utils import dumpCSV
 
 def load_class_names(classes_file):
     """ Загрузка названий классов из файла. """
@@ -62,11 +64,14 @@ def get_image_size(image_path):
     return None
 
 
+
 def dataset_info(dataset_path, classes_path, run_path):
     class_names = load_class_names(classes_path)
     class_labels = load_yolo_labels(dataset_path, class_names)
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     plot_class_balance(class_labels, run_path)
+    
+    dumpCSV(class_names, class_labels, run_path)
 
 
     gini_coef = float(gini) * 100

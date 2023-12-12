@@ -1,5 +1,5 @@
 GPU: true
 accuracy: 10
 classes_path: classes.txt
-dataset_path: Warp-D
+dataset_path: vending_machine_24_11
 speed: 1

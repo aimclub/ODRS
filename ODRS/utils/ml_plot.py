@@ -5,7 +5,7 @@ import random
 def plot_class_balance(labels, output_path):
     """ Построение и сохранение графика баланса классов с наклоненными метками и вывод среднего значения. """
     class_counts = Counter(labels)
-    output_file = output_path / 'Class_balance.png'
+    output_file = output_path / 'Classes_balance.png'
     colors = [f'#{random.randint(0, 0xFFFFFF):06x}' for _ in class_counts.keys()]
 
     plt.bar(class_counts.keys(), class_counts.values(), color=colors)
