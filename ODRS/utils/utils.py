@@ -9,6 +9,7 @@ import os
 
 file = Path(__file__).resolve()
 
+
 def loadConfig(config_file):
     with open(config_file) as f:
         return load(f, Loader=FullLoader)

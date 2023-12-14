@@ -1,4 +1,6 @@
 import os
+import subprocess
+import time
 from pathlib import Path
 from ODRS.train_utils.train_model.models.yolov5 import train
 
@@ -44,5 +46,4 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
         f" --project {CONFIG_PATH.parent}" +
         f" --name exp"
     )
-
     os.system(full_command)
