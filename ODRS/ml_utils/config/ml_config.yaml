@@ -1,5 +1,5 @@
 GPU: true
 accuracy: 10
 classes_path: classes.txt
-dataset_path: vending_machine_24_11
+dataset_path: /media/space/ssd_1_tb_evo_sumsung/exp-train/datasets/Monitoring_photo
 speed: 1

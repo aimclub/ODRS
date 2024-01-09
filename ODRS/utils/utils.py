@@ -76,6 +76,7 @@ def getDataPath(ROOT, folder_name):
             target_path = DATA_PATH / FOLDER_PATH.name
             logger.info(f"Copying a set of images to {DATA_PATH}")
             shutil.copytree(FOLDER_PATH, target_path, dirs_exist_ok=True)
+            FOLDER_PATH = target_path
     
     except Exception as e:
         logger.error(f"An error has occurred: {e}")

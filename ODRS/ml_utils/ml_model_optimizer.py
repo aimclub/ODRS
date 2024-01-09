@@ -35,7 +35,7 @@ def predict(mode, classes_path, dataset_path, speed, accuracy):
 
     dataset_path_new = getDataPath(ROOT, dataset_path)
 
-    split_data(dataset_path_new, split_train_value=0.6, split_valid_value=0.35)
+    split_data(dataset_path_new, split_train_value=0.75, split_valid_value=0.15)
 
     dataset_data = dataset_info(dataset_path_new, Path(file.parents[2]) / classes_path, run_path)
 
