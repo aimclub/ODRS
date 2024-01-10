@@ -16,10 +16,11 @@ def load_class_names(classes_file):
 
 def load_yolo_labels(data_path, class_names):
     """ Загрузка меток классов из YOLO аннотаций. """
-    labels = []
+    dict_labels = dict()
     path = Path(data_path)
     folder_names = [folder.name for folder in path.iterdir() if folder.is_dir()]
     for name in folder_names:
+        labels = list()
         txt_folder = path / name / 'labels'
         for filename in os.listdir(txt_folder):
             if filename.endswith('.txt'):
@@ -29,7 +30,8 @@ def load_yolo_labels(data_path, class_names):
                         if len(parts) == 5:
                             class_id = int(parts[0])
                             labels.append(class_names[class_id])
-    return labels
+        dict_labels[name] = labels
+    return dict_labels
 
 
 def find_images(data_path):
@@ -66,12 +68,15 @@ def get_image_size(image_path):
 
 
 def dataset_info(dataset_path, classes_path, run_path):
+    class_labels = list()
     class_names = load_class_names(classes_path)
-    class_labels = load_yolo_labels(dataset_path, class_names)
+    dict_class_labels = load_yolo_labels(dataset_path, class_names)
+    for value in dict_class_labels.values():
+        class_labels += value
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     plot_class_balance(class_labels, run_path)
     
-    dumpCSV(class_names, class_labels, run_path)
+    dumpCSV(class_names, class_labels, dict_class_labels, run_path)
 
 
     gini_coef = float(gini) * 100

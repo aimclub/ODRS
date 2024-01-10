@@ -83,22 +83,46 @@ def getData(mode):
     data = data.astype(float)
     return data
 
-def dumpCSV(class_names, class_labels, run_path):
-    class_counts = Counter(class_labels)
-    for class_name in class_names:
-        if class_name not in class_counts.keys():
-            class_counts.update({f'{class_name}': 0})
+def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
+    for key, value in dict_class_labels.items():
+        dict_class_labels[key] = Counter(value)
+    dict_class_labels['all'] = Counter(class_labels)
+        
+    for key, value in dict_class_labels.items():
+        for class_name in class_names:
+            if class_name not in value.keys():
+                value.update({f'{class_name}': 0})
     csv_file_path = run_path / 'class_counts.csv'
     file_exists = csv_file_path.is_file()
+
     with open(csv_file_path, 'a', newline='') as csvfile:
-        fieldnames = ['Class_name', 'Value']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        field_names = ['class-name']
+        for key in dict_class_labels:
+            field_names.append(f'{key}-count')
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
 
         if not file_exists:
             writer.writeheader()
-
-        for class_name, value in class_counts.items():
-            writer.writerow({'Class_name': class_name, 'Value': value})
+        all_values = dict()
+        for class_name in class_names:
+            values = list()
+            for class_value in dict_class_labels.values():
+                for key, value in class_value.items():
+                    if key == class_name:
+                        values.append(value)
+            all_values[class_name] = values
+        
+        sorted_dict = reversed(sorted(dict_class_labels['all'].items(), key=lambda x: x[1]))
+        
+        for class_key, class_value in sorted_dict:
+            for key, value in all_values.items():
+                if key == class_key:
+                    if len(field_names) == 5:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2], field_names[4]: value[3]})
+                    if len(field_names) == 4:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2]})
+                    if len(field_names) == 3:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1]})
 
 
 def dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path):
