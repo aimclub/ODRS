@@ -4,7 +4,8 @@ import numpy as np
 from loguru import logger
 from pathlib import Path
 from collections import Counter
-import matplotlib.pyplot as plt
+from ODRS.utils.ml_plot import plot_class_balance
+from ODRS.utils.ml_utils import dumpCSV
 
 def load_class_names(classes_file):
     """ Загрузка названий классов из файла. """
@@ -15,10 +16,11 @@ def load_class_names(classes_file):
 
 def load_yolo_labels(data_path, class_names):
     """ Загрузка меток классов из YOLO аннотаций. """
-    labels = []
+    dict_labels = dict()
     path = Path(data_path)
     folder_names = [folder.name for folder in path.iterdir() if folder.is_dir()]
     for name in folder_names:
+        labels = list()
         txt_folder = path / name / 'labels'
         for filename in os.listdir(txt_folder):
             if filename.endswith('.txt'):
@@ -28,22 +30,9 @@ def load_yolo_labels(data_path, class_names):
                         if len(parts) == 5:
                             class_id = int(parts[0])
                             labels.append(class_names[class_id])
-    return labels
+        dict_labels[name] = labels
+    return dict_labels
 
-
-def plot_class_balance(labels, output_path):
-    """ Построение и сохранение графика баланса классов с наклоненными метками и вывод среднего значения. """
-    class_counts = Counter(labels)
-    output_file = output_path / 'Class_balance.png'
-
-    plt.bar(class_counts.keys(), class_counts.values())
-    plt.xlabel('Classes')
-    plt.ylabel('Number of instances')
-    plt.title('Class balance')
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.savefig(output_file)
-    # plt.show()
 
 def find_images(data_path):
     supported_extensions = {".jpg", ".jpeg", ".png"}
@@ -77,11 +66,17 @@ def get_image_size(image_path):
     return None
 
 
+
 def dataset_info(dataset_path, classes_path, run_path):
+    class_labels = list()
     class_names = load_class_names(classes_path)
-    class_labels = load_yolo_labels(dataset_path, class_names)
+    dict_class_labels = load_yolo_labels(dataset_path, class_names)
+    for value in dict_class_labels.values():
+        class_labels += value
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     plot_class_balance(class_labels, run_path)
+    
+    dumpCSV(class_names, class_labels, dict_class_labels, run_path)
 
 
     gini_coef = float(gini) * 100

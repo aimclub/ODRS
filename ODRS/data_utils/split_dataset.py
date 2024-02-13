@@ -4,6 +4,21 @@ import glob
 import sys
 from tqdm import tqdm
 from loguru import logger
+from pathlib import Path
+
+def sorted_files(image_files, label_files):
+    new_label_files = list()
+    new_image_files = list()
+    for image_path in tqdm(image_files, desc="Sorting"):
+        image_stem = Path(image_path).stem
+        for label_path in label_files:
+            label_stem = Path(label_path).stem
+            if label_stem == image_stem:
+                new_image_files.append(image_path)
+                new_label_files.append(label_path)
+                break
+    return new_image_files, new_label_files
+
 
 def split_data(datapath, split_train_value, split_valid_value):
     selected_folders = ['test', 'train', 'valid']
@@ -40,8 +55,7 @@ def split_data(datapath, split_train_value, split_valid_value):
                       glob.glob(os.path.join(datapath, '*.png'))
         label_files = glob.glob(os.path.join(datapath, '*.txt'))
 
-    image_files.sort()
-    label_files.sort()
+    image_files, label_files = sorted_files(image_files, label_files)
 
     total_files = len(image_files) + len(label_files)
 
@@ -55,17 +69,17 @@ def split_data(datapath, split_train_value, split_valid_value):
     logger.info(f'Total number of labels:{len(label_files)}')
 
     train_images = image_files[:train_split]
-    train_labels = label_files[:train_split]
+    train_labels = label_files[:len(train_images)]
     logger.info(f'Number train images:{len(train_images)}')
     logger.info(f'Number train labels:{len(train_labels)}')
 
-    val_images = image_files[train_split:train_split+val_split]
-    val_labels = label_files[train_split:train_split+val_split]
+    val_images = image_files[len(train_images):len(train_images)+val_split]
+    val_labels = label_files[len(train_images):len(train_images)+val_split]
     logger.info(f'Number valid images:{len(val_images)}')
     logger.info(f'Number valid labels:{len(val_labels)}')
 
-    test_images = image_files[train_split+val_split:]
-    test_labels = label_files[train_split+val_split:]
+    test_images = image_files[len(train_images)+len(val_images):]
+    test_labels = label_files[len(train_images)+len(val_images):]
     logger.info(f'Number test images:{len(test_images)}')
     logger.info(f'Number test labels:{len(test_labels)}')
 
