@@ -4,6 +4,9 @@ import numpy as np
 from loguru import logger
 from pathlib import Path
 from collections import Counter
+import sys
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from ODRS.utils.ml_plot import plot_class_balance
 from ODRS.utils.ml_utils import dumpCSV
 
