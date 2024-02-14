@@ -22,9 +22,9 @@ jobs:
     - name: Download dataset
       run: |
         cd user_datasets
-        mkdir aeral
-        cd aeral
-        curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
+        git clone https://github.com/AIRI-Institute/WaRP
+        mkdir WaRP/Warp-D/valid
+        cp -r WaRP/Warp-D/test/* WaRP/Warp-D/valid/
     - name: AI training
       run: |
         python ODRS/train_utils/custom_train_all.py

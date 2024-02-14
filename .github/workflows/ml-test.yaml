@@ -21,7 +21,6 @@ jobs:
         pip install -r requirements.txt
     - name: Download dataset
       run: |
-        pwd
         cd user_datasets
         git clone https://github.com/AIRI-Institute/WaRP
         mkdir WaRP/Warp-D/valid
