@@ -23,5 +23,7 @@ jobs:
       run: |
         cd user_datasets
         git clone https://github.com/AIRI-Institute/WaRP
+        mkdir WaRP/Warp-D/valid
+        cp -r WaRP/Warp-D/test/* WaRP/Warp-D/valid/        
     - name: Ml predictions
       run: python ODRS/ml_utils/ml_model_optimizer.py
