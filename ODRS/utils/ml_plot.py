@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import random
 from pathlib import Path
 
+
 def plot_class_balance(labels, output_path):
     """ Построение и сохранение графика баланса классов с наклоненными метками и вывод среднего значения. """
     class_counts = Counter(labels)

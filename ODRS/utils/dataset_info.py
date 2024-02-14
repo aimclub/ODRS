@@ -1,13 +1,16 @@
-import cv2
 import os
-import numpy as np
 import sys
 from loguru import logger
 from pathlib import Path
+import cv2
+import numpy as np
+
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+
 from ODRS.utils.ml_plot import plot_class_balance
 from ODRS.utils.ml_utils import dumpCSV
+
 
 
 def load_class_names(classes_file):

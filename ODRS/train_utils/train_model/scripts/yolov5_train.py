@@ -14,12 +14,12 @@ from pathlib import Path
 #     opt.name = 'exp'
 #     train.main(opt)
 
-# ----------------------------------------------OLD version
+
 def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
     """
     Runs yolov5 training using the parameters specified in the config.
 
-    
+
     :param IMG_SIZE: Size of input images as integer or w,h.
     :param BATCH_SIZE: Batch size for training.
     :param EPOCHS: Number of epochs to train for.
@@ -33,15 +33,14 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     train_script_path = str(Path(file.parents[1]) / 'models' / 'yolov5' / 'train.py')
 
     full_command = (
-        command +
-        f" {train_script_path}" +
-        f" --img {IMG_SIZE}" +
-        f" --batch {BATCH_SIZE}" +
-        f" --epochs {EPOCHS}" +
-        f" --data {CONFIG_PATH}" +
-        f" --cfg {MODEL_PATH}" +
-        f" --device {SELECT_GPU}" +
-        f" --project {CONFIG_PATH.parent}" +
+        f"{command} {train_script_path}"
+        f" --img {IMG_SIZE}"
+        f" --batch {BATCH_SIZE}"
+        f" --epochs {EPOCHS}"
+        f" --data {CONFIG_PATH}"
+        f" --cfg {MODEL_PATH}"
+        f" --device {SELECT_GPU}"
+        f" --project {CONFIG_PATH.parent}"
         f" --name exp"
     )
     os.system(full_command)
