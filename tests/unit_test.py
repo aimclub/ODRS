@@ -10,8 +10,9 @@ class TestDatasetInfo(unittest.TestCase):
     def test_dataset_info(self):
         dataset_path = "/home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D"
         classes_path = "/home/runner/work/ODRS/ODRS/classes.txt"
+        run_path = '/home/runner/work/ODRS/ODRS/'
 
-        result = dataset_info(dataset_path, classes_path)
+        result = dataset_info(dataset_path, classes_path, run_path)
 
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 5)
