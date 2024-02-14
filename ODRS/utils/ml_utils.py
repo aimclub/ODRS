@@ -9,6 +9,7 @@ import warnings
 import yaml
 file = Path(__file__).resolve()
 
+
 def getAverageFPS(df, column, part_num):
     sorted_fps = np.sort(df[column])
     num_parts = 5
@@ -20,6 +21,7 @@ def getAverageFPS(df, column, part_num):
     selected_values = sorted_fps[start_idx:end_idx]
     average_fps = np.mean(selected_values)
     return average_fps
+
 
 def getAverage_mAP50(df, column, part_num):
     sorted_mAP50 = np.sort(df[column])
@@ -35,6 +37,7 @@ def getAverage_mAP50(df, column, part_num):
     average_mAP50 = np.mean(selected_values)
     return average_mAP50
 
+
 def getConfigData(path_config):
     config = loadConfig(path_config)
     mode = config['GPU']
@@ -44,11 +47,13 @@ def getConfigData(path_config):
     accuracy = config['accuracy']
     return mode, classes_path, dataset_path, speed, accuracy
 
+
 def getModels():
     path_config = Path(file.parent) / 'config_models' / 'models.yaml'
     config = loadConfig(path_config)
     models = config['models_array']
     return models
+
 
 def synthesize_data(df, num_samples):
     new_data = []
@@ -60,6 +65,7 @@ def synthesize_data(df, num_samples):
         new_data.append(new_row)
     return pd.DataFrame(new_data, columns=df.columns)
 
+
 def min_max_scaler(features):
     scaler = MinMaxScaler()
     features_normalized = np.exp(scaler.fit_transform(features))
@@ -68,9 +74,8 @@ def min_max_scaler(features):
 
 
 def getData(mode):
-     # Загрузка данных из CSV файла
     data = pd.read_csv(Path(file.parents[0]) / 'data_train_ml' / 'model_cs.csv', delimiter=';')
-    data = data.sample(frac=0.7, random_state=42) #frac = 0.7
+    data = data.sample(frac=0.7, random_state=42)
     data = data.iloc[:, 0:9]
     numeric_columns = ['FPS_GPU', 'FPS_CPU']
     data[numeric_columns] = data[numeric_columns].replace(',', '', regex=True)
@@ -83,16 +88,17 @@ def getData(mode):
     data = data.astype(float)
     return data
 
+
 def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
     for key, value in dict_class_labels.items():
         dict_class_labels[key] = Counter(value)
     dict_class_labels['all'] = Counter(class_labels)
-        
+
     for key, value in dict_class_labels.items():
         for class_name in class_names:
             if class_name not in value.keys():
                 value.update({f'{class_name}': 0})
-    csv_file_path = run_path / 'class_counts.csv'
+    csv_file_path = Path(run_path) / 'class_counts.csv'
     file_exists = csv_file_path.is_file()
 
     with open(csv_file_path, 'a', newline='') as csvfile:
@@ -111,23 +117,34 @@ def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
                     if key == class_name:
                         values.append(value)
             all_values[class_name] = values
-        
+
         sorted_dict = reversed(sorted(dict_class_labels['all'].items(), key=lambda x: x[1]))
-        
+
         for class_key, class_value in sorted_dict:
             for key, value in all_values.items():
                 if key == class_key:
                     if len(field_names) == 5:
-                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2], field_names[4]: value[3]})
+                        writer.writerow({
+                            field_names[0]: key,
+                            field_names[1]: value[0],
+                            field_names[2]: value[1],
+                            field_names[3]: value[2],
+                            field_names[4]: value[3]
+                            })
                     if len(field_names) == 4:
-                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2]})
+                        writer.writerow({
+                            field_names[0]: key,
+                            field_names[1]: value[0],
+                            field_names[2]: value[1],
+                            field_names[3]: value[2]
+                            })
                     if len(field_names) == 3:
                         writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1]})
 
 
 def dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path):
     data = {'GPU': mode,
-            'accuracy': accuracy, 
+            'accuracy': accuracy,
             'classes_path': classes_path,
             'dataset_path': dataset_path,
             'speed': speed,
@@ -142,7 +159,7 @@ def dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, mo
             }
     with open(run_path / 'results.yaml', 'w') as file:
         yaml.dump(data, file, default_flow_style=False)
- 
+
 
 def dataProcessing(dataset_data, mode, speed, accuracy):
     data = getData(mode)

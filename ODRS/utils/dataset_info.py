@@ -1,11 +1,17 @@
-import cv2
 import os
-import numpy as np
+import sys
 from loguru import logger
 from pathlib import Path
-from collections import Counter
+import cv2
+import numpy as np
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+
 from ODRS.utils.ml_plot import plot_class_balance
 from ODRS.utils.ml_utils import dumpCSV
+
+
 
 def load_class_names(classes_file):
     """ Загрузка названий классов из файла. """
@@ -47,6 +53,7 @@ def find_images(data_path):
 
     return image_paths
 
+
 def gini_coefficient(labels):
     unique, counts = np.unique(labels, return_counts=True)
     class_counts = dict(zip(unique, counts))
@@ -66,7 +73,6 @@ def get_image_size(image_path):
     return None
 
 
-
 def dataset_info(dataset_path, classes_path, run_path):
     class_labels = list()
     class_names = load_class_names(classes_path)
@@ -75,9 +81,8 @@ def dataset_info(dataset_path, classes_path, run_path):
         class_labels += value
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     plot_class_balance(class_labels, run_path)
-    
-    dumpCSV(class_names, class_labels, dict_class_labels, run_path)
 
+    dumpCSV(class_names, class_labels, dict_class_labels, run_path)
 
     gini_coef = float(gini) * 100
     number_of_classes = len(set(class_labels))

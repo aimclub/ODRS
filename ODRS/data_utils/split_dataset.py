@@ -6,6 +6,7 @@ from tqdm import tqdm
 from loguru import logger
 from pathlib import Path
 
+
 def sorted_files(image_files, label_files):
     new_label_files = list()
     new_image_files = list()
@@ -27,19 +28,18 @@ def split_data(datapath, split_train_value, split_valid_value):
     test_path = os.path.join(datapath, 'test')
     val_path = os.path.join(datapath, 'valid')
 
-    if os.path.exists(train_path) and (os.path.exists(val_path)
-                                        or os.path.exists(os.path.join(datapath, 'val'))):
+    if os.path.exists(train_path) and (os.path.exists(val_path) or
+                                       os.path.exists(os.path.join(datapath, 'val'))):
         logger.info("Dataset is ready")
         return train_path, val_path if os.path.exists(val_path) else os.path.join(datapath, 'val')
-    if os.path.exists(train_path) and not (os.path.exists(val_path)
-                                        or os.path.exists(os.path.join(datapath, 'val'))):
+    if os.path.exists(train_path) and not (os.path.exists(val_path) or
+                                           os.path.exists(os.path.join(datapath, 'val'))):
         logger.error("Dataset has no validation sample")
         sys.exit()
-    if not os.path.exists(train_path) and (os.path.exists(val_path)
-                                        or os.path.exists(os.path.join(datapath, 'val'))):
+    if not os.path.exists(train_path) and (os.path.exists(val_path) or
+                                           os.path.exists(os.path.join(datapath, 'val'))):
         logger.error("Dataset has no training sample")
         sys.exit()
-
 
     images_path = os.path.join(datapath, 'images')
     labels_path = os.path.join(datapath, 'labels')

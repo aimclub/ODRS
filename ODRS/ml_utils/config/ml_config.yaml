@@ -1,5 +1,5 @@
 GPU: true
 accuracy: 10
 classes_path: classes.txt
-dataset_path: /media/space/ssd_1_tb_evo_sumsung/exp-train/datasets/Monitoring_photo
+dataset_path: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
 speed: 1
