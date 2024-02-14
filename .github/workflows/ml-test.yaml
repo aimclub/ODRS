@@ -22,8 +22,6 @@ jobs:
     - name: Download dataset
       run: |
         cd user_datasets
-        mkdir aeral
-        cd aeral
-        curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
+        git clone https://github.com/AIRI-Institute/WaRP
     - name: Ml predictions
       run: python ODRS/ml_utils/ml_model_optimizer.py
