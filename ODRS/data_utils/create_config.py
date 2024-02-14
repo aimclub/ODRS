@@ -20,6 +20,7 @@ def delete_cache(data_path):
             if file.endswith(tuple(extensions_to_delete)):
                 os.remove(os.path.join(root, file))
 
+
 def createRunDirectory(model):
     current_file_path = Path(__file__).resolve()
 
@@ -36,7 +37,6 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
     current_file_path = Path(__file__).resolve()
 
     runs_path = createRunDirectory(model)
-    
     class_file_path = Path(current_file_path.parents[2]) / classname_file
 
     config_path = runs_path / config_path

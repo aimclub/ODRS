@@ -1,8 +1,5 @@
 import os
-import subprocess
-import time
 from pathlib import Path
-from ODRS.train_utils.train_model.models.yolov5 import train
 
 # def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
 #     opt = train.parse_opt()
@@ -22,6 +19,7 @@ def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     """
     Runs yolov5 training using the parameters specified in the config.
 
+    
     :param IMG_SIZE: Size of input images as integer or w,h.
     :param BATCH_SIZE: Batch size for training.
     :param EPOCHS: Number of epochs to train for.

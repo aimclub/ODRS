@@ -3,6 +3,7 @@ from tqdm import tqdm
 from pathlib import Path
 from PIL import Image
 
+
 def resize_images_and_annotations(data_path, img_size):
     if isinstance(img_size, int):
         width = height = img_size
@@ -55,6 +56,3 @@ def resize_images_and_annotations(data_path, img_size):
                                     file.write(f"{parts[0]} {x_center} {y_center} {box_width} {box_height}\n")
 
                     img.save(image_path)
-
-
-# resize_images_and_annotations('/media/space/ssd_1_tb_evo_sumsung/Work/Warp-D', (640, 480))

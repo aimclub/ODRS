@@ -1,7 +1,5 @@
 import os
 import json
-import glob
-from PIL import Image
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path

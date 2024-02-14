@@ -9,6 +9,7 @@ import warnings
 import yaml
 file = Path(__file__).resolve()
 
+
 def getAverageFPS(df, column, part_num):
     sorted_fps = np.sort(df[column])
     num_parts = 5
@@ -74,7 +75,7 @@ def min_max_scaler(features):
 
 def getData(mode):
     data = pd.read_csv(Path(file.parents[0]) / 'data_train_ml' / 'model_cs.csv', delimiter=';')
-    data = data.sample(frac=0.7, random_state=42) #frac = 0.7
+    data = data.sample(frac=0.7, random_state=42)
     data = data.iloc[:, 0:9]
     numeric_columns = ['FPS_GPU', 'FPS_CPU']
     data[numeric_columns] = data[numeric_columns].replace(',', '', regex=True)
@@ -123,9 +124,20 @@ def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
             for key, value in all_values.items():
                 if key == class_key:
                     if len(field_names) == 5:
-                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2], field_names[4]: value[3]})
+                        writer.writerow({
+                            field_names[0]: key,
+                            field_names[1]: value[0],
+                            field_names[2]: value[1],
+                            field_names[3]: value[2],
+                            field_names[4]: value[3]
+                            })
                     if len(field_names) == 4:
-                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2]})
+                        writer.writerow({
+                            field_names[0]: key,
+                            field_names[1]: value[0],
+                            field_names[2]: value[1],
+                            field_names[3]: value[2]
+                            })
                     if len(field_names) == 3:
                         writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1]})
 
