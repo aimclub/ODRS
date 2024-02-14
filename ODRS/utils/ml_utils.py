@@ -98,7 +98,7 @@ def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
         for class_name in class_names:
             if class_name not in value.keys():
                 value.update({f'{class_name}': 0})
-    csv_file_path = run_path / 'class_counts.csv'
+    csv_file_path = Path(run_path) / 'class_counts.csv'
     file_exists = csv_file_path.is_file()
 
     with open(csv_file_path, 'a', newline='') as csvfile:
