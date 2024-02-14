@@ -8,7 +8,7 @@ from ODRS.ODRS.utils.dataset_info import dataset_info, process_directory_img
 
 class TestDatasetInfo(unittest.TestCase):
     def test_dataset_info(self):
-        dataset_path = "/home/runner/work/ODRS/ODRS/user_datasets/yolo/aeral"
+        dataset_path = "/home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D"
         classes_path = "/home/runner/work/ODRS/ODRS/classes.txt"
 
         result = dataset_info(dataset_path, classes_path)
@@ -22,7 +22,7 @@ class TestDatasetInfo(unittest.TestCase):
         self.assertIsInstance(result[4], float)
 
     def test_process_directory_img(self):
-        test_dir = "/home/runner/work/ODRS/ODRS/user_datasets/yolo/aeral/test"
+        test_dir = "/home/runner/work/ODRS/ODRS/user_datasets/yolo/WaRP/Warp-D/test"
         os.makedirs(test_dir, exist_ok=True)
 
         label_path = os.path.join(test_dir, 'labels')
