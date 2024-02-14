@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Download dataset
       run: |
-        cd user_datasets/yolo
+        cd user_datasets
         mkdir aeral
         cd aeral
         curl -L "https://public.roboflow.com/ds/et6MNsOwMJ?key=GMSDIzpYnW" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
