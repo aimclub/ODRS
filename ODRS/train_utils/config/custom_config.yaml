@@ -4,7 +4,7 @@ DATA_PATH: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
 EPOCHS: 2
 GPU_COUNT: 1
 IMG_SIZE: 300
-MODEL: yolov5s
+MODEL: yolov8s
 SELECT_GPU: cpu
 
 CONFIG_PATH: dataset.yaml
