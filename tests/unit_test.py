@@ -20,7 +20,7 @@ class TestDatasetInfo(unittest.TestCase):
         self.assertIsInstance(result[1], float)
         self.assertIsInstance(result[2], float)
         self.assertIsInstance(result[3], float)
-        self.assertIsInstance(result[4], float)
+        self.assertIsInstance(result[4], int)
 
 if __name__ == "__main__":
     unittest.main()
