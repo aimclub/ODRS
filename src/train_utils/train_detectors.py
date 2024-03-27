@@ -4,16 +4,16 @@ from pathlib import Path
 from loguru import logger
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from src.data_processing.split_dataset import split_data, copy_arch_folder
-from src.data_processing.resize_image import resize_images_and_annotations
-from src.data_processing.create_config import create_config_data, delete_cache
-from src.data_processing.convert_yolo_to_voc import convert_voc
-from src.train_utils.train_model.scripts.yolov5_train import train_V5
-from src.train_utils.train_model.scripts.yolov7_train import train_V7
-from src.train_utils.train_model.scripts.yolov8_train import train_V8
-from src.train_utils.train_model.scripts.faster_rccn_train import train_frcnn
-from src.train_utils.train_model.scripts.ssd_train import train_ssd
-from src.data_processing.utils import modelSelection, loadConfig, getDataPath, getClassesPath
+from src.data_processing.data_utils.utils import load_config, get_data_path
+from src.data_processing.data_utils.split_dataset import split_data, copy_arch_folder, resize_images_and_annotations
+from src.data_processing.train_processing.prepare_train import get_classes_path, model_selection, delete_cache
+from src.data_processing.train_processing.prepare_train import create_config_data, check_config_arrays_sizes
+from src.data_processing.train_processing.convert_yolo_to_voc import convert_voc
+
+from src.train_utils.train_models.scripts import yolov8_train, yolov7_train, yolov5_train
+from src.train_utils.train_models.scripts import faster_rccn_train, ssd_train
+
+
 
 
 FILE = Path(__file__).resolve()
@@ -22,48 +22,52 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 
-def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PATH, SPLIT_TRAIN_VALUE,
+def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_NAME, SPLIT_TRAIN_VALUE,
               SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU):
     
-    DATA_PATH = getDataPath(ROOT, DATA_PATH)
-    CLASSES = getClassesPath(ROOT, CLASSES)
+    DATA_PATH = get_data_path(ROOT, DATA_PATH)
+    CLASSES_PATH = get_classes_path(ROOT, CLASSES)
 
     PATH_SPLIT_TRAIN, PATH_SPLIT_VALID = split_data(DATA_PATH, SPLIT_TRAIN_VALUE, SPLIT_VAL_VALUE)
 
-    arch, MODEL_PATH = modelSelection(MODEL)
+    ARCH, MODEL_PATH = model_selection(MODEL)
 
     delete_cache(DATA_PATH)
-    #ready
-    if arch == 'yolov8':
-        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
+
+    if ARCH == 'yolov8':
+        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES_PATH, CONFIG_NAME, ARCH, BATCH_SIZE,
                                          EPOCHS, MODEL)
-        train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    #ready
-    elif arch == 'yolov5':
-        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
+        yolov8_train.train_V8(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif ARCH == 'yolov5':
+        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES_PATH, CONFIG_NAME, ARCH, BATCH_SIZE,
                                          EPOCHS, MODEL)
-        train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    #ready
-    elif arch == 'yolov7':
-        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_PATH, arch, BATCH_SIZE,
+        yolov5_train.train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif ARCH == 'yolov7':
+        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES_PATH, CONFIG_NAME, ARCH, BATCH_SIZE,
                                          EPOCHS, MODEL)
-        train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
-    #ready
-    elif arch == 'faster-rcnn':
+        yolov7_train.train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU)
+    elif ARCH == 'faster-rcnn':
+
         DATA_PATH = copy_arch_folder(DATA_PATH)
+        PATH_SPLIT_TRAIN = Path(DATA_PATH) / 'train'
+        PATH_SPLIT_VALID = Path(DATA_PATH) / 'valid'
         resize_images_and_annotations(DATA_PATH, IMG_SIZE)
         convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH = create_config_data(Path(DATA_PATH) / 'train', Path(DATA_PATH) / 'valid', CLASSES, CONFIG_PATH, arch,
+
+        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES_PATH, CONFIG_NAME, ARCH,
                                          BATCH_SIZE, EPOCHS, MODEL)
-        train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, GPU_COUNT, IMG_SIZE)
-    #ready
-    elif arch == 'ssd':
+        faster_rccn_train.train_frcnn(CONFIG_PATH, EPOCHS, BATCH_SIZE, GPU_COUNT, IMG_SIZE)
+    elif ARCH == 'ssd':
+
         DATA_PATH = copy_arch_folder(DATA_PATH)
+        PATH_SPLIT_TRAIN = Path(DATA_PATH) / 'train.json'
+        PATH_SPLIT_VALID = Path(DATA_PATH) / 'valid.json'
         resize_images_and_annotations(DATA_PATH, IMG_SIZE)
         convert_voc(DATA_PATH, CLASSES)
-        CONFIG_PATH = create_config_data(Path(DATA_PATH) / 'train.json', Path(DATA_PATH) / 'valid.json', CLASSES, CONFIG_PATH,
-                                         arch, BATCH_SIZE, EPOCHS, MODEL)
-        train_ssd(CONFIG_PATH)
+
+        CONFIG_PATH = create_config_data(PATH_SPLIT_TRAIN, PATH_SPLIT_VALID, CLASSES, CONFIG_NAME,
+                                         ARCH, BATCH_SIZE, EPOCHS, MODEL)
+        ssd_train.train_ssd(CONFIG_PATH)
 
 
 def prepare_to_train(config, list_parameters):
@@ -73,7 +77,7 @@ def prepare_to_train(config, list_parameters):
     BATCH_SIZE = config['BATCH_SIZE']
     EPOCHS = config['EPOCHS']
     MODEL = config['MODEL']
-    CONFIG_PATH = config['CONFIG_PATH']
+    CONFIG_NAME = 'dataset.yaml'
     SPLIT_TRAIN_VALUE = config['SPLIT_TRAIN_VALUE']
     SPLIT_VAL_VALUE = config['SPLIT_VAL_VALUE']
     GPU_COUNT = config['GPU_COUNT']
@@ -88,7 +92,7 @@ def prepare_to_train(config, list_parameters):
                 'BATCH_SIZE': BATCH_SIZE[i] if isinstance(BATCH_SIZE, list) else BATCH_SIZE,
                 'EPOCHS': EPOCHS[i] if isinstance(EPOCHS, list) else EPOCHS,
                 'MODEL': MODEL[i] if isinstance(MODEL, list) else MODEL,
-                'CONFIG_PATH': CONFIG_PATH[i] if isinstance(CONFIG_PATH, list) else CONFIG_PATH,
+                'CONFIG_NAME': CONFIG_NAME[i] if isinstance(CONFIG_NAME, list) else CONFIG_NAME,
                 'SPLIT_TRAIN_VALUE': SPLIT_TRAIN_VALUE[i] if isinstance(SPLIT_TRAIN_VALUE, list) else SPLIT_TRAIN_VALUE,
                 'SPLIT_VAL_VALUE': SPLIT_VAL_VALUE[i] if isinstance(SPLIT_VAL_VALUE, list) else SPLIT_VAL_VALUE,
                 'GPU_COUNT': GPU_COUNT[i] if isinstance(GPU_COUNT, list) else GPU_COUNT,
@@ -97,26 +101,16 @@ def prepare_to_train(config, list_parameters):
             fit_model(**current_params)
             
     else:
-        fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_PATH, SPLIT_TRAIN_VALUE,
+        fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_NAME, SPLIT_TRAIN_VALUE,
                 SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU)
 
 
-def check_dict_arrays_sizes(dictionary):
-    for key, value in dictionary.items():
-        if isinstance(value, list):
-            first_array = next(iter(dictionary.values()))
-            first_array_size = len(first_array)
-            current_array_size = len(value)
-            if current_array_size != first_array_size:
-                raise ValueError(f"Size mismatch for key '{key}'. Expected size: {first_array_size}, actual size: {current_array_size}")
-
-
 def run():
-    config_path = Path(ROOT) / 'ODRS' / 'train_utils' / 'config' / 'custom_config.yaml'
-    config = loadConfig(config_path)
+    config_path = Path(ROOT) / 'src' / 'train_utils' / 'config' / 'train_config.yaml'
+    config = load_config(config_path)
 
     list_parameters = {key: value for key, value in config.items() if isinstance(value, list)}
-    check_dict_arrays_sizes(list_parameters)
+    check_config_arrays_sizes(list_parameters)
     prepare_to_train(config, list_parameters)
 
 

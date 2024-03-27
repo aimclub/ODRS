@@ -1,19 +1,6 @@
 import os
 from pathlib import Path
 
-# def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
-#     opt = train.parse_opt()
-#     opt.imgsz = IMG_SIZE
-#     opt.batch_size = BATCH_SIZE
-#     opt.epochs = EPOCHS
-#     opt.data = CONFIG_PATH
-#     opt.cfg = MODEL_PATH
-#     opt.device = SELECT_GPU
-#     opt.cache = True
-#     opt.project = CONFIG_PATH.parent
-#     opt.name = 'exp'
-#     train.main(opt)
-
 
 def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
     """

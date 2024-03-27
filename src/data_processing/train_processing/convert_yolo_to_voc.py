@@ -5,7 +5,7 @@ import shutil
 from loguru import logger
 from PIL import Image
 from tqdm import tqdm
-from prepare_ssd import create_ssd_json
+from src.data_processing.train_processing.prepare_ssd import create_ssd_json
 
 
 
@@ -51,7 +51,7 @@ def convert_yolo_to_voc(data_path, txt_path, folder_annotations):
             return False
 
     folder_holding_yolo_files = jpeg_images_folder
-    yolo_class_list_file = f"{current_file_path.parents[2]}/{txt_path}"
+    yolo_class_list_file = f"{current_file_path.parents[3]}/{txt_path}"
 
     # Get a list of all the classes used in the YOLO format
     with open(yolo_class_list_file) as f:

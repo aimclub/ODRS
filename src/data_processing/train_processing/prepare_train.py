@@ -15,7 +15,7 @@ def model_selection(MODEL):
     arch = ""
     if MODEL.startswith('yolov5'):
         arch = 'yolov5'
-        path_config = Path(file.parents[1]) / 'train_utils' / 'train_model' / 'models' / 'yolov5' / 'models' / f'{MODEL}.yaml'
+        path_config = Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' / 'yolov5' / 'models' / f'{MODEL}.yaml'
         if os.path.exists(path_config):
             return arch, path_config
         else:
@@ -25,7 +25,7 @@ def model_selection(MODEL):
     elif MODEL.startswith('yolov7'):
         arch = 'yolov7'
         path_config = (
-            Path(file.parents[1]) / 'train_utils' / 'train_model' / 'models' /
+            Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' /
             'yolov7' / 'cfg' / 'training' / f'{MODEL}.yaml'
             )
         if os.path.exists(path_config):
@@ -37,7 +37,7 @@ def model_selection(MODEL):
     elif MODEL.startswith('yolov8'):
         arch = 'yolov8'
         path_config = (
-            Path(file.parents[1]) / 'train_utils' / 'train_model' / 'models' /
+            Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' /
             'ultralytics' / 'ultralytics' / 'models' / 'v8' / f'{MODEL}.yaml'
             )
         if os.path.exists(path_config):
@@ -84,7 +84,7 @@ def create_config_data(train_path, val_path, classname_file, config_path, arch, 
     current_file_path = Path(__file__).resolve()
 
     runs_path = create_run_directory(model)
-    class_file_path = Path(current_file_path.parents[2]) / classname_file
+    class_file_path = Path(current_file_path.parents[3]) / classname_file
 
     config_path = runs_path / config_path
     if arch == 'ssd':
@@ -170,3 +170,11 @@ SAVE_VALID_PREDICTION_IMAGES: True
 
         return config_path
 
+def check_config_arrays_sizes(dictionary):
+    for key, value in dictionary.items():
+        if isinstance(value, list):
+            first_array = next(iter(dictionary.values()))
+            first_array_size = len(first_array)
+            current_array_size = len(value)
+            if current_array_size != first_array_size:
+                raise ValueError(f"Size mismatch for key '{key}'. Expected size: {first_array_size}, actual size: {current_array_size}")

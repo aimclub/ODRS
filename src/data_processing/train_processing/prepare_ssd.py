@@ -3,7 +3,7 @@ import json
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
-from data_utils.utils import load_class_names
+from src.data_processing.data_utils.utils import load_class_names
 
 
 def check_filename(filename):
@@ -44,16 +44,19 @@ def save_as_json(basename, dataset):
 
 def get_image_names(folder_path):
     image_names = []
+    image_extension = []
     for filename in os.listdir(folder_path):
         if filename.endswith(('.jpg', '.jpeg', '.png', '.gif')):
             name = os.path.splitext(filename)[0]
+            extension = os.path.splitext(filename)[-1]
             image_names.append(name)
-    return image_names
+            image_extension.append(extension)
+    return (image_names, image_extension)
 
 
 def create_ssd_json(path_folder, txt_path):
     current_file_path = Path(__file__).resolve()
-    txt_path = Path(current_file_path.parents[2]) / txt_path
+    txt_path = Path(current_file_path.parents[3]) / txt_path
     class_names = load_class_names(txt_path)
 
     paths = {
@@ -62,9 +65,9 @@ def create_ssd_json(path_folder, txt_path):
 
     dataset = []
     for year, path in paths.items():
-        ids = get_image_names(Path(path_folder) / 'images')
-        for id in tqdm(ids):
-            image_path = os.path.join(path, 'images', id + '.jpg')
+        ids, ids_extentions = get_image_names(Path(path_folder) / 'images')
+        for i, id in enumerate(tqdm(ids)):
+            image_path = os.path.join(path, 'images', id + ids_extentions[i])
             annotation_path = os.path.join(path, 'annotations', id + '.xml')
             if check_filename(annotation_path):
                 try:
