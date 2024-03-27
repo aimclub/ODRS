@@ -3,6 +3,7 @@ import json
 import xml.etree.ElementTree as ET
 from tqdm import tqdm
 from pathlib import Path
+from data_utils.utils import load_class_names
 
 
 def check_filename(filename):
@@ -41,16 +42,6 @@ def save_as_json(basename, dataset):
         json.dump(dataset, f, indent=2)
 
 
-def read_names_from_txt(txt_path):
-    names = []
-    with open(txt_path, 'r') as file:
-        for line in file:
-            name = line.strip()
-            if name:
-                names.append(name)
-    return names
-
-
 def get_image_names(folder_path):
     image_names = []
     for filename in os.listdir(folder_path):
@@ -63,7 +54,7 @@ def get_image_names(folder_path):
 def create_ssd_json(path_folder, txt_path):
     current_file_path = Path(__file__).resolve()
     txt_path = Path(current_file_path.parents[2]) / txt_path
-    class_names = read_names_from_txt(txt_path)
+    class_names = load_class_names(txt_path)
 
     paths = {
         2007: os.path.join(os.path.dirname(path_folder), path_folder)

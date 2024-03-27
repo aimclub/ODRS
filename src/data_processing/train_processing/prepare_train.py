@@ -1,31 +1,14 @@
 from pathlib import Path
 from loguru import logger
-from yaml import load
-from yaml import FullLoader
 import shutil
 import sys
-import os
-from loguru import logger
 import yaml
 from pathlib import Path
 import os
-from datetime import datetime
-from src.data_processing.prepare_ssd import read_names_from_txt
+from src.data_processing.data_utils.utils import load_class_names, create_run_directory
 
 
 file = Path(__file__).resolve()
-
-
-def load_config(config_file):
-    with open(config_file) as f:
-        return load(f, Loader=FullLoader)
-
-
-def get_models():
-    path_config = Path(file.parents[1]) / 'config_models' / 'models.yaml'
-    config = load_config(path_config)
-    models = config['models_array']
-    return models
 
 
 def model_selection(MODEL):
@@ -75,26 +58,6 @@ def model_selection(MODEL):
         logger.critical("Invalid model name. ModelSelection")
 
 
-def get_data_path(ROOT, folder_name):
-    DATA_PATH = Path(ROOT) / 'user_datasets'
-    FOLDER_PATH = DATA_PATH / folder_name
-    try:
-        if not Path(FOLDER_PATH).is_dir() or not any(Path(FOLDER_PATH).iterdir()):
-            logger.error("The dataset folder is empty or does not exist.")
-            sys.exit(0)
-            return
-
-        if FOLDER_PATH.parent.resolve() != DATA_PATH.resolve():
-            target_path = DATA_PATH / FOLDER_PATH.name
-            logger.info(f"Copying a set of images to {DATA_PATH}")
-            shutil.copytree(FOLDER_PATH, target_path, dirs_exist_ok=True)
-            FOLDER_PATH = target_path
-
-    except Exception as e:
-        logger.error(f"An error has occurred: {e}")
-    return FOLDER_PATH
-
-
 def get_classes_path(ROOT, classes_path):
     DATA_PATH = Path(ROOT)
     CLASSES_PATH = Path(classes_path)
@@ -108,13 +71,6 @@ def get_classes_path(ROOT, classes_path):
 
     return CLASSES_PATH
 
-#-------------------------------------------------CREATE CONFIG
-def create_class_list(filename):
-    # Returns list of classes
-    with open(filename, "r") as file_object:
-        class_list = file_object.read().splitlines()
-    return class_list
-
 
 def delete_cache(data_path):
     extensions_to_delete = ['labels.cache', 'train.cache', 'val.cache']
@@ -124,27 +80,15 @@ def delete_cache(data_path):
                 os.remove(os.path.join(root, file))
 
 
-def createRunDirectory(model):
-    current_file_path = Path(__file__).resolve()
-
-    runs_directory = Path(current_file_path.parents[2]) / 'runs'
-    if not os.path.exists(runs_directory):
-        os.makedirs(runs_directory, exist_ok=True)
-
-    runs_path = runs_directory / f"{str(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))}_{model}"
-    os.makedirs(runs_path, exist_ok=True)
-    return runs_path
-
-
 def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
     current_file_path = Path(__file__).resolve()
 
-    runs_path = createRunDirectory(model)
+    runs_path = create_run_directory(model)
     class_file_path = Path(current_file_path.parents[2]) / classname_file
 
     config_path = runs_path / config_path
     if arch == 'ssd':
-        class_names = read_names_from_txt(class_file_path)
+        class_names = load_class_names(class_file_path)
         dataset_yaml = '''\
 # Data
 train_json: {}
@@ -183,7 +127,7 @@ scheduler:
         return config_path
 
     elif arch == 'faster-rcnn':
-        classes = read_names_from_txt(class_file_path)
+        classes = load_class_names(class_file_path)
         class_names = ['__background__']
         for name in classes:
             class_names.append(name)
@@ -213,7 +157,7 @@ SAVE_VALID_PREDICTION_IMAGES: True
         return config_path
 
     else:
-        class_list = create_class_list(class_file_path)
+        class_list = load_class_names(class_file_path)
         data = dict(
             train=train_path,
             val=val_path,

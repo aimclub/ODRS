@@ -29,6 +29,7 @@ def split_data(datapath, split_train_value, split_valid_value):
     test_path = os.path.join(datapath, 'test')
     val_path = os.path.join(datapath, 'valid')
 
+
     if os.path.exists(train_path) and (os.path.exists(val_path) or
                                        os.path.exists(os.path.join(datapath, 'val'))):
         logger.info("Dataset is ready")
@@ -93,24 +94,24 @@ def split_data(datapath, split_train_value, split_valid_value):
         os.makedirs(labels_subpath)
 
     for image_file in tqdm(train_images, desc="Train images"):
-        shutil.copy(image_file, os.path.join(train_path, 'images', os.path.basename(image_file)))
+        shutil.move(image_file, os.path.join(train_path, 'images', os.path.basename(image_file)))
     for image_file in tqdm(val_images, desc="Valid images"):
-        shutil.copy(image_file, os.path.join(val_path, 'images', os.path.basename(image_file)))
+        shutil.move(image_file, os.path.join(val_path, 'images', os.path.basename(image_file)))
     for image_file in tqdm(test_images, desc="Test images"):
-        shutil.copy(image_file, os.path.join(test_path, 'images', os.path.basename(image_file)))
+        shutil.move(image_file, os.path.join(test_path, 'images', os.path.basename(image_file)))
 
     for label_file in tqdm(train_labels, desc="Train labels"):
-        shutil.copy(label_file, os.path.join(train_path, 'labels', os.path.basename(label_file)))
+        shutil.move(label_file, os.path.join(train_path, 'labels', os.path.basename(label_file)))
     for label_file in tqdm(val_labels, desc="Valid labels"):
-        shutil.copy(label_file, os.path.join(val_path, 'labels', os.path.basename(label_file)))
+        shutil.move(label_file, os.path.join(val_path, 'labels', os.path.basename(label_file)))
     for label_file in tqdm(test_labels, desc="Test labels"):
-        shutil.copy(label_file, os.path.join(test_path, 'labels', os.path.basename(label_file)))
+        shutil.move(label_file, os.path.join(test_path, 'labels', os.path.basename(label_file)))
 
-    for root, dirs, files in os.walk(datapath, topdown=False):
-        for name in files:
-            file_path = os.path.join(root, name)
-            if file_path.split('/')[-3] not in selected_folders:
-                os.remove(file_path)
+    for item in os.listdir(datapath):
+        full_path = os.path.join(datapath, item)
+        if os.path.isfile(full_path):
+            os.remove(full_path)
+
 
     logger.info("Dataset was split")
     return train_path, val_path

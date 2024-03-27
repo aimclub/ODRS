@@ -11,11 +11,10 @@ from loguru import logger
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from src.data_processing.create_config import createRunDirectory
-from src.data_processing.dataset_info import dataset_info
-from src.data_processing.utils import getDataPath
-from src.data_processing.split_dataset import split_data
-from src.data_processing.ml_utils import getModels, getConfigData, dataProcessing, dumpYAML
+from src.data_processing.data_utils.utils import get_models, create_run_directory, get_data_path
+from src.data_processing.data_utils.split_dataset import split_data
+from src.data_processing.ml_processing.info_processor import get_config_data, dataset_info, data_processing, dump_yaml
+
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[2]  # PATH TO ODRS
@@ -27,19 +26,17 @@ if str(ROOT) not in sys.path:
 def predict(mode, classes_path, dataset_path, speed, accuracy):
     file = Path(__file__).resolve()
 
-    run_path = createRunDirectory(model='ml')
-
     model_top = list()
 
-    model_array = getModels()
-
-    dataset_path_new = getDataPath(ROOT, dataset_path)
+    run_path = create_run_directory(model='ml')
+    model_array = get_models()
+    dataset_path_new = get_data_path(ROOT, dataset_path)
 
     split_data(dataset_path_new, split_train_value=0.75, split_valid_value=0.15)
 
     dataset_data = dataset_info(dataset_path_new, Path(file.parents[2]) / classes_path, run_path)
 
-    features_normalized, labels = dataProcessing(dataset_data, mode, speed, accuracy)
+    features_normalized, labels = data_processing(dataset_data, mode, speed, accuracy)
 
     random_forest = RandomForestClassifier(criterion='gini',
                                             min_samples_leaf=3, max_depth=25, n_estimators=52, random_state=42)
@@ -59,12 +56,12 @@ def predict(mode, classes_path, dataset_path, speed, accuracy):
         model_top.append(model)
         logger.info(f'{num_model + 1}) {model}')
 
-    dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path)
+    dump_yaml(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path)
 
 
 def ml_main():
     file = Path(__file__).resolve()
-    mode, classes_path, dataset_path, speed, accuracy = getConfigData(Path(file.parents[0]) / 'config' / 'ml_config.yaml')
+    mode, classes_path, dataset_path, speed, accuracy = get_config_data(Path(file.parents[0]) / 'config' / 'ml_config.yaml')
     predict(mode, classes_path, dataset_path, speed, accuracy)
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 GPU: true
 accuracy: 10
 classes_path: classes.txt
-dataset_path: /media/space/ssd_1_tb_evo_sumsung1/exp-train/datasets/mon_part_1
+dataset_path: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/user_datasets/mon_part_1
 speed: 1

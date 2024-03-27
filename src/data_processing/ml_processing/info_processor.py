@@ -1,26 +1,20 @@
-from sklearn.preprocessing import MinMaxScaler
-from src.data_processing.utils import loadConfig
-import csv
-from collections import Counter
 from pathlib import Path
 import numpy as np
 import pandas as pd
 import warnings
-import yaml
 import os
 from loguru import logger
 from pathlib import Path
-import cv2
 import numpy as np
+import csv
+import yaml
+from collections import Counter
 file = Path(__file__).resolve()
 
-from src.data_processing.ml_processing.ml_plots import plot_class_balance
-
-def load_class_names(classes_file):
-    """ Загрузка названий классов из файла. """
-    with open(classes_file, 'r') as file:
-        class_names = [line.strip() for line in file]
-    return class_names
+from src.data_processing.ml_processing.plots import plot_class_balance
+from src.data_processing.data_utils.utils import load_config, load_class_names
+from src.data_processing.ml_processing.feature_perfomance import gini_coefficient, get_image_size
+from src.data_processing.ml_processing.feature_perfomance import get_average_map50, get_average_fps, min_max_scaler
 
 
 def load_yolo_labels(data_path, class_names):
@@ -57,25 +51,6 @@ def find_images(data_path):
     return image_paths
 
 
-def gini_coefficient(labels):
-    unique, counts = np.unique(labels, return_counts=True)
-    class_counts = dict(zip(unique, counts))
-    total_examples = len(labels)
-    gini = 0
-    for label in class_counts:
-        label_prob = class_counts[label] / total_examples
-        gini += label_prob * (1 - label_prob)
-    return gini
-
-
-def get_image_size(image_path):
-    image = cv2.imread(image_path)
-    if image is not None:
-        height, width, _ = image.shape
-        return width, height
-    return None
-
-
 def dataset_info(dataset_path, classes_path, run_path):
     class_labels = list()
     class_names = load_class_names(classes_path)
@@ -85,7 +60,7 @@ def dataset_info(dataset_path, classes_path, run_path):
     gini = "{:.2f}".format(gini_coefficient(class_labels))
     plot_class_balance(class_labels, run_path)
 
-    dumpCSV(class_names, class_labels, dict_class_labels, run_path)
+    dump_csv(class_names, class_labels, dict_class_labels, run_path)
 
     gini_coef = float(gini) * 100
     number_of_classes = len(set(class_labels))
@@ -102,49 +77,15 @@ def dataset_info(dataset_path, classes_path, run_path):
             float(number_of_classes), len(image_paths)]
 
 
-def getAverageFPS(df, column, part_num):
-    sorted_fps = np.sort(df[column])
-    num_parts = 5
-    part_size = len(sorted_fps) // num_parts
-    if part_num < 1 or part_num > num_parts:
-        return None
-    start_idx = (num_parts - part_num) * part_size
-    end_idx = (num_parts - part_num + 1) * part_size
-    selected_values = sorted_fps[start_idx:end_idx]
-    average_fps = np.mean(selected_values)
-    return average_fps
 
-
-def getAverage_mAP50(df, column, part_num):
-    sorted_mAP50 = np.sort(df[column])
-    num_parts = 10
-    part_size = len(sorted_mAP50) // num_parts
-
-    if part_num < 1 or part_num > num_parts:
-        return None
-
-    start_idx = (part_num - 1) * part_size
-    end_idx = part_num * part_size if part_num < num_parts else len(sorted_mAP50)
-    selected_values = sorted_mAP50[start_idx:end_idx]
-    average_mAP50 = np.mean(selected_values)
-    return average_mAP50
-
-
-def getConfigData(path_config):
-    config = loadConfig(path_config)
+def get_config_data(path_config):
+    config = load_config(path_config)
     mode = config['GPU']
     classes_path = config['classes_path']
     dataset_path = config['dataset_path']
     speed = config['speed']
     accuracy = config['accuracy']
     return mode, classes_path, dataset_path, speed, accuracy
-
-
-def getModels():
-    path_config = Path(file.parent) / 'config_models' / 'models.yaml'
-    config = loadConfig(path_config)
-    models = config['models_array']
-    return models
 
 
 def synthesize_data(df, num_samples):
@@ -158,15 +99,8 @@ def synthesize_data(df, num_samples):
     return pd.DataFrame(new_data, columns=df.columns)
 
 
-def min_max_scaler(features):
-    scaler = MinMaxScaler()
-    features_normalized = np.exp(scaler.fit_transform(features))
-    features_normalized /= np.sum(features_normalized, axis=0)
-    return features_normalized
-
-
-def getData(mode):
-    data = pd.read_csv(Path(file.parents[0]) / 'data_train_ml' / 'model_cs.csv', delimiter=';')
+def get_data_rules(mode):
+    data = pd.read_csv(Path(file.parents[1]) / 'data_rules' / 'model_cs.csv', delimiter=';')
     data = data.sample(frac=0.7, random_state=42)
     data = data.iloc[:, 0:9]
     numeric_columns = ['FPS_GPU', 'FPS_CPU']
@@ -181,7 +115,31 @@ def getData(mode):
     return data
 
 
-def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
+def data_processing(dataset_data, mode, speed, accuracy):
+    data = get_data_rules(mode)
+    speed = get_average_fps(data, 'FPS', speed)
+    accuracy = get_average_map50(data, 'mAP50', accuracy)
+    if accuracy is None or speed is None:
+        print("Invalid part number!")
+    else:
+        dataset_data.append(speed)
+        dataset_data.append(accuracy)
+
+        warnings.filterwarnings("ignore")
+        data_add = data.iloc[:, 0:7]
+        data_add = data_add.append(pd.Series(dataset_data, index=data_add.columns), ignore_index=True)
+
+        features = data_add[data_add.columns[0:7]].values
+        labels = data['Model'].values
+
+        features_normalized = min_max_scaler(features)
+
+        dataset_data = features_normalized[-1]
+        features_normalized = features_normalized[:-1]
+        return features_normalized, labels
+
+
+def dump_csv(class_names, class_labels, dict_class_labels, run_path):
     for key, value in dict_class_labels.items():
         dict_class_labels[key] = Counter(value)
     dict_class_labels['all'] = Counter(class_labels)
@@ -234,7 +192,7 @@ def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
                         writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1]})
 
 
-def dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path):
+def dump_yaml(mode, classes_path, dataset_path, speed, accuracy, dataset_data, model_top, run_path):
     data = {'GPU': mode,
             'accuracy': accuracy,
             'classes_path': classes_path,
@@ -251,27 +209,3 @@ def dumpYAML(mode, classes_path, dataset_path, speed, accuracy, dataset_data, mo
             }
     with open(run_path / 'results.yaml', 'w') as file:
         yaml.dump(data, file, default_flow_style=False)
-
-
-def dataProcessing(dataset_data, mode, speed, accuracy):
-    data = getData(mode)
-    speed = getAverageFPS(data, 'FPS', speed)
-    accuracy = getAverage_mAP50(data, 'mAP50', accuracy)
-    if accuracy is None or speed is None:
-        print("Invalid part number!")
-    else:
-        dataset_data.append(speed)
-        dataset_data.append(accuracy)
-
-        warnings.filterwarnings("ignore")
-        data_add = data.iloc[:, 0:7]
-        data_add = data_add.append(pd.Series(dataset_data, index=data_add.columns), ignore_index=True)
-
-        features = data_add[data_add.columns[0:7]].values
-        labels = data['Model'].values
-
-        features_normalized = min_max_scaler(features)
-
-        dataset_data = features_normalized[-1]
-        features_normalized = features_normalized[:-1]
-        return features_normalized, labels

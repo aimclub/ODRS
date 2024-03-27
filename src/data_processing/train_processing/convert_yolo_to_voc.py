@@ -5,7 +5,8 @@ import shutil
 from loguru import logger
 from PIL import Image
 from tqdm import tqdm
-from src.data_processing.prepare_ssd import create_ssd_json
+from prepare_ssd import create_ssd_json
+
 
 
 def convert_voc(data_path, txt_path):
