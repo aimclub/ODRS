@@ -1,6 +1,6 @@
 
 # ODRS
-[![PythonVersion](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/scikit-learn/)
+[![PythonVersion](https://img.shields.io/badge/python-3.8.10%20-blue)](https://pypi.org/project/scikit-learn/)
 
 [![Documentation Status](https://readthedocs.org/projects/odrs-test/badge/?version=latest)](https://odrs-test.readthedocs.io/en/latest/?badge=latest)
 
