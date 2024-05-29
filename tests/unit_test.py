@@ -3,7 +3,7 @@ import os
 import sys
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from ODRS.ODRS.utils.dataset_info import dataset_info
+from ODRS.src.data_processing.ml_processing.recommendation_module. import predict_models
 
 
 class TestDatasetInfo(unittest.TestCase):
@@ -12,15 +12,14 @@ class TestDatasetInfo(unittest.TestCase):
         classes_path = "/home/runner/work/ODRS/src/classes.txt"
         run_path = '/home/runner/work/ODRS/src/'
 
-        result = dataset_info(dataset_path, classes_path, run_path)
+        result = predict_models(dataset_path, classes_path, run_path)
 
         self.assertIsInstance(result, list)
-        self.assertEqual(len(result), 5)
-        self.assertIsInstance(result[0], float)
-        self.assertIsInstance(result[1], float)
-        self.assertIsInstance(result[2], float)
-        self.assertIsInstance(result[3], float)
-        self.assertIsInstance(result[4], int)
+        self.assertEqual(len(result), 3)
+        self.assertIsInstance(result[0], int)
+        self.assertIsInstance(result[1], int)
+        self.assertIsInstance(result[2], int)
+
 
 if __name__ == "__main__":
     unittest.main()
