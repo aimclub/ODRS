@@ -9,6 +9,19 @@ import sys
 
 file = Path(__file__).resolve()
 
+def get_classes_path(ROOT, classes_path):
+    current_file_path = Path(__file__).resolve()
+    DATA_PATH = Path(ROOT)
+    CLASSES_PATH = Path(classes_path)
+    try:
+        if CLASSES_PATH.is_file():
+            logger.info(f"Copying classes file to {DATA_PATH}")
+            shutil.copy(classes_path, DATA_PATH)
+    except Exception as e:
+        logger.warning(f"An error has occurred: {e}")
+    CLASSES_PATH = CLASSES_PATH.name
+    return Path(current_file_path.parents[3]) / CLASSES_PATH
+
 
 def load_class_names(classes_file):
     """ Загрузка названий классов из файла. """

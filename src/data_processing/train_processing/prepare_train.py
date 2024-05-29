@@ -58,20 +58,6 @@ def model_selection(MODEL):
         logger.critical("Invalid model name. ModelSelection")
 
 
-def get_classes_path(ROOT, classes_path):
-    DATA_PATH = Path(ROOT)
-    CLASSES_PATH = Path(classes_path)
-    try:
-        if CLASSES_PATH.is_file():
-            logger.info(f"Copying classes file to {DATA_PATH}")
-            shutil.copy(classes_path, DATA_PATH)
-    except Exception as e:
-        logger.warning(f"An error has occurred: {e}")
-    CLASSES_PATH = CLASSES_PATH.name
-
-    return CLASSES_PATH
-
-
 def delete_cache(data_path):
     extensions_to_delete = ['labels.cache', 'train.cache', 'val.cache']
     for root, dirs, files in os.walk(data_path):
@@ -80,11 +66,11 @@ def delete_cache(data_path):
                 os.remove(os.path.join(root, file))
 
 
-def create_config_data(train_path, val_path, classname_file, config_path, arch, batch_size, epochs, model):
+def create_config_data(train_path, val_path, class_file_path, config_path, arch, batch_size, epochs, model):
     current_file_path = Path(__file__).resolve()
 
     runs_path = create_run_directory(model)
-    class_file_path = Path(current_file_path.parents[3]) / classname_file
+    # class_file_path = Path(current_file_path.parents[3]) / classname_file
 
     config_path = runs_path / config_path
     if arch == 'ssd':

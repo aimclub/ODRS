@@ -4,9 +4,9 @@ from pathlib import Path
 from loguru import logger
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from src.data_processing.data_utils.utils import load_config, get_data_path
+from src.data_processing.data_utils.utils import load_config, get_data_path, get_classes_path
 from src.data_processing.data_utils.split_dataset import split_data, copy_arch_folder, resize_images_and_annotations
-from src.data_processing.train_processing.prepare_train import get_classes_path, model_selection, delete_cache
+from src.data_processing.train_processing.prepare_train import  model_selection, delete_cache
 from src.data_processing.train_processing.prepare_train import create_config_data, check_config_arrays_sizes
 from src.data_processing.train_processing.convert_yolo_to_voc import convert_voc
 
