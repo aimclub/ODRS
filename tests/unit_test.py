@@ -3,7 +3,7 @@ import os
 import sys
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from ODRS.src.data_processing.ml_processing.recommendation_module. import predict_models
+from ODRS.src.data_processing.ml_processing.recommendation_module import predict_models
 
 
 class TestDatasetInfo(unittest.TestCase):
