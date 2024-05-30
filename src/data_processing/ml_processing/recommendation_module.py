@@ -4,7 +4,7 @@ from pathlib import Path
 import umap.umap_ as umap
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from ODRS.src.data_processing.ml_processing.plots import plot_with_lines_and_predictions
+from src.data_processing.ml_processing.plots import plot_with_lines_and_predictions
 file = Path(__file__).resolve()
 
 
