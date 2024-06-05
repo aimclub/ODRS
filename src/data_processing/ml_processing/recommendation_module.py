@@ -9,10 +9,9 @@ file = Path(__file__).resolve()
 
 
 def ml_predict(df_rules, df_dataset_features, run_path):
-
     scaler = StandardScaler()
     encoder = LabelEncoder()
-    mds = umap.UMAP(random_state=42)
+    mds = umap.UMAP()
 
     cols_to_drop = [col for col in df_rules.columns if col.startswith(('Min', 'Max'))]
     df_rules = df_rules.drop(columns=cols_to_drop)
@@ -28,10 +27,10 @@ def ml_predict(df_rules, df_dataset_features, run_path):
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    y_train = encoder.fit_transform(y_train)
+    y_train = encoder.fit_transform(y_train.values.ravel())
 
-    X_pca = mds.fit_transform(X_train) # for plot
-    X_pca_test = mds.transform(X_test) # for plot
+    X_umap = mds.fit_transform(X_train) # for plot
+    X_umap_test = mds.transform(X_test) # for plot
     train_dataset_names = df_rules['Dataset']
 
     model = cat.CatBoostClassifier(iterations=100, learning_rate=0.1, random_strength=6, verbose=0)
@@ -41,7 +40,7 @@ def ml_predict(df_rules, df_dataset_features, run_path):
 
 
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 6))
-    plot_with_lines_and_predictions(X_pca, X_pca_test, y_train, "Current Dataset", y_pred, train_dataset_names, ax, 'ML Predictions', encoder)
+    plot_with_lines_and_predictions(X_umap, X_umap_test, y_train, "Current Dataset", y_pred, train_dataset_names, ax, 'ML Predictions', encoder)
     plt.savefig(run_path / "Prediction_ml.png")
     return encoder.inverse_transform(y_pred.ravel())[0]
 

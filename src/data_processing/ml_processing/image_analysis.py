@@ -1,5 +1,3 @@
-from src.data_processing.data_utils.utils import load_class_names
-from src.data_processing.ml_processing.plots import plot_class_balance
 from collections import Counter
 from tqdm import tqdm
 import cv2
@@ -136,66 +134,6 @@ def calculate_color_stats_and_histograms(image_path):
 
 
     return stats_dict
-
-
-def gini_coefficient(labels):
-    unique, counts = np.unique(labels, return_counts=True)
-    class_counts = dict(zip(unique, counts))
-    total_examples = len(labels)
-    gini = 0
-    for label in class_counts:
-        label_prob = class_counts[label] / total_examples
-        gini += label_prob * (1 - label_prob)
-    return gini
-
-def calculate_class_imbalance(labels):
-    class_counts = Counter(labels)
-    max_count = max(class_counts.values())
-    average_count = sum(class_counts.values()) / len(class_counts)
-    overall_imbalance = max_count / average_count
-    return overall_imbalance
-
-
-def get_image_size(image_path):
-    image = cv2.imread(image_path)
-    if image is not None:
-        height, width, _ = image.shape
-        return width, height
-    return None
-
-
-def load_yolo_labels(annotations_path, class_names):
-    """ Загрузка меток классов из YOLO аннотаций. """
-    dict_labels = dict()
-    labels = list()
-    for filename in annotations_path:
-        if filename.endswith('.txt'):
-            with open(filename, 'r') as file:
-                for line in file:
-                    parts = line.split()
-                    if len(parts) >= 5:
-                        class_id = int(parts[0])
-                        labels.append(class_names[class_id])
-    return labels
-
-def analysis_stats(images_path, annotations_path, classes_path, run_path):
-    class_names = load_class_names(classes_path)
-    class_labels = load_yolo_labels(annotations_path, class_names)
-    gini = "{:.2f}".format(gini_coefficient(class_labels))
-    plot_class_balance(class_labels, run_path)
-    imbalance_ratio = calculate_class_imbalance(class_labels)
-    image_count = len(images_path)
-    number_of_classes = len(set(class_labels))
-    img_w, img_h = get_image_size(images_path[0])
-    analysis_results = {
-        'W': img_w,
-        'H': img_h,
-        'Class Imbalance Gini': gini,
-        'Class Imbalance Ratio': imbalance_ratio,
-        'Number of images': image_count,
-        'Number of classes': number_of_classes,
-    }
-    return analysis_results
 
 
 def analysis_image_dataset(images_path):

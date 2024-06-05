@@ -1,7 +1,57 @@
 import pandas as pd
+from collections import Counter
 from tqdm import tqdm
+from pathlib import Path
 from collections import defaultdict
+from src.data_processing.data_utils.utils import load_class_names
+from src.data_processing.ml_processing.plots import plot_class_balance
+import numpy as np
 import os
+import cv2
+import csv
+
+def dumpCSV(class_names, class_labels, dict_class_labels, run_path):
+    for key, value in dict_class_labels.items():
+        dict_class_labels[key] = Counter(value)
+    dict_class_labels['all'] = Counter(class_labels)
+
+        
+    for key, value in dict_class_labels.items():
+        for class_name in class_names:
+            if class_name not in value.keys():
+                value.update({f'{class_name}': 0})
+    csv_file_path = run_path / 'class_counts.csv'
+    file_exists = csv_file_path.is_file()
+
+    with open(csv_file_path, 'a', newline='') as csvfile:
+        field_names = ['class-name']
+        for key in dict_class_labels:
+            field_names.append(f'{key}-count')
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
+
+        if not file_exists:
+            writer.writeheader()
+        all_values = dict()
+        for class_name in class_names:
+            values = list()
+            for class_value in dict_class_labels.values():
+                for key, value in class_value.items():
+                    if key == class_name:
+                        values.append(value)
+            all_values[class_name] = values
+        
+        sorted_dict = reversed(sorted(dict_class_labels['all'].items(), key=lambda x: x[1]))
+        
+        for class_key, class_value in sorted_dict:
+            for key, value in all_values.items():
+                if key == class_key:
+                    if len(field_names) == 5:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2], field_names[4]: value[3]})
+                    if len(field_names) == 4:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1], field_names[3]: value[2]})
+                    if len(field_names) == 3:
+                        writer.writerow({field_names[0]: key, field_names[1]: value[0], field_names[2]: value[1]})
+
 
 def calculate_iou(bbox1, bbox2):
     """
@@ -73,5 +123,70 @@ def analysis_yolo_annotations(annotation_paths):
         'Average Aspect Ratio': aspect_ratios_df['Aspect Ratio'].mean(),
         'Average Objects Per Image': avg_objects_per_image,
         'Average Overlap': sum(overlaps) / len(overlaps) if overlaps else 0,
+    }
+    return analysis_results
+
+
+def load_yolo_labels(annotations_path, class_names):
+    """ Загрузка меток классов из YOLO аннотаций. """
+    dict_labels = dict()
+    labels = list()
+    for filename in annotations_path:
+        name_foler = list(Path(filename).parts)[-3]
+        if filename.endswith('.txt'):
+            with open(filename, 'r') as file:
+                for line in file:
+                    parts = line.split()
+                    if len(parts) >= 5:
+                        class_id = int(parts[0])
+                        labels.append(class_names[class_id])
+        dict_labels[name_foler] = labels
+    return dict_labels, labels
+
+
+def gini_coefficient(labels):
+    unique, counts = np.unique(labels, return_counts=True)
+    class_counts = dict(zip(unique, counts))
+    total_examples = len(labels)
+    gini = 0
+    for label in class_counts:
+        label_prob = class_counts[label] / total_examples
+        gini += label_prob * (1 - label_prob)
+    return gini
+
+
+def calculate_class_imbalance(labels):
+    class_counts = Counter(labels)
+    max_count = max(class_counts.values())
+    average_count = sum(class_counts.values()) / len(class_counts)
+    overall_imbalance = max_count / average_count
+    return overall_imbalance
+
+
+def get_image_size(image_path):
+    image = cv2.imread(image_path)
+    if image is not None:
+        height, width, _ = image.shape
+        return width, height
+    return None
+
+
+def analysis_stats(images_path, annotations_path, classes_path, run_path):
+    class_names = load_class_names(classes_path)
+    dict_labels, class_labels = load_yolo_labels(annotations_path, class_names)
+    gini = "{:.2f}".format(gini_coefficient(class_labels))
+    plot_class_balance(class_labels, run_path)
+    dumpCSV(class_names, class_labels, dict_labels, run_path)
+    imbalance_ratio = calculate_class_imbalance(class_labels)
+    image_count = len(images_path)
+    number_of_classes = len(set(class_labels))
+    img_w, img_h = get_image_size(images_path[0])
+    analysis_results = {
+        'W': img_w,
+        'H': img_h,
+        'Class Imbalance Gini': gini,
+        'Class Imbalance Ratio': imbalance_ratio,
+        'Number of images': image_count,
+        'Number of classes': number_of_classes,
     }
     return analysis_results

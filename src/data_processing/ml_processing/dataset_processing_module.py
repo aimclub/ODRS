@@ -12,8 +12,8 @@ from collections import Counter
 file = Path(__file__).resolve()
 
 from src.data_processing.ml_processing.plots import plot_class_balance
-from src.data_processing.ml_processing.annotation_analysis import analysis_yolo_annotations
-from src.data_processing.ml_processing.image_analysis import analysis_stats, analysis_image_dataset
+from src.data_processing.ml_processing.annotation_analysis import analysis_yolo_annotations, analysis_stats
+from src.data_processing.ml_processing.image_analysis import analysis_image_dataset
 
 
 def find_paths(data_path, image_mode = True): #info_processor older find_image
@@ -44,7 +44,6 @@ def feature_extraction(dataset_path, classes_path, run_path):
     df_analyze_stats = pd.DataFrame([analyze_stat])
     df_dataset_features = pd.concat([df_analyze_color_stats, df_color_stats, df_analyze_annotations, df_analyze_stats], axis=1)
     df_dataset_features.to_csv(run_path / 'dataset_features.csv', index=False)
-
 
     return df_dataset_features
 
