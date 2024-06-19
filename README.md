@@ -7,7 +7,7 @@
 <div align="center">
     <p>
         <a align="center" href="https://github.com/saaresearch/ODRS" target="_blank">
-            <img width="50%" src="docs/img/logo.png">
+            <img width="90%" src="docs/img/logo_new.png">
         </a>
     </p>
     <div style='display: block;'>
