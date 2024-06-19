@@ -33,6 +33,7 @@ The proposed recommendation system consists of several components that interact 
     <img src="docs/img/alg.gif" width="853" height="480">
 </div>
 External parameters (received from users and third-party resources):
+
 * Dataset: Represents input data (video frames) and associated metadata (e.g. image size, quality, number of objects).
 * Model: Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
 and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
