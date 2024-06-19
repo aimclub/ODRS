@@ -3,7 +3,7 @@
 [![PythonVersion](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/scikit-learn/)
 
 [![Documentation Status](https://readthedocs.org/projects/odrs-test/badge/?version=latest)](https://odrs-test.readthedocs.io/en/latest/?badge=latest)
-
+[![wiki](https://img.shields.io/badge/wiki-latest-blue)](http://www.wiki.odrs.space)
 <div align="center">
     <p>
         <a align="center" href="https://github.com/saaresearch/ODRS" target="_blank">
@@ -33,30 +33,8 @@ The proposed recommendation system consists of several components that interact 
 <div align="center">
     <img src="docs/img/alg.gif" width="853" height="480">
 </div>
-External parameters (received from users and third-party resources):
 
-* Dataset: Represents input data (video frames) and associated metadata (e.g. image size, quality, number of objects).
-* Model: Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
-and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
-well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
 
-**Internal components**:
-
-***RecommendationEngine***: 
-generates recommendations based on user data and dataset characteristics.
-The recommendation algorithm is based on production rules. The primary set of rules (knowledge base) is formed on 
-the basis of the results of the analysis of scientific sources and standard data sets, but also empirical processing 
-of data sets from specific industries.
-The main criteria for drawing up the rules were chosen:
-
-1. Dimension of the model 
-2. The value of metrics (mAP, Recall, Accuracy) for selected datasets
-3. The speed of the model on GPU and CPU
-4. Supported image format and dimension
-
-***Training*** - Training of models proposed by the system
-
-***Evaluation*** – evaluation of the quality of training models
 
 ## Contents
 
