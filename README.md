@@ -38,7 +38,8 @@ External parameters (received from users and third-party resources):
 * Model: Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
 and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
 well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
-Internal components:
+
+**Internal components**:
 
 ***RecommendationEngine***: 
 generates recommendations based on user data and dataset characteristics.
