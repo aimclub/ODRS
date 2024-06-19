@@ -19,8 +19,8 @@
         </a>
     </div>
 </div>
-<br></br>
-ODRS - it an open source recommendation system for training object detection models. Our system allows you to choose the most 
+
+**ODRS** - it an open source recommendation system for training object detection models. Our system allows you to choose the most 
 profitable existing object recognition models based on user preferences and data. In addition to choosing the 
 architecture of the model, the system will help you start training and configure the environment.
 
