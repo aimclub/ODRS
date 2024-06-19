@@ -24,9 +24,10 @@ ODRS - it an open source recommendation system for training object detection mod
 profitable existing object recognition models based on user preferences and data. In addition to choosing the 
 architecture of the model, the system will help you start training and configure the environment.
 
-<img src="docs/img/prew.gif" width="640" height="360">
+<div align="center">
+    <img src="docs/img/prew.gif" width="640" height="360">
+</div>
 
-<br></br>
 The proposed recommendation system consists of several components that interact to generate recommendations for machine learning pipelines.
 <div align="center">
     <img src="docs/img/alg.gif" width="853" height="480">
