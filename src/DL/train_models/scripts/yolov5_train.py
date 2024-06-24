@@ -1,6 +1,18 @@
 import os
 from pathlib import Path
-from utils.port_selector import get_free_port
+import socket
+import random
+
+def get_free_port():
+    while True:
+        port = random.randint(0, 65535)
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(('', port))
+                return port
+            except OSError:
+                # Если порт занят, попробуем снова
+                continue
 
 def train_V5(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
     """
