@@ -15,7 +15,7 @@ def model_selection(MODEL):
     arch = ""
     if MODEL.startswith('yolov5'):
         arch = 'yolov5'
-        path_config = Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' / 'yolov5' / 'models' / f'{MODEL}.yaml'
+        path_config = Path(file.parents[2]) / 'DL' / 'train_models' / 'models' / 'yolov5' / 'models' / f'{MODEL}.yaml'
         if os.path.exists(path_config):
             return arch, path_config
         else:
@@ -25,7 +25,7 @@ def model_selection(MODEL):
     elif MODEL.startswith('yolov7'):
         arch = 'yolov7'
         path_config = (
-            Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' /
+            Path(file.parents[2]) / 'DL' / 'train_models' / 'models' /
             'yolov7' / 'cfg' / 'training' / f'{MODEL}.yaml'
             )
         if os.path.exists(path_config):
@@ -37,7 +37,7 @@ def model_selection(MODEL):
     elif MODEL.startswith('yolov8'):
         arch = 'yolov8'
         path_config = (
-            Path(file.parents[2]) / 'train_utils' / 'train_models' / 'models' /
+            Path(file.parents[2]) / 'DL' / 'train_models' / 'models' /
             'ultralytics' / 'ultralytics' / 'models' / 'v8' / f'{MODEL}.yaml'
             )
         if os.path.exists(path_config):

@@ -1,11 +1,10 @@
 BATCH_SIZE: 20
 CLASSES: classes.txt
-DATA_PATH: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
+DATA_PATH: /media/space/ssd_1_tb_evo_sumsung1/exp-train/pad_1
 EPOCHS: 1
 GPU_COUNT: 0
 IMG_SIZE: 300
-MODEL: yolov8s
+MODEL: yolov5n
 SELECT_GPU: cpu
-
 SPLIT_TRAIN_VALUE: 0.85
-SPLIT_VAL_VALUE: 0.10
+SPLIT_VAL_VALUE: 0.1

@@ -1,0 +1,252 @@
+2024-06-24 13:22:35,347 INFO    StreamThr :130079 [internal.py:wandb_internal():86] W&B internal server running at pid: 130079, started at: 2024-06-24 13:22:35.346629
+2024-06-24 13:22:35,347 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: status
+2024-06-24 13:22:35,349 INFO    WriterThread:130079 [datastore.py:open_for_write():85] open: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/run-lldqojbm.wandb
+2024-06-24 13:22:35,349 DEBUG   SenderThread:130079 [sender.py:send():379] send: header
+2024-06-24 13:22:35,358 DEBUG   SenderThread:130079 [sender.py:send():379] send: run
+2024-06-24 13:22:35,362 INFO    SenderThread:130079 [sender.py:_maybe_setup_resume():758] checking resume status for None/2024-06-24_13-22-33_yolov5n/lldqojbm
+2024-06-24 13:22:36,003 INFO    SenderThread:130079 [dir_watcher.py:__init__():211] watching files in: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files
+2024-06-24 13:22:36,003 INFO    SenderThread:130079 [sender.py:_start_run_threads():1121] run started: lldqojbm with start time 1719224555.346658
+2024-06-24 13:22:36,003 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:36,003 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:36,014 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: check_version
+2024-06-24 13:22:36,014 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: check_version
+2024-06-24 13:22:36,204 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: run_start
+2024-06-24 13:22:36,220 DEBUG   HandlerThread:130079 [system_info.py:__init__():31] System info init
+2024-06-24 13:22:36,220 DEBUG   HandlerThread:130079 [system_info.py:__init__():46] System info init done
+2024-06-24 13:22:36,221 INFO    HandlerThread:130079 [system_monitor.py:start():181] Starting system monitor
+2024-06-24 13:22:36,221 INFO    SystemMonitor:130079 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2024-06-24 13:22:36,222 INFO    HandlerThread:130079 [system_monitor.py:probe():201] Collecting system info
+2024-06-24 13:22:36,223 INFO    SystemMonitor:130079 [interfaces.py:start():190] Started cpu monitoring
+2024-06-24 13:22:36,225 INFO    SystemMonitor:130079 [interfaces.py:start():190] Started disk monitoring
+2024-06-24 13:22:36,227 INFO    SystemMonitor:130079 [interfaces.py:start():190] Started gpu monitoring
+2024-06-24 13:22:36,229 INFO    SystemMonitor:130079 [interfaces.py:start():190] Started memory monitoring
+2024-06-24 13:22:36,231 INFO    SystemMonitor:130079 [interfaces.py:start():190] Started network monitoring
+2024-06-24 13:22:36,261 DEBUG   HandlerThread:130079 [system_info.py:probe():195] Probing system
+2024-06-24 13:22:36,275 DEBUG   HandlerThread:130079 [system_info.py:_probe_git():180] Probing git
+2024-06-24 13:22:36,312 DEBUG   HandlerThread:130079 [system_info.py:_probe_git():188] Probing git done
+2024-06-24 13:22:36,312 DEBUG   HandlerThread:130079 [system_info.py:probe():240] Probing system done
+2024-06-24 13:22:36,312 DEBUG   HandlerThread:130079 [system_monitor.py:probe():210] {'os': 'Linux-5.15.0-107-generic-x86_64-with-glibc2.29', 'python': '3.8.10', 'heartbeatAt': '2024-06-24T10:22:36.261283', 'startedAt': '2024-06-24T10:22:35.341970', 'docker': None, 'cuda': None, 'args': ('--img', '300', '--batch', '20', '--epochs', '1', '--data', '/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/runs/2024-06-24_13-22-33_yolov5n/dataset.yaml', '--cfg', '/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/train_models/models/yolov5/models/yolov5n.yaml', '--device', 'cpu', '--project', '/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/runs/2024-06-24_13-22-33_yolov5n', '--name', 'exp'), 'state': 'running', 'program': '/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/train_models/models/yolov5/train.py', 'codePath': 'src/DL/train_models/models/yolov5/train.py', 'git': {'remote': 'https://github.com/saaresearch/ODRS.git', 'commit': '1f5848625b0f88a27247a661cc65f4d3a1d6aa10'}, 'email': 'som_nncs@list.ru', 'root': '/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS', 'host': 'space', 'username': 'space', 'executable': '/usr/bin/python3', 'cpu_count': 16, 'cpu_count_logical': 24, 'cpu_freq': {'current': 3106.099708333333, 'min': 800.0, 'max': 4716.666666666667}, 'cpu_freq_per_core': [{'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 3200.0, 'min': 800.0, 'max': 5200.0}, {'current': 946.393, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 5100.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}, {'current': 3200.0, 'min': 800.0, 'max': 3900.0}], 'disk': {'total': 162.76885223388672, 'used': 102.9826889038086}, 'gpu': 'NVIDIA RTX A4000', 'gpu_count': 2, 'gpu_devices': [{'name': 'NVIDIA RTX A4000', 'memory_total': 16897081344}, {'name': 'Quadro P6000', 'memory_total': 25637224448}], 'memory': {'total': 31.199459075927734}}
+2024-06-24 13:22:36,313 INFO    HandlerThread:130079 [system_monitor.py:probe():211] Finished collecting system info
+2024-06-24 13:22:36,313 INFO    HandlerThread:130079 [system_monitor.py:probe():214] Publishing system info
+2024-06-24 13:22:36,313 DEBUG   HandlerThread:130079 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2024-06-24 13:22:36,313 DEBUG   HandlerThread:130079 [system_info.py:_save_pip():67] Saving pip packages done
+2024-06-24 13:22:36,313 INFO    HandlerThread:130079 [system_monitor.py:probe():216] Finished publishing system info
+2024-06-24 13:22:36,321 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:36,321 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2024-06-24 13:22:36,325 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: stop_status
+2024-06-24 13:22:36,325 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: stop_status
+2024-06-24 13:22:36,523 DEBUG   SenderThread:130079 [sender.py:send():379] send: telemetry
+2024-06-24 13:22:36,945 INFO    wandb-upload_0:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/8kqmjv1a-wandb-metadata.json
+2024-06-24 13:22:37,017 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/requirements.txt
+2024-06-24 13:22:37,018 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-metadata.json
+2024-06-24 13:22:37,019 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-summary.json
+2024-06-24 13:22:37,245 DEBUG   SenderThread:130079 [sender.py:send():379] send: telemetry
+2024-06-24 13:22:37,249 DEBUG   SenderThread:130079 [sender.py:send():379] send: telemetry
+2024-06-24 13:22:37,271 DEBUG   SenderThread:130079 [sender.py:send():379] send: telemetry
+2024-06-24 13:22:38,015 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:40,017 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:40,674 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: status_report
+2024-06-24 13:22:41,471 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,471 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:41,472 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,472 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:41,472 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,473 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:41,473 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,473 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:41,473 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,474 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:41,817 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:41,817 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Labels_0_0bcc5b588757a2b98051.jpg with policy now
+2024-06-24 13:22:41,819 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:41,819 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Labels_0_f4831590e006a0e1e312.jpg with policy now
+2024-06-24 13:22:41,831 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: partial_history
+2024-06-24 13:22:41,833 DEBUG   SenderThread:130079 [sender.py:send():379] send: history
+2024-06-24 13:22:41,833 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:41,833 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:42,020 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:42,020 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-summary.json
+2024-06-24 13:22:42,020 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Labels_0_f4831590e006a0e1e312.jpg
+2024-06-24 13:22:42,020 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Labels_0_0bcc5b588757a2b98051.jpg
+2024-06-24 13:22:42,021 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media
+2024-06-24 13:22:42,021 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images
+2024-06-24 13:22:42,523 INFO    wandb-upload_1:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/2u99abqp-media/images/Labels_0_f4831590e006a0e1e312.jpg
+2024-06-24 13:22:42,566 INFO    wandb-upload_0:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/vjlfqbq6-media/images/Labels_0_0bcc5b588757a2b98051.jpg
+2024-06-24 13:22:43,297 INFO    wandb-upload_0:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/xemm7gw3-media/images/Labels_0_0bcc5b588757a2b98051.jpg
+2024-06-24 13:22:43,320 INFO    wandb-upload_1:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/l24ge6re-media/images/Labels_0_f4831590e006a0e1e312.jpg
+2024-06-24 13:22:43,940 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: log_artifact
+2024-06-24 13:22:43,940 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: log_artifact
+2024-06-24 13:22:44,022 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:44,022 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Validation_1_11296f2ba31b83b2b604.jpg
+2024-06-24 13:22:44,022 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: partial_history
+2024-06-24 13:22:44,024 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Results_1_c0ae0bbad480d03fe575.png
+2024-06-24 13:22:44,024 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Validation_1_93be6840620fcf4c5456.jpg
+2024-06-24 13:22:44,026 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_created():271] file/dir created: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Results_1_40826b4fc53ef952edb1.png
+2024-06-24 13:22:44,026 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images
+2024-06-24 13:22:44,718 INFO    wandb-upload_3:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/86ugmsb7-media/images/Results_1_40826b4fc53ef952edb1.png
+2024-06-24 13:22:44,802 INFO    wandb-upload_0:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/izdgiupk-media/images/Validation_1_11296f2ba31b83b2b604.jpg
+2024-06-24 13:22:44,846 INFO    wandb-upload_2:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/v55p13sf-media/images/Validation_1_93be6840620fcf4c5456.jpg
+2024-06-24 13:22:44,912 INFO    wandb-upload_1:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/4uobc1ut-media/images/Results_1_c0ae0bbad480d03fe575.png
+2024-06-24 13:22:45,024 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: poll_exit
+2024-06-24 13:22:46,038 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:47,118 INFO    wandb-upload_4:130079 [upload_job.py:push():89] Uploaded file /home/space/.local/share/wandb/artifacts/staging/tmpx1u2_y61
+2024-06-24 13:22:47,840 INFO    SenderThread:130079 [sender.py:send_request_log_artifact():1441] logged artifact run_lldqojbm_model - {'id': 'QXJ0aWZhY3Q6OTE5NTk0NDc3', 'digest': '730203b90ad0f0e63a28c8b8214ed179', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjIyNzU3MjIyNw==', 'latestArtifact': None}, 'version': 'latest'}
+2024-06-24 13:22:47,841 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:47,842 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: status_report
+2024-06-24 13:22:47,843 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Validation_1_11296f2ba31b83b2b604.jpg with policy now
+2024-06-24 13:22:47,847 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:47,847 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Validation_1_93be6840620fcf4c5456.jpg with policy now
+2024-06-24 13:22:47,849 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:47,849 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Results_1_40826b4fc53ef952edb1.png with policy now
+2024-06-24 13:22:47,856 DEBUG   SenderThread:130079 [sender.py:send():379] send: files
+2024-06-24 13:22:47,856 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file media/images/Results_1_c0ae0bbad480d03fe575.png with policy now
+2024-06-24 13:22:47,862 DEBUG   SenderThread:130079 [sender.py:send():379] send: history
+2024-06-24 13:22:47,863 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: summary_record
+2024-06-24 13:22:47,868 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:47,869 DEBUG   SenderThread:130079 [sender.py:send():379] send: telemetry
+2024-06-24 13:22:47,870 DEBUG   SenderThread:130079 [sender.py:send():379] send: exit
+2024-06-24 13:22:47,870 INFO    SenderThread:130079 [sender.py:send_exit():584] handling exit code: 0
+2024-06-24 13:22:47,870 INFO    SenderThread:130079 [sender.py:send_exit():586] handling runtime: 7
+2024-06-24 13:22:47,877 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:47,878 INFO    SenderThread:130079 [sender.py:send_exit():592] send defer
+2024-06-24 13:22:47,879 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: poll_exit
+2024-06-24 13:22:47,879 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,880 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 0
+2024-06-24 13:22:47,881 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,881 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 0
+2024-06-24 13:22:47,881 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 1
+2024-06-24 13:22:47,882 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,882 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 1
+2024-06-24 13:22:47,882 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,882 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 1
+2024-06-24 13:22:47,883 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 2
+2024-06-24 13:22:47,883 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,883 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 2
+2024-06-24 13:22:47,883 INFO    HandlerThread:130079 [system_monitor.py:finish():190] Stopping system monitor
+2024-06-24 13:22:47,888 INFO    HandlerThread:130079 [interfaces.py:finish():202] Joined cpu monitor
+2024-06-24 13:22:47,890 INFO    HandlerThread:130079 [interfaces.py:finish():202] Joined disk monitor
+2024-06-24 13:22:47,890 DEBUG   SystemMonitor:130079 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2024-06-24 13:22:47,891 DEBUG   SystemMonitor:130079 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2024-06-24 13:22:47,892 DEBUG   SystemMonitor:130079 [system_monitor.py:_start():170] Publishing last batch of metrics
+2024-06-24 13:22:47,958 INFO    HandlerThread:130079 [interfaces.py:finish():202] Joined gpu monitor
+2024-06-24 13:22:47,958 INFO    HandlerThread:130079 [interfaces.py:finish():202] Joined memory monitor
+2024-06-24 13:22:47,959 INFO    HandlerThread:130079 [interfaces.py:finish():202] Joined network monitor
+2024-06-24 13:22:47,959 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,959 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 2
+2024-06-24 13:22:47,959 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 3
+2024-06-24 13:22:47,959 DEBUG   SenderThread:130079 [sender.py:send():379] send: stats
+2024-06-24 13:22:47,959 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,960 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 3
+2024-06-24 13:22:47,960 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,960 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 3
+2024-06-24 13:22:47,960 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 4
+2024-06-24 13:22:47,960 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,960 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 4
+2024-06-24 13:22:47,960 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,960 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 4
+2024-06-24 13:22:47,960 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 5
+2024-06-24 13:22:47,960 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,960 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 5
+2024-06-24 13:22:47,960 DEBUG   SenderThread:130079 [sender.py:send():379] send: summary
+2024-06-24 13:22:47,961 INFO    SenderThread:130079 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2024-06-24 13:22:47,961 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,961 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 5
+2024-06-24 13:22:47,961 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 6
+2024-06-24 13:22:47,961 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:47,961 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 6
+2024-06-24 13:22:47,961 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:47,961 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 6
+2024-06-24 13:22:47,963 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: status_report
+2024-06-24 13:22:48,054 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-summary.json
+2024-06-24 13:22:48,318 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 7
+2024-06-24 13:22:48,318 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:48,319 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 7
+2024-06-24 13:22:48,319 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:48,319 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 7
+2024-06-24 13:22:48,712 INFO    wandb-upload_2:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/kvz7n37z-media/images/Validation_1_93be6840620fcf4c5456.jpg
+2024-06-24 13:22:48,757 INFO    wandb-upload_3:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/6sadqpon-media/images/Validation_1_11296f2ba31b83b2b604.jpg
+2024-06-24 13:22:48,800 INFO    wandb-upload_4:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/mkozm0sy-media/images/Results_1_40826b4fc53ef952edb1.png
+2024-06-24 13:22:48,851 INFO    wandb-upload_1:130079 [upload_job.py:push():131] Uploaded file /tmp/tmpdba_8agkwandb/c1hfhcib-media/images/Results_1_c0ae0bbad480d03fe575.png
+2024-06-24 13:22:49,055 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 8
+2024-06-24 13:22:49,056 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:49,057 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 8
+2024-06-24 13:22:49,058 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:49,058 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 8
+2024-06-24 13:22:49,059 INFO    SenderThread:130079 [job_builder.py:build():281] Attempting to build job artifact
+2024-06-24 13:22:49,062 INFO    SenderThread:130079 [job_builder.py:_get_source_type():400] is repo sourced job
+2024-06-24 13:22:49,065 INFO    SenderThread:130079 [job_builder.py:build():374] adding wandb-job metadata file
+2024-06-24 13:22:49,066 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:49,068 INFO    Thread-12 :130079 [dir_watcher.py:_on_file_modified():288] file/dir modified: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/config.yaml
+2024-06-24 13:22:49,082 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 9
+2024-06-24 13:22:49,082 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:49,083 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 9
+2024-06-24 13:22:49,084 DEBUG   SenderThread:130079 [sender.py:send():379] send: artifact
+2024-06-24 13:22:50,026 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: keepalive
+2024-06-24 13:22:50,948 INFO    wandb-upload_0:130079 [upload_job.py:push():89] Uploaded file /home/space/.local/share/wandb/artifacts/staging/tmpgbtf675p
+2024-06-24 13:22:50,981 INFO    wandb-upload_2:130079 [upload_job.py:push():89] Uploaded file /home/space/.local/share/wandb/artifacts/staging/tmpiccjhm_l
+2024-06-24 13:22:52,120 INFO    SenderThread:130079 [sender.py:send_artifact():1475] sent artifact job-https___github.com_saaresearch_ODRS.git_src_DL_train_models_models_yolov5_train.py - {'id': 'QXJ0aWZhY3Q6OTE5NTk0OTAw', 'digest': '832063803dbdc1cf682d5c674e76b903', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjIyNzU3MjU5Ng==', 'latestArtifact': None}, 'version': 'latest'}
+2024-06-24 13:22:52,120 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:52,121 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 9
+2024-06-24 13:22:52,121 INFO    SenderThread:130079 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-06-24 13:22:53,076 INFO    SenderThread:130079 [dir_watcher.py:finish():388] scan: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files
+2024-06-24 13:22:53,077 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/config.yaml config.yaml
+2024-06-24 13:22:53,078 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log output.log
+2024-06-24 13:22:53,084 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/requirements.txt requirements.txt
+2024-06-24 13:22:53,091 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-metadata.json wandb-metadata.json
+2024-06-24 13:22:53,092 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-summary.json wandb-summary.json
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Labels_0_0bcc5b588757a2b98051.jpg media/images/Labels_0_0bcc5b588757a2b98051.jpg
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Labels_0_f4831590e006a0e1e312.jpg media/images/Labels_0_f4831590e006a0e1e312.jpg
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Results_1_40826b4fc53ef952edb1.png media/images/Results_1_40826b4fc53ef952edb1.png
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Results_1_c0ae0bbad480d03fe575.png media/images/Results_1_c0ae0bbad480d03fe575.png
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Validation_1_11296f2ba31b83b2b604.jpg media/images/Validation_1_11296f2ba31b83b2b604.jpg
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [dir_watcher.py:finish():402] scan save: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/media/images/Validation_1_93be6840620fcf4c5456.jpg media/images/Validation_1_93be6840620fcf4c5456.jpg
+2024-06-24 13:22:53,105 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 10
+2024-06-24 13:22:53,105 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:53,105 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 10
+2024-06-24 13:22:53,105 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: status_report
+2024-06-24 13:22:53,106 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:53,106 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 10
+2024-06-24 13:22:53,106 INFO    SenderThread:130079 [file_pusher.py:finish():159] shutting down file pusher
+2024-06-24 13:22:53,490 INFO    wandb-upload_2:130079 [upload_job.py:push():131] Uploaded file /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/requirements.txt
+2024-06-24 13:22:53,527 INFO    wandb-upload_0:130079 [upload_job.py:push():131] Uploaded file /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/wandb-summary.json
+2024-06-24 13:22:53,541 INFO    wandb-upload_4:130079 [upload_job.py:push():131] Uploaded file /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/config.yaml
+2024-06-24 13:22:53,569 INFO    wandb-upload_3:130079 [upload_job.py:push():131] Uploaded file /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/files/output.log
+2024-06-24 13:22:53,770 INFO    Thread-11 :130079 [sender.py:transition_state():612] send defer: 11
+2024-06-24 13:22:53,771 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:53,771 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 11
+2024-06-24 13:22:53,773 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:53,773 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 11
+2024-06-24 13:22:53,774 INFO    SenderThread:130079 [file_pusher.py:join():164] waiting for file pusher
+2024-06-24 13:22:53,774 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 12
+2024-06-24 13:22:53,775 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:53,775 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 12
+2024-06-24 13:22:53,776 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:53,776 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 12
+2024-06-24 13:22:53,776 INFO    SenderThread:130079 [file_stream.py:finish():593] file stream finish called
+2024-06-24 13:22:53,978 INFO    SenderThread:130079 [file_stream.py:finish():597] file stream finish is done
+2024-06-24 13:22:53,979 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 13
+2024-06-24 13:22:53,980 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:53,980 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 13
+2024-06-24 13:22:53,982 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:53,982 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 13
+2024-06-24 13:22:53,983 INFO    SenderThread:130079 [sender.py:transition_state():612] send defer: 14
+2024-06-24 13:22:53,984 DEBUG   SenderThread:130079 [sender.py:send():379] send: final
+2024-06-24 13:22:53,984 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: defer
+2024-06-24 13:22:53,984 DEBUG   SenderThread:130079 [sender.py:send():379] send: footer
+2024-06-24 13:22:53,985 INFO    HandlerThread:130079 [handler.py:handle_request_defer():170] handle defer: 14
+2024-06-24 13:22:53,985 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: defer
+2024-06-24 13:22:53,986 INFO    SenderThread:130079 [sender.py:send_request_defer():608] handle sender defer: 14
+2024-06-24 13:22:53,988 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: poll_exit
+2024-06-24 13:22:53,988 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: server_info
+2024-06-24 13:22:53,989 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: poll_exit
+2024-06-24 13:22:53,989 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: get_summary
+2024-06-24 13:22:53,990 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: server_info
+2024-06-24 13:22:53,991 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: sampled_history
+2024-06-24 13:22:53,996 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: job_info
+2024-06-24 13:22:54,151 DEBUG   SenderThread:130079 [sender.py:send_request():406] send_request: job_info
+2024-06-24 13:22:54,153 DEBUG   HandlerThread:130079 [handler.py:handle_request():144] handle_request: shutdown
+2024-06-24 13:22:54,154 INFO    HandlerThread:130079 [handler.py:finish():857] shutting down handler
+2024-06-24 13:22:54,998 INFO    WriterThread:130079 [datastore.py:close():294] close: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/wandb/run-20240624_132235-lldqojbm/run-lldqojbm.wandb
+2024-06-24 13:22:55,152 INFO    SenderThread:130079 [sender.py:finish():1552] shutting down sender
+2024-06-24 13:22:55,152 INFO    SenderThread:130079 [file_pusher.py:finish():159] shutting down file pusher
+2024-06-24 13:22:55,152 INFO    SenderThread:130079 [file_pusher.py:join():164] waiting for file pusher

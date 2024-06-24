@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
-import hashlib
-from datetime import datetime
-
+from utils.port_selector import get_free_port
 
 def train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, SELECT_GPU):
     """
@@ -15,10 +13,8 @@ def train_V7(IMG_SIZE, BATCH_SIZE, EPOCHS, CONFIG_PATH, MODEL_PATH, GPU_COUNT, S
     :param MODEL_PATH: Path to the model file (yaml).
     """
     file = Path(__file__).resolve()
-    now = datetime.now().strftime("%Y%m%d%H%M%S")
-    hash_value = int(hashlib.md5(now.encode()).hexdigest(), 16) % 100000
 
-    command = "python3" if not GPU_COUNT else f"OMP_NUM_THREADS=1 python3 -m torch.distributed.launch --nproc_per_node {GPU_COUNT} --master_port={hash_value:05d}"
+    command = "python3" if not GPU_COUNT else f"OMP_NUM_THREADS=1 python3 -m torch.distributed.launch --nproc_per_node {GPU_COUNT} --master_port={get_free_port()}"
     train_script_path = str(Path(file.parents[1]) / 'models' / 'yolov7' / 'train.py')
     full_command = (
         command +

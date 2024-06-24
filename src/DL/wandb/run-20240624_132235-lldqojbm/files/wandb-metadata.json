@@ -1,0 +1,186 @@
+{
+    "os": "Linux-5.15.0-107-generic-x86_64-with-glibc2.29",
+    "python": "3.8.10",
+    "heartbeatAt": "2024-06-24T10:22:36.261283",
+    "startedAt": "2024-06-24T10:22:35.341970",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--img",
+        "300",
+        "--batch",
+        "20",
+        "--epochs",
+        "1",
+        "--data",
+        "/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/runs/2024-06-24_13-22-33_yolov5n/dataset.yaml",
+        "--cfg",
+        "/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/train_models/models/yolov5/models/yolov5n.yaml",
+        "--device",
+        "cpu",
+        "--project",
+        "/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/runs/2024-06-24_13-22-33_yolov5n",
+        "--name",
+        "exp"
+    ],
+    "state": "running",
+    "program": "/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS/src/DL/train_models/models/yolov5/train.py",
+    "codePath": "src/DL/train_models/models/yolov5/train.py",
+    "git": {
+        "remote": "https://github.com/saaresearch/ODRS.git",
+        "commit": "1f5848625b0f88a27247a661cc65f4d3a1d6aa10"
+    },
+    "email": "som_nncs@list.ru",
+    "root": "/media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/ODRS",
+    "host": "space",
+    "username": "space",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 16,
+    "cpu_count_logical": 24,
+    "cpu_freq": {
+        "current": 3106.099708333333,
+        "min": 800.0,
+        "max": 4716.666666666667
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5200.0
+        },
+        {
+            "current": 946.393,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 5100.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3200.0,
+            "min": 800.0,
+            "max": 3900.0
+        }
+    ],
+    "disk": {
+        "total": 162.76885223388672,
+        "used": 102.9826889038086
+    },
+    "gpu": "NVIDIA RTX A4000",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA RTX A4000",
+            "memory_total": 16897081344
+        },
+        {
+            "name": "Quadro P6000",
+            "memory_total": 25637224448
+        }
+    ],
+    "memory": {
+        "total": 31.199459075927734
+    }
+}

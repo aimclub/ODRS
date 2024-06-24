@@ -1,6 +1,0 @@
-classes_path: classes.txt
-dataset_path: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
-GPU: False
-accuracy: False
-speed: False
-balance: True

@@ -57,20 +57,20 @@ def get_data_path(ROOT, folder_name):
     DATA_PATH = Path(ROOT) / 'user_datasets'
     FOLDER_PATH = DATA_PATH / folder_name
     target_path = DATA_PATH / FOLDER_PATH.name
-    try:
-        if not Path(FOLDER_PATH).is_dir() or not any(Path(FOLDER_PATH).iterdir()):
-            logger.error("The dataset folder is empty or does not exist.")
-            sys.exit(0)
 
-        if os.path.isdir(target_path) and FOLDER_PATH.parent.resolve() != DATA_PATH.resolve():
-            logger.error("The dataset folder is alredy exist.")
-            sys.exit(0)
+    if not FOLDER_PATH.is_dir():
+        logger.error("The dataset folder does not exist.")
+        sys.exit(0)
 
-        if FOLDER_PATH.parent.resolve() != DATA_PATH.resolve():
-            logger.info(f"Copying a set of images to {DATA_PATH}")
-            shutil.copytree(FOLDER_PATH, target_path, dirs_exist_ok=True)
-            FOLDER_PATH = target_path
+    if not any(FOLDER_PATH.iterdir()):
+        logger.error("The dataset folder is empty.")
+        sys.exit(0)
 
-    except Exception as e:
-        logger.error(f"An error has occurred: {e}")
-    return FOLDER_PATH
+    if target_path.exists() and FOLDER_PATH.parent != DATA_PATH:
+        logger.warning("The dataset folder is already exist.")
+        return target_path
+
+    if FOLDER_PATH.parent != DATA_PATH:
+        logger.info(f"Copying a set of images to {DATA_PATH}")
+        shutil.copytree(FOLDER_PATH, target_path, dirs_exist_ok=True)
+    return target_path

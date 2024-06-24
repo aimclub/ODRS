@@ -1,9 +1,3 @@
-import warnings
-import numpy as np
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.metrics import accuracy_score
 import sys
 import os
 import yaml
@@ -12,7 +6,7 @@ from loguru import logger
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
-from src.data_processing.data_utils.utils import get_models, create_run_directory, get_data_path, get_classes_path, load_config
+from src.data_processing.data_utils.utils import  create_run_directory, get_data_path, get_classes_path, load_config
 from src.data_processing.data_utils.split_dataset import split_data
 from src.data_processing.ml_processing.dataset_processing_module import feature_extraction
 from src.data_processing.ml_processing.recommendation_module import predict_models
@@ -54,10 +48,7 @@ def dump_yaml(data_config_ml, top_models, run_path):
 
 def predict(data_config_ml):
     file = Path(__file__).resolve()
-    model_top = list()
     run_path = create_run_directory(model='ml')
-    model_array = get_models()
-
 
     dataset_path = get_data_path(ROOT, data_config_ml['dataset_path'])
     data_config_ml['dataset_path'] = dataset_path
@@ -76,15 +67,6 @@ def predict(data_config_ml):
 
     dump_yaml(data_config_ml, top_models, run_path)
     
-
-
-
-
-
-
-
-
-
 
 def ml_main():
     file = Path(__file__).resolve()

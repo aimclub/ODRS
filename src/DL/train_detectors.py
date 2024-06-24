@@ -10,8 +10,8 @@ from src.data_processing.train_processing.prepare_train import  model_selection,
 from src.data_processing.train_processing.prepare_train import create_config_data, check_config_arrays_sizes
 from src.data_processing.train_processing.convert_yolo_to_voc import convert_voc
 
-from src.train_utils.train_models.scripts import yolov8_train, yolov7_train, yolov5_train
-from src.train_utils.train_models.scripts import faster_rccn_train, ssd_train
+from src.DL.train_models.scripts import yolov8_train, yolov7_train, yolov5_train
+from src.DL.train_models.scripts import faster_rccn_train, ssd_train
 
 
 
@@ -22,8 +22,8 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 
-def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_NAME, SPLIT_TRAIN_VALUE,
-              SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU):
+def fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, SPLIT_TRAIN_VALUE,
+              SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU, CONFIG_NAME = 'dataset.yaml'):
     
     DATA_PATH = get_data_path(ROOT, DATA_PATH)
     CLASSES_PATH = get_classes_path(ROOT, CLASSES)
@@ -101,12 +101,12 @@ def prepare_to_train(config, list_parameters):
             fit_model(**current_params)
             
     else:
-        fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, CONFIG_NAME, SPLIT_TRAIN_VALUE,
-                SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU)
+        fit_model(DATA_PATH, CLASSES, IMG_SIZE, BATCH_SIZE, EPOCHS, MODEL, SPLIT_TRAIN_VALUE,
+                SPLIT_VAL_VALUE, GPU_COUNT, SELECT_GPU, CONFIG_NAME)
 
 
 def run():
-    config_path = Path(ROOT) / 'src' / 'train_utils' / 'config' / 'train_config.yaml'
+    config_path = Path(ROOT) / 'src' / 'DL' / 'config' / 'train_config.yaml'
     config = load_config(config_path)
 
     list_parameters = {key: value for key, value in config.items() if isinstance(value, list)}
