@@ -1,10 +1,10 @@
 BATCH_SIZE: 20
 CLASSES: classes.txt
-DATA_PATH: /media/space/ssd_1_tb_evo_sumsung1/exp-train/pad_1
-EPOCHS: 1
-GPU_COUNT: 0
+DATA_PATH: /media/space/ssd_1_tb_evo_sumsung1/exp-train/ODRS-update/pad_1
+EPOCHS: 2
+GPU_COUNT: 2
 IMG_SIZE: 300
-MODEL: yolov5n
-SELECT_GPU: cpu
+MODEL: yolov7-tiny
+SELECT_GPU: 0,1
 SPLIT_TRAIN_VALUE: 0.85
 SPLIT_VAL_VALUE: 0.1

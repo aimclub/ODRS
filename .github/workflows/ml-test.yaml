@@ -26,4 +26,4 @@ jobs:
         mkdir WaRP/Warp-D/valid
         cp -r WaRP/Warp-D/test/* WaRP/Warp-D/valid/        
     - name: Ml predictions
-      run: python src/ml_utils/run_recommender.py
+      run: python src/ML/run_recommender.py

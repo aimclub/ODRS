@@ -1,71 +1,39 @@
 
 # ODRS
-[![PythonVersion](https://img.shields.io/badge/python-3.8.10%20-blue)](https://pypi.org/project/scikit-learn/)
+[![PythonVersion](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/scikit-learn/)
 
 [![Documentation Status](https://readthedocs.org/projects/odrs-test/badge/?version=latest)](https://odrs-test.readthedocs.io/en/latest/?badge=latest)
-
+[![wiki](https://img.shields.io/badge/wiki-latest-blue)](http://www.wiki.odrs.space)
 <div align="center">
     <p>
         <a align="center" href="https://github.com/saaresearch/ODRS" target="_blank">
-            <img width="70%" src="docs/img/logo.png">
+            <img width="70%" src="docs/img/logo_new.png">
         </a>
     </p>
     <div style='display: block;'>
         <a href="https://itmo.ru/">
             <img width="10%" src="docs/img/itmo.png" alt="Acknowledgement to ITMO">
         </a>
-        <a href="">
+        <a href="https://colab.research.google.com/drive/1mpzZFN77tKERLsPVgUEQoSa2moYkLMP-?usp=sharing">
             <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
         </a>
     </div>
 </div>
-ODRS - it an open source recommendation system for training object detection models. Our system allows you to choose the most 
+<br></br>
+
+**ODRS** - it an open source recommendation system for training object detection models. Our system allows you to choose the most 
 profitable existing object recognition models based on user preferences and data. In addition to choosing the 
 architecture of the model, the system will help you start training and configure the environment.
 
+<div align="center">
+    <img src="docs/img/prew.gif" width="640" height="360">
+</div>
+
 The proposed recommendation system consists of several components that interact to generate recommendations for machine learning pipelines.
 <div align="center">
-    <img src="docs/img/system.jpg" width="400">
-</div>
-External parameters (received from users and third-party resources):
-* Dataset: Represents input data (video frames) and associated metadata (e.g. image size, quality, number of objects).
-* Model: Framework provides an opportunity to train the most popular object recognition models (including setting up the environment 
-and choosing the architecture of a specific model). Considered two-stage detectors models such as Faster R-CNN and Mask R-CNN as 
-well as one-stage detectors such as SSD and YOLO (including families v5, v7, v8).
-<br/>
-<br>
-<div align="center">
-    <img src="docs/img/model.png" width="400">
+    <img src="docs/img/alg.gif" width="853" height="480">
 </div>
 
-Internal components:
-
-* ***RecommendationEngine***: generates recommendations based on user data and dataset characteristics.
-<br/>
-<br>
-<div align="center">
-    <img src="docs/img/rec_alg.jpg" width="400">
-</div>
-
-The recommendation algorithm is based on production rules. The primary set of rules (knowledge base) is formed on 
-the basis of the results of the analysis of scientific sources and standard data sets, but also empirical processing 
-of data sets from specific industries.
-The main criteria for drawing up the rules were chosen:
-
-1. Dimension of the model 
-2. The value of metrics (mAP, Recall, Accuracy) for selected datasets
-3. The speed of the model on GPU and CPU
-4. Supported image format and dimension
-
-
-* ***Training*** - Training of models proposed by the system
-<br/>
-<br>
-<div align="center">
-    <img src="docs/img/train.jpg" width="400">
-</div>
-
-* ***Evaluation*** – evaluation of the quality of training models
 
 
 ## Contents
@@ -87,7 +55,7 @@ cd ODRS/
 pip install -r requirements.txt 
 ```
 ## Dataset structure
-To use the recommendation system or train the desired detector, put your dataset in yolo format in the ***user_datasets/yolo*** directory. The set can have the following structures:
+To use the recommendation system or train the desired detector, put your dataset in yolo format in the ***user_datasets/*** directory. The set can have the following structures:
 ```markdown
 user_datasets
 |_ _ <folder_name_your_dataset>
@@ -146,39 +114,37 @@ jetski
 lift
 ```
 ## ML Recommendation system
-After you have placed your dataset in the folder ***user_datasets/yolo*** and created in the root directory ***.txt*** a file containing the names of all classes in your set of images. You can start working with the main functionality of the project.
+After you have placed your dataset in the folder ***user_datasets/*** and created in the root directory ***.txt*** a file containing the names of all classes in your set of images. You can start working with the main functionality of the project.
 
 1. In order to use the recommendation system, you need to configure **ml_config.yaml**. Go to the desired directory:
     ```markdown
-    cd ODRS/ml_utils/config/
+    cd src/ML/config/
     ```
 2. Open **ml_config.yaml** and set the necessary parameters and paths:
     ```markdown
-    #dataset_path: path to data folder
-    #classes_path: path to classes.txt
-    #GPU: True/False
-    #speed: 1 - 5 if you want max speed choose 5. For lower speed 1
-    #accuracy: 1 - 10 if you want max accuracy choose 10. For lower accuracy 1
+    #dataset_path: path to data folder or name dataset folder in user_dataset
+    #classes_path: path to classes.txt or name classes.txt in root directory
+    #GPU: True/False - "Inference mode"
+    #speed: True/False - "Search for models with a focus on speed"
+    #accuracy: True/False - "Search for models with a focus on accuracy"
+    #balance: True/False - "Search for models with a focus on the balance between speed and accuracy"
 
 
-    GPU: true
-    accuracy: 10
     classes_path: classes.txt
-    dataset_path: /media/farm/ssd_1_tb_evo_sumsung/ODRS/user_datasets/yolo/plant
-    speed: 1
+    dataset_path: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
+    GPU: False
+    accuracy: False
+    speed: False
+    balance: True
     ```
-3. Go to the script **ml_model_optimizer.py** and start it:
+3. Go to the script **run_recommender.py** and start it:
     ```markdown
     cd ..
-    python ml_model_optimizer.py
+    python run_recommender.py
     ```
 4. If everything worked successfully, you will see something like the following answer:
     ```markdown
-    Number of images: 3496
-    Width: 960
-    Height: 540
-    Gini Coefficient: 94.0
-    Number of classes: 28
+
     Top models for training:
     1) yolov7
     2) yolov8x6
