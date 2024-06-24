@@ -21,4 +21,4 @@ jobs:
         pip install flake8
     - name: Run PEP8 test
       run: |
-        flake8 --max-line-length=180 --exclude=tests/*,src/train_utils/*,src/ml_utils/*,docs/*,src/data_processing/* .
+        flake8 --max-line-length=180 --exclude=tests/*,src/DL/*,src/ML/*,docs/*,src/data_processing/* .
