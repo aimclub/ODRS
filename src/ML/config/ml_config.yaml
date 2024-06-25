@@ -1,6 +1,6 @@
-GPU: true
-accuracy: false
-balance: false
 classes_path: classes.txt
-dataset_path: /media/space/ssd_1_tb_evo_sumsung1/exp-train/pad_1
-speed: true
+dataset_path: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
+GPU: False
+accuracy: False
+speed: False
+balance: True

@@ -1,7 +1,6 @@
 
 # ODRS
-[![PythonVersion](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue)](https://pypi.org/project/scikit-learn/)
-
+[![PythonVersion](https://img.shields.io/badge/python-3.8-blue)](https://pypi.org/project/scikit-learn/)
 [![Documentation Status](https://readthedocs.org/projects/odrs-test/badge/?version=latest)](https://odrs-test.readthedocs.io/en/latest/?badge=latest)
 [![wiki](https://img.shields.io/badge/wiki-latest-blue)](http://www.wiki.odrs.space)
 <div align="center">
@@ -152,7 +151,10 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
     ```
 
 ## Detectors Training
-1. Go to the directory containing ***custom_config.yaml*** in which the training parameters are specified.
+1. Go to the directory containing ***train_config.yaml*** in which the training parameters are specified.
+    ```markdown
+    cd ODRS/src/DL/config
+    ```
 2. Setting up training parameters:
     ```markdown
     #  Name *.txt file with names classes
@@ -172,7 +174,8 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
     #  "yolov7x", "yolov7", "yolov7-tiny", #"yolov8x6", "yolov8x",
     #  "yolov8s", "yolov8n", "yolov8m", "faster-rcnn", "ssd"]
 
-    # **NOTE**: For successful training of the ssd model, the size of your images should not exceed 512x512
+    # **NOTE**: For successful training of the ssd model, 
+    # the size of your images should not exceed 512x512
     
     MODEL: ssd
 
@@ -190,11 +193,11 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
     SPLIT_VAL_VALUE: 0.35
     ```
 3. Starting training:
-**NOTE**: If, for example, you specified in ***custom_config.yaml***, the path to the yolov5 model, and you want to start yolov8, training will not start.
+**NOTE**: If, for example, you specified in ***train_config.yaml***, the path to the yolov5 model, and you want to start yolov8, training will not start.
 
     ```markdown
-    cd ODRS/ODRS/train_utils/train_model
-    python custom_train_all.py
+    cd ..
+    python train_detectors.py
     ```
 4. After the training, you will see in the root directory ***ODRS*** a new directory ***runs***, all the results of experiments will be saved in it. For convenience, the result of each experiment is saved in a separate folder in the following form:
     ```markdown
@@ -207,16 +210,14 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
 To use the project in your code, you can use the built-in Api. You can see full examples of using the API here: [Example API](https://github.com/saaresearch/ODRS/blob/master/examples/api_example.ipynb).
 1. Initializing a task:
 ```python
-from ODRS.ODRS.api.ODRS import ODRS
+from ODRS.src.api.ODRS import ODRS
 #init object with parameters
-odrs = ODRS(job="object_detection", data_path = 'full_data_path', classes = "classes.txt",
-                img_size = "512", batch_size = "25", epochs = "300",
-                model = 'yolov8x6', gpu_count = 1, select_gpu = "0", config_path = "dataset.yaml", 
-                split_train_value = 0.6, split_val_value = 0.35)
+odrs = ODRS(job="object_detection", data_path='full_data_path', classes="classes.txt", img_size = 300,
+              batch_size = 20, epochs = 1, model = 'yolov8n', split_train_value = 0.85, split_val_value = 0.1,
+              gpu_count = 1, select_gpu = 0)
 ```
 2. Starting training:
 ```python
-from ODRS.ODRS.api.ODRS import ODRS
 odrs.fit()
 ```
 3. Getting results:
@@ -236,7 +237,11 @@ This project is actively used in testing new models and datasets in Insystem for
     <img src="docs/img/monitoring_system.png" width="700">
 </div>
 
-## Contacts
-- [Telegram](https://t.me/dedinside4ever) 
+## Contact us
+<div align="center">
+    <a href="https://t.me/dedinside4ever">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" width="40" height="40"/>
+    </a>
+</div>
 
 
