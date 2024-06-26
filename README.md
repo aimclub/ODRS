@@ -33,7 +33,11 @@ The proposed recommendation system consists of several components that interact 
     <img src="docs/img/alg.gif" width="853" height="480">
 </div>
 
+The principle of operation is to find the most similar set of images in the knowledge base
 
+<div align="center">
+    <img src="docs/img/animation_ODRS.gif" width="800" height="400">
+</div>
 
 ## Contents
 
