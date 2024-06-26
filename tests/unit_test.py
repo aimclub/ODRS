@@ -9,7 +9,7 @@ from ODRS.src.data_processing.data_utils.utils import load_class_names, get_mode
 class TestDatasetInfo(unittest.TestCase):
 
     def test_load_classes(self):
-        classes_path = "/home/runner/work/ODRS/src/classes.txt"
+        classes_path = "/home/runner/work/ODRS/classes.txt"
         result = load_class_names(classes_path)
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 28)
