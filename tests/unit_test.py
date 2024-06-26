@@ -24,7 +24,7 @@ class TestDatasetInfo(unittest.TestCase):
         default = '/home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D'
         ROOT = '/home/runner/work/ODRS/ODRS'
         result = get_data_path(ROOT, default)
-        self.assertEqual(result, default)
+        self.assertEqual(result, '/home/runner/work/ODRS/ODRS/user_datasets/Warp-D')
 
 
 
