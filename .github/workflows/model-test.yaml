@@ -27,4 +27,4 @@ jobs:
         cp -r WaRP/Warp-D/test/* WaRP/Warp-D/valid/
     - name: AI training
       run: |
-        python ODRS/train_utils/custom_train_all.py
+        python src/DL/train_detectors.py

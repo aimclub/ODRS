@@ -1,0 +1,11 @@
+BATCH_SIZE: 20
+CLASSES: classes.txt
+DATA_PATH: /home/runner/work/ODRS/ODRS/user_datasets/WaRP/Warp-D
+EPOCHS: 1
+GPU_COUNT: 0
+IMG_SIZE: 300
+MODEL: yolov8s
+SELECT_GPU: cpu
+
+SPLIT_TRAIN_VALUE: 0.85
+SPLIT_VAL_VALUE: 0.10
