@@ -1,11 +1,16 @@
+import os
+import sys
 import pandas as pd
 import catboost as cat
 from pathlib import Path
 import umap.umap_ as umap
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from src.data_processing.ml_processing.plots import plot_with_lines_and_predictions
 file = Path(__file__).resolve()
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+
+from src.data_processing.ml_processing.plots import plot_with_lines_and_predictions
 
 
 def ml_predict(df_rules, df_dataset_features, run_path):

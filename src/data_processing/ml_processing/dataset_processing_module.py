@@ -9,7 +9,10 @@ import numpy as np
 import csv
 import yaml
 from collections import Counter
+
 file = Path(__file__).resolve()
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 
 from src.data_processing.ml_processing.plots import plot_class_balance
 from src.data_processing.ml_processing.annotation_analysis import analysis_yolo_annotations, analysis_stats

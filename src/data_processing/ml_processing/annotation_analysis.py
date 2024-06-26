@@ -3,6 +3,9 @@ from collections import Counter
 from tqdm import tqdm
 from pathlib import Path
 from collections import defaultdict
+file = Path(__file__).resolve()
+project_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from src.data_processing.data_utils.utils import load_class_names
 from src.data_processing.ml_processing.plots import plot_class_balance
 import numpy as np
