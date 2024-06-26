@@ -29,6 +29,7 @@ architecture of the model, the system will help you start training and configure
 </div>
 
 The proposed recommendation system consists of several components that interact to generate recommendations for machine learning pipelines.
+
 <div align="center">
     <img src="docs/img/alg.gif" width="853" height="480">
 </div>
