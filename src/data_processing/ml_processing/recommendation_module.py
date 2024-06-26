@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 file = Path(__file__).resolve()
 project_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(project_dir))))
 
 from src.data_processing.ml_processing.plots import plot_with_lines_and_predictions
 

@@ -1,3 +1,4 @@
+import os
 import sys
 import pandas as pd
 from collections import Counter
@@ -10,7 +11,6 @@ sys.path.append(os.path.dirname(os.path.dirname(project_dir)))
 from src.data_processing.data_utils.utils import load_class_names
 from src.data_processing.ml_processing.plots import plot_class_balance
 import numpy as np
-import os
 import cv2
 import csv
 
