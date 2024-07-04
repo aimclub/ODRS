@@ -172,6 +172,7 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
 
     EPOCHS: 2
     IMG_SIZE: 300
+    BATCH_SIZE: 16
 
     # MODEL ZOO:
     # ["yolov5l", "yolov5m", "yolov5n", "yolov5s", "yolov5x",
@@ -181,8 +182,10 @@ After you have placed your dataset in the folder ***user_datasets/*** and create
     # **NOTE**: For successful training of the ssd model, 
     # the size of your images should not exceed 512x512
     
-    MODEL: ssd
 
+    # You can also use this format if need to train few models
+    # MODEL: ['yolov5s', 'yolov5l'] this can also be applied to parameters EPOCHS, BATCH_SIZE, IMG_SIZE
+    MODEL: ssd
 
     # For multiprocessing.
     # For CPU:
