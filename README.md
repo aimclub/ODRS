@@ -47,6 +47,7 @@ The principle of operation is to find the most similar set of images in the know
 - [ML Recommendation system](#ml-recommendation-system)
 - [Detectors Training](#detectors-training)
 - [Using the API](#using-the-api)
+- [Publications About ODRS and Kaggle example](#Publications-about-ODRS-and-kaggle-example)
 - [Contacts](#contacts)
 
 ## Installation
@@ -244,6 +245,19 @@ This project is actively used in testing new models and datasets in Insystem for
 <div align="center">
     <img src="docs/img/monitoring_system.png" width="700">
 </div>
+
+## Publications About ODRS and Kaggle Example
+In Russian:
+
+* [ODRS: Комплексный открытый фреймворк для формирования рекомендаций по выбору моделей обнаружения объектов (habr)](https://habr.com/ru/articles/818129/)
+
+* [Применение рекомендательного фреймворка ODRS на практике: SCARA-робот сортирует цветные крышки (habr)](https://habr.com/ru/articles/827540/)
+
+In English:
+
+* [WaRP Dataset ODRS AutoML Example](https://www.kaggle.com/code/artemsmetanin/odrs-automl-warp)
+* [Wind Turbines Object Detection Dataset ODRS AutoML Example](https://www.kaggle.com/code/artemsmetanin/wind-turbine-using-odrs-auto-ml)
+* [Cap Detection Using ODRS](https://www.kaggle.com/code/artemsmetanin/cap-detection-using-odrs-framework)
 
 ## Contact us
 <div align="center">
