@@ -258,7 +258,8 @@ In English:
 * [WaRP Dataset ODRS AutoML Example](https://www.kaggle.com/code/artemsmetanin/odrs-automl-warp)
 * [Wind Turbines Object Detection Dataset ODRS AutoML Example](https://www.kaggle.com/code/artemsmetanin/wind-turbine-using-odrs-auto-ml)
 * [Cap Detection Using ODRS](https://www.kaggle.com/code/artemsmetanin/cap-detection-using-odrs-framework)
-
+## Acknowledgment
+This research is financially supported by the Foundation for National Technology Initiative's Projects Support as a part of the roadmap implementation for the development of the high-tech field of Artificial Intelligence for the period up to 2030 (agreement 70-2021-00187)
 ## Contact us
 <div align="center">
     <a href="https://t.me/dedinside4ever">
